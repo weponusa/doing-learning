@@ -6,7 +6,8 @@
   <title>做中学 · 个性化课程生成器</title>
   <meta name="description" content="依据教育部《义务教育阶段科学教育"做中学"领航行动指南》，按 1-9 年级课标设计个性化 PBL 探究方案。">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%238B5CF6'/><path d='M10 5v5.5L6.5 17a2 2 0 0 0 1.7 3h7.6a2 2 0 0 0 1.7-3L14 10.5V5M8.8 5h6.4' stroke='white' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
-  <link rel="stylesheet" href="assets/css/style.css?v=20260823g">
+  <link rel="stylesheet" href="assets/css/style.css?v=20260824b">
+  <link rel="stylesheet" href="https://weponusa.github.io/teachany-courseware/assets/scripts/ai-tutor.css">
 </head>
 <body>
 
@@ -45,9 +46,30 @@
     </p>
   </footer>
 
-  <script src="assets/js/curriculum.js?v=20260824a"></script>
-  <script src="assets/js/domains.js?v=20260824a"></script>
-  <script src="assets/js/llm.js?v=20260824a"></script>
-  <script src="assets/js/app.js?v=20260824a"></script>
+  <script>
+  // AI 学伴跨域修正：github.io 等外部域部署时，服务端代理默认指向 teachany.cn 绝对地址
+  // （ai-tutor.js 的 DEFAULTS.baseUrl 是相对路径 /api/llm，仅在 teachany.cn 域内可用）
+  (function () {
+    try {
+      var K = 'teachany_tutor_config';
+      var c = {};
+      try { c = JSON.parse(localStorage.getItem(K) || '{}'); } catch (e) { }
+      if (!c.baseUrl || c.baseUrl.charAt(0) === '/') {
+        c.baseUrl = 'https://www.teachany.cn/api/llm';
+        c.model = c.model || 'qwen/qwen3-next-80b-a3b-instruct';
+        c.noAuth = true;
+        c.serverProxy = true;
+        c.backendId = 'openrouter';
+        c.providerId = 'teachany-server';
+        localStorage.setItem(K, JSON.stringify(c));
+      }
+    } catch (e) { }
+  })();
+  </script>
+  <script src="assets/js/curriculum.js?v=20260824b"></script>
+  <script src="assets/js/domains.js?v=20260824b"></script>
+  <script src="assets/js/llm.js?v=20260824b"></script>
+  <script src="assets/js/app.js?v=20260824b"></script>
+  <script src="https://weponusa.github.io/teachany-courseware/assets/scripts/ai-tutor.js" defer></script>
 </body>
 </html>

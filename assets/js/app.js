@@ -17,6 +17,45 @@
   /* ---------- 小工具 ---------- */
   const $ = (sel, root) => (root || document).querySelector(sel);
   const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+
+  /* ---------- AI 学伴上下文（TeachAny ai-tutor.js 挂载） ----------
+   * 通过 window.__TEACHANY_TUTOR_CONFIG__ 向 AI 学伴提供当前
+   * 年级/方向/细分/学生问题/方案内容，使其回答贴合探究任务
+   */
+  function updateTutorContext() {
+    const dom = state.domainId ? D.domains.find(d => d.id === state.domainId) : null;
+    const sub = dom && state.subdomainId ? dom.subdomains.find(s => s.id === state.subdomainId) : null;
+    window.__TEACHANY_TUTOR_CONFIG__ = {
+      grade: state.grade || 5,
+      subject: 'science',
+      courseTitle: sub ? `做中学 · ${dom.name}「${sub.name}」（${state.grade} 年级）` : '做中学 · 个性化探究方案',
+      curriculumStandard: '义务教育科学课程标准（2022 版）/《义务教育阶段科学教育"做中学"领航行动指南》',
+      knowledgeScope: sub ? `${dom.name}方向：${sub.desc}` : '跨学科科学探究（六大方向）',
+      learningObjectives: state.plan ? [state.plan.goal] : [],
+      getContext: () => {
+        if (state.plan) {
+          const p = state.plan;
+          return [
+            `探究主题：${p.domain.name}·${p.subdomain.name}`,
+            `年级学期：${p.grade} 年级${p.semester}学期（${bandLabel[p.band]}）`,
+            `驱动问题：${p.drivingQuestion}`,
+            p.studentGoal ? `学生制定的目标：${p.studentGoal}` : '',
+            `学期目标：${p.goal}`,
+            `4 课时任务链：${p.tasks.map(t => `课时${t.no}·${t.title}：${t.detail}`).join('；')}`,
+            `课标知识点：${p.matches.map(m => `${m.name}（${m.nodes.map(n => n.node.name).join('、')}）`).join('；')}`
+          ].filter(Boolean).join('\n').slice(0, 3000);
+        }
+        return [
+          '用户正在使用"做中学"个性化课程生成器（引导流程中）',
+          `年级：${state.grade || '未选'}，学期：${state.semester}学期`,
+          dom ? `大方向：${dom.name}` : '大方向：未选',
+          sub ? `细分方向：${sub.name}（${sub.desc}）` : '',
+          state.studentQuestion ? `学生问题：${state.studentQuestion}` : '',
+          state.studentGoal ? `学生目标：${state.studentGoal}` : ''
+        ].filter(Boolean).join('\n').slice(0, 3000);
+      }
+    };
+  }
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const gradeBand = (g) => (g <= 2 ? 'low' : g <= 6 ? 'mid' : 'high');
   const bandLabel = { low: '观察体验型（1-2年级）', mid: '设计制作型（3-6年级）', high: '实验探究型（7-9年级）' };
@@ -1015,6 +1054,7 @@ ${studentPart ? studentPart + '\n' : ''}课标知识点（本年级）：${nodeN
       case 5: renderGenerateStep(); break;
       case 6: renderResultStep(); break;
     }
+    updateTutorContext();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
