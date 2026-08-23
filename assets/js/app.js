@@ -605,6 +605,7 @@ ${studentPart ? studentPart + '\n' : ''}课标知识点（本年级）：${nodeN
       });
       plan.aiEnhanced = true;
       plan.aiModel = resp.model;
+      plan.aiRetried = resp.retried || null; // {index, attempt} 降级/重试信息
     }
   }
 
@@ -642,7 +643,7 @@ ${studentPart ? studentPart + '\n' : ''}课标知识点（本年级）：${nodeN
         log.appendChild(aiLine);
         await enhancePlanWithLLM(state.plan);
         aiLine.textContent = state.plan.aiEnhanced
-          ? `AI 任务链已生成（${state.plan.aiModel}）`
+          ? `AI 任务链已生成（${state.plan.aiModel}${state.plan.aiRetried && state.plan.aiRetried.index > 0 ? '，主模型不可用已降级' : ''}）`
           : 'AI 不可用，已使用模板任务链';
         savePlan(state.plan);
         setTimeout(() => goStep(6), 350);

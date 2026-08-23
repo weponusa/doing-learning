@@ -47,15 +47,21 @@ window.DOING_LLM = (function () {
     }
   }
 
-  /** 依次尝试模型链，全部失败返回 null */
+  /** 依次尝试模型链（主模型失败先重试 1 次再降级），全部失败返回 null */
   async function chat(messages, opts) {
     const o = opts || {};
     const chain = o.models || MODEL_CHAIN;
-    for (const model of chain) {
-      try {
-        return await callOnce(model, messages, o, o.timeoutMs);
-      } catch (e) {
-        // 降级到下一个模型
+    for (let i = 0; i < chain.length; i++) {
+      const model = chain[i];
+      const attempts = i === 0 ? 2 : 1; // 主模型重试 1 次
+      for (let a = 0; a < attempts; a++) {
+        try {
+          const r = await callOnce(model, messages, o, o.timeoutMs);
+          if (i > 0 || a > 0) r.retried = { index: i, attempt: a };
+          return r;
+        } catch (e) {
+          if (a < attempts - 1) await new Promise(res => setTimeout(res, 2000));
+        }
       }
     }
     return null;
