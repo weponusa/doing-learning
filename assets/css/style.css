@@ -619,6 +619,19 @@ input, textarea { font-family: inherit; }
   transition: all .15s ease;
 }
 .node-chip:hover { border-color: var(--sky); color: var(--text); }
+.node-chip-link { text-decoration: none; }
+.node-chip.has-course {
+  border-color: rgba(16, 185, 129, 0.4);
+  color: var(--text);
+  cursor: pointer;
+}
+.node-chip.has-course:hover {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: var(--ok);
+  color: var(--text);
+}
+.graph-node-link { cursor: pointer; }
+.graph-node-link:hover rect { stroke: #10B981; stroke-width: 1.8; }
 .block.warn { border-color: rgba(245, 158, 11, 0.35); }
 
 /* 任务链 */

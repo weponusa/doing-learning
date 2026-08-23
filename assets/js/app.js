@@ -11,6 +11,8 @@
   const D = window.DOMAIN_LIB;
   const STORE_KEY = 'doing-learning-state-v1';
   const PLAN_KEY = 'doing-learning-recent-plans-v1';
+  /** TeachAny 课件链接（courseware Pages 已验证可访问） */
+  const courseUrl = (courseId) => `https://weponusa.github.io/teachany-courseware/community/${courseId}/index.html`;
 
   /* ---------- 小工具 ---------- */
   const $ = (sel, root) => (root || document).querySelector(sel);
@@ -350,10 +352,11 @@
         <div class="path-group-head"><span class="subject-name">${esc(g.name)}</span><span class="subject-score">${g.nodes.length} 个知识点</span></div>
         <div class="node-chips">
           ${g.nodes.map(n => {
-            const key = nodeKey(grade, g.subject, n.node);
-            const on = state.selectedKeys.includes(key);
-            return `<button class="node-check ${on ? 'on' : ''}" data-key="${esc(key)}" title="${esc(n.pointsText.slice(0, 100))}">${esc(n.node.name)}</button>`;
-          }).join('')}
+                const key = nodeKey(grade, g.subject, n.node);
+                const on = state.selectedKeys.includes(key);
+                const courseHint = (n.node.courses || []).length ? `\n关联 TeachAny 课件（生成方案后可点击打开）` : '';
+                return `<button class="node-check ${on ? 'on' : ''}" data-key="${esc(key)}" title="${esc(n.pointsText.slice(0, 100))}${courseHint}">${esc(n.node.name)}</button>`;
+              }).join('')}
         </div>
       </div>`).join('');
 
@@ -718,21 +721,24 @@ ${studentPart ? studentPart + '\n' : ''}课标知识点（本年级）：${nodeN
       svg += `<g><rect x="${X_SUBJ}" y="${s.y - 8}" rx="9" width="${W_SUBJ}" height="32" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.18)"/>
         <text x="${X_SUBJ + W_SUBJ / 2}" y="${s.y + 12}" text-anchor="middle" fill="#E2E8F0" font-size="12.5" font-weight="600">${esc(trunc(s.name, 9))}</text></g>`;
     });
-    // 知识点节点
+    // 知识点节点（有课件的包 <a> 链接，点击新窗口打开 TeachAny）
     nodeEls.forEach(e => {
       const isNext = e.grade === 'next';
-      svg += `<g class="graph-node">
+      const cid = (e.node.courses || [])[0];
+      const inner = `
         <rect x="${X_NODE}" y="${e.y}" rx="8" width="${W_NODE}" height="${NODE_H}" fill="${isNext ? 'rgba(255,255,255,.03)' : color}" fill-opacity="${isNext ? '1' : '.12'}" stroke="${isNext ? color : 'rgba(255,255,255,.14)'}" stroke-width="1.2" ${isNext ? 'stroke-dasharray="5 3"' : ''}/>
         <text x="${X_NODE + 12}" y="${e.y + 19.5}" fill="${isNext ? '#94A3B8' : '#F8FAFC'}" font-size="12">${esc(trunc(e.node.name, 21))}${isNext ? ` <tspan fill="${color}" font-size="10">[拓展]</tspan>` : ''}</text>
-        ${(e.node.courses || []).length ? `<circle cx="${X_NODE + W_NODE - 14}" cy="${e.y + NODE_H / 2}" r="4" fill="#10B981"><title>关联 TeachAny 课件：${esc(e.node.courses.join('、'))}</title></circle>` : ''}
-        <title>${esc((e.pointsText || '').slice(0, 160))}</title>
-      </g>`;
+        ${cid ? `<circle cx="${X_NODE + W_NODE - 14}" cy="${e.y + NODE_H / 2}" r="4" fill="#10B981"/>` : ''}
+        <title>${esc((e.pointsText || '').slice(0, 140))}${cid ? `\n点击打开 TeachAny 课件：${esc(e.node.courses.join('、'))}` : ''}</title>`;
+      svg += cid
+        ? `<a href="${courseUrl(cid)}" target="_blank" rel="noopener"><g class="graph-node graph-node-link">${inner}</g></a>`
+        : `<g class="graph-node">${inner}</g>`;
     });
 
     return `
         <div class="block graph-block">
           <h3>课程图谱 <span class="policy-tag">TeachAny 知识树</span></h3>
-          <p class="block-note">主题 → 学科 → 知识点；实色为本年级基础，虚线框为高一年级拓展，紫色虚线为知识进阶关系，绿点表示关联 TeachAny 课件</p>
+          <p class="block-note">主题 → 学科 → 知识点；实色为本年级基础，虚线框为高一年级拓展，紫色虚线为知识进阶关系；带绿点的节点可点击打开 TeachAny 课件</p>
           <div class="graph-scroll"><svg viewBox="0 0 890 ${H}" width="100%" preserveAspectRatio="xMidYMin meet" font-family="PingFang SC, Hiragino Sans GB, sans-serif">${svg}</svg></div>
         </div>`;
   }
@@ -744,7 +750,11 @@ ${studentPart ? studentPart + '\n' : ''}课标知识点（本年级）：${nodeN
             ${list.map(m => `
               <div class="subject-item">
                 <div class="subject-head"><span class="subject-name">${esc(m.name)}</span><span class="subject-score">${m.nodes.length} 个知识点</span></div>
-                <div class="node-chips">${m.nodes.map(n => `<span class="node-chip" title="${esc(n.pointsText.slice(0, 80))}">${esc(n.node.name)}</span>`).join('')}</div>
+                <div class="node-chips">${m.nodes.map(n => {
+                  const cid = (n.node.courses || [])[0];
+                  const chip = `<span class="node-chip ${cid ? 'has-course' : ''}" title="${esc(n.pointsText.slice(0, 80))}${cid ? '\n点击打开 TeachAny 课件：' + cid : ''}">${esc(n.node.name)}${cid ? ' ↗' : ''}</span>`;
+                  return cid ? `<a class="node-chip-link" href="${courseUrl(cid)}" target="_blank" rel="noopener">${chip}</a>` : chip;
+                }).join('')}</div>
               </div>`).join('')}
           </div>`;
     const curCount = p.matches.reduce((a, m) => a + m.nodes.length, 0);
@@ -946,18 +956,22 @@ ${studentPart ? studentPart + '\n' : ''}课标知识点（本年级）：${nodeN
       planStepsMd.forEach(s => L.push(`- ${s}`));
       L.push('');
     }
+    const nodeLink = (n) => {
+      const cid = (n.node.courses || [])[0];
+      return cid ? `[${n.node.name}](${courseUrl(cid)})` : n.node.name;
+    };
     if (p.matches.length) {
       L.push(`## 跨学科路径（课标收敛）`);
       L.push(`**基础 · ${p.grade} 年级课标**`);
       p.matches.forEach(m => {
-        L.push(`- **${m.name}**：${m.nodes.map(n => n.node.name).join('、')}`);
+        L.push(`- **${m.name}**：${m.nodes.map(nodeLink).join('、')}`);
       });
     }
     if (p.nextMatches && p.nextMatches.length) {
       L.push('');
       L.push(`**拓展挑战 · ${p.grade + 1} 年级课标**`);
       p.nextMatches.forEach(m => {
-        L.push(`- **${m.name}**：${m.nodes.map(n => n.node.name).join('、')}`);
+        L.push(`- **${m.name}**：${m.nodes.map(nodeLink).join('、')}`);
       });
     }
     if (p.recommended.length) {
