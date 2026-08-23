@@ -2,8 +2,11 @@
  * llm.js  ·  做中学 LLM 客户端
  * 网关: https://www.teachany.cn/api/llm/chat/completions
  *       （Cloudflare Pages Function，CORS 开放，Key 在服务端）
- * 模型链: deepseek/deepseek-v3.2-exp（性价比主模型）
- *       → qwen/qwen3-next-80b-a3b-instruct（降级）
+ * 模型链: qwen/qwen3-next-80b-a3b-instruct（主：长输出快 3.7 倍、成本持平）
+ *       → deepseek/deepseek-v3.2-exp（备：中文强、输出单价低）
+ * 实测（2026-08-23，552-588 tokens 任务链生成）：
+ *   Qwen3-Next 2413ms/$0.00018 vs V3.2-exp 8960ms/$0.00017，质量相当
+ *   SiliconFlow DeepSeek-V4-Flash 因账号余额不足(402)不可用
  * 失败策略: 返回 null，调用方回退到规则模板，无感降级
  * ============================================================ */
 window.DOING_LLM = (function () {
@@ -11,8 +14,8 @@ window.DOING_LLM = (function () {
 
   const ENDPOINT = 'https://www.teachany.cn/api/llm/chat/completions';
   const MODEL_CHAIN = [
-    'deepseek/deepseek-v3.2-exp',
-    'qwen/qwen3-next-80b-a3b-instruct'
+    'qwen/qwen3-next-80b-a3b-instruct',
+    'deepseek/deepseek-v3.2-exp'
   ];
 
   async function callOnce(model, messages, opts, timeoutMs) {

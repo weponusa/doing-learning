@@ -599,7 +599,7 @@ ${studentPart ? studentPart + '\n' : ''}课标知识点（本年级）：${nodeN
         clearInterval(timer);
         state.plan = buildPlan();
         const aiLine = document.createElement('p');
-        aiLine.textContent = 'AI 正在结合你的问题打磨任务链（DeepSeek-V3.2）…';
+        aiLine.textContent = 'AI 正在结合你的问题打磨任务链…';
         log.appendChild(aiLine);
         await enhancePlanWithLLM(state.plan);
         aiLine.textContent = state.plan.aiEnhanced
