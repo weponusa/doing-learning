@@ -268,13 +268,26 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
     };
   }
 
-  /* ---------- 方案组装器（以学生问题为核心驱动） ---------- */
+  /* ---------- 官方实施步骤解析（"1.提出问题：xxx" → {stage, detail}） ---------- */
+  function parseOfficialSteps(steps) {
+    return (steps || []).map((s, i) => {
+      const m = String(s).match(/^\d+\.([^：:]+)[：:]([\s\S]*)$/);
+      return {
+        no: i + 1,
+        stage: m ? m[1].trim() : `步骤${i + 1}`,
+        detail: m ? m[2].trim() : String(s).trim()
+      };
+    });
+  }
+
+  /* ---------- 方案组装器（官方任务示例为骨架，学生问题为核心驱动） ---------- */
   function buildPlan() {
     const band = gradeBand(state.grade);
     const dom = D.domains.find(d => d.id === state.domainId);
     const sub = dom.subdomains.find(s => s.id === state.subdomainId);
     const matchesObj = collectSelectedNodes();
     const sq = (state.studentQuestion || '').trim();
+    const official = sub.official || null;
 
     // 该年级实际存在的推荐学科（过滤掉无课标节点者）
     const availableSubjectIds = new Set((C.grades[state.grade] || []).map(s => s.subject));
@@ -284,6 +297,11 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
     const goal = sq
       ? `围绕"${sub.name}"，以学生提出的问题"${sq}"为核心驱动，在本学期完成 1 项不少于 4 课时的跨学科科学探究任务。${chain}，${GRADE_GOAL[band]}。`
       : `围绕"${sub.name}"，在本学期完成 1 项不少于 4 课时的跨学科科学探究任务。${chain}，${GRADE_GOAL[band]}。`;
+
+    // 任务链：优先官方实施步骤（完整活动文本），无官方数据回退模板
+    const tasks = official
+      ? parseOfficialSteps(official.steps)
+      : sub.tasks.map(t => ({ no: t.no, stage: t.title, detail: t[band] }));
 
     const plan = {
       grade: state.grade,
@@ -300,7 +318,9 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
       matches: matchesObj.current,
       nextMatches: matchesObj.next,
       recommended,
-      tasks: sub.tasks.map(t => ({ no: t.no, title: t.title, detail: t[band] })),
+      official,
+      hours: official ? official.hours : '不少于4课时',
+      tasks,
       evaluation: dom.evaluation.map(e => ({ dim: e.dim, desc: e[band] })),
       literacy: dom.literacy,
       policy: D.policy
@@ -455,8 +475,9 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
           ${g.nodes.map(n => {
                 const key = nodeKey(grade, g.subject, n.node);
                 const on = state.selectedKeys.includes(key);
+                const domainTip = n.node.domain ? `单元：${n.node.domain}\n` : '';
                 const courseHint = (n.node.courses || []).length ? `\n关联 TeachAny 课件（生成方案后可点击打开）` : '';
-                return `<button class="node-check ${on ? 'on' : ''}" data-key="${esc(key)}" title="${esc(n.pointsText.slice(0, 100))}${courseHint}">${esc(n.node.name)}</button>`;
+                return `<button class="node-check ${on ? 'on' : ''}" data-key="${esc(key)}" title="${domainTip}${esc(n.pointsText.slice(0, 100))}${courseHint}">${esc(n.node.name)}</button>`;
               }).join('')}
         </div>
       </div>`).join('');
@@ -704,28 +725,31 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
       plan.studentGoal ? `学生自己制定的目标：${plan.studentGoal}` : '',
       planSteps.length ? `学生自己制定的计划：${planSteps.join('；')}` : ''
     ].filter(Boolean).join('\n');
+    const stepFramework = plan.tasks.map(t => `${t.stage}：${t.detail}`).join('\n');
+    const stageNames = plan.tasks.map(t => t.stage).join('→');
     const messages = [
       { role: 'system', content: '你是义务教育跨学科项目式学习（PBL）课程设计专家。严格输出 JSON，不要输出任何解释。' },
-      { role: 'user', content: `请为以下"做中学"科学探究任务打磨 4 课时任务链。要求：
-1. 紧扣学生提出的问题，4 课时构成"提出问题→设计方案→动手实验→分析改进"完整链条
-2. 每课时 detail 为 1-2 句（40 字以内），具体可操作，符合该学段认知水平
-3. 自然融入下列课标知识点名称（不要生搬硬套）
-4. 若学生提供了自己制定的目标与计划，任务链必须尊重并落实学生的计划框架，将其细化可执行
-5. 输出 JSON：{"tasks":[{"no":1,"detail":"..."},{"no":2,"detail":"..."},{"no":3,"detail":"..."},{"no":4,"detail":"..."}]}
+      { role: 'user', content: `请基于《指南》官方实施建议，把以下"做中学"探究任务的每个步骤细化为可直接执行的课堂方案。要求：
+1. 严格保留步骤框架（${stageNames}），不增不减步骤
+2. 紧扣学生提出的问题${plan.studentGoal ? '与学生自己制定的目标、计划（须落实其框架）' : ''}
+3. 每步 detail 60-120 字：写明具体活动内容、材料、组织形式与预期产出，符合该学段认知水平
+4. 自然融入下列课标知识点名称（不要生搬硬套）
+5. 输出 JSON：{"steps":[{"stage":"步骤名","detail":"..."}]}
 
 年级：${plan.grade} 年级（${bandLabel[plan.band]}）
 探究方向：${plan.domain.name} · ${plan.subdomain.name}
 学生问题：${plan.drivingQuestion}
 ${studentPart ? studentPart + '\n' : ''}课标知识点（本年级）：${nodeNames.join('、') || '无（按方向主题设计）'}
 课标知识点（高一年级拓展）：${nextNames.join('、') || '无'}
-课时框架：${plan.tasks.map(t => `课时${t.no}·${t.title}`).join('，')}` }
+《指南》官方实施建议（步骤框架与原始内容）：
+${stepFramework}` }
     ];
-    const resp = await window.DOING_LLM.chat(messages, { maxTokens: 1200, temperature: 0.35, timeoutMs: 25000 });
+    const resp = await window.DOING_LLM.chat(messages, { maxTokens: 1600, temperature: 0.35, timeoutMs: 30000 });
     const data = resp && window.DOING_LLM.parseJSON(resp.content);
-    if (data && Array.isArray(data.tasks) && data.tasks.length >= 4) {
+    if (data && Array.isArray(data.steps) && data.steps.length >= plan.tasks.length - 1) {
       plan.tasks = plan.tasks.map((t, i) => {
-        const ai = data.tasks.find(x => +x.no === t.no) || data.tasks[i];
-        return ai && ai.detail ? { ...t, detail: String(ai.detail).slice(0, 120) } : t;
+        const ai = data.steps.find(x => String(x.stage || '').includes(t.stage.slice(0, 3))) || data.steps[i];
+        return ai && ai.detail ? { ...t, detail: String(ai.detail).slice(0, 200) } : t;
       });
       plan.aiEnhanced = true;
       plan.aiModel = resp.model;
@@ -893,7 +917,7 @@ ${studentPart ? studentPart + '\n' : ''}课标知识点（本年级）：${nodeN
         <rect x="${X_NODE}" y="${e.y}" rx="8" width="${W_NODE}" height="${NODE_H}" fill="${isNext ? 'rgba(255,255,255,.03)' : color}" fill-opacity="${isNext ? '1' : '.12'}" stroke="${isNext ? color : 'rgba(255,255,255,.14)'}" stroke-width="1.2" ${isNext ? 'stroke-dasharray="5 3"' : ''}/>
         <text x="${X_NODE + 12}" y="${e.y + 19.5}" fill="${isNext ? '#94A3B8' : '#F8FAFC'}" font-size="12">${esc(trunc(e.node.name, 21))}${isNext ? ` <tspan fill="${color}" font-size="10">[拓展]</tspan>` : ''}</text>
         ${cid ? `<circle cx="${X_NODE + W_NODE - 14}" cy="${e.y + NODE_H / 2}" r="4" fill="#10B981"/>` : ''}
-        <title>${esc((e.pointsText || '').slice(0, 140))}${cid ? `\n点击打开 TeachAny 课件：${esc(e.node.courses.join('、'))}` : ''}</title>`;
+        <title>${e.node.domain ? `单元：${esc(e.node.domain)}\n` : ''}${esc((e.pointsText || '').slice(0, 140))}${cid ? `\n点击打开 TeachAny 课件：${esc(e.node.courses.join('、'))}` : ''}</title>`;
       svg += cid
         ? `<a href="${courseUrl(cid)}" target="_blank" rel="noopener"><g class="graph-node graph-node-link">${inner}</g></a>`
         : `<g class="graph-node">${inner}</g>`;
@@ -916,7 +940,8 @@ ${studentPart ? studentPart + '\n' : ''}课标知识点（本年级）：${nodeN
                 <div class="subject-head"><span class="subject-name">${esc(m.name)}</span><span class="subject-score">${m.nodes.length} 个知识点</span></div>
                 <div class="node-chips">${m.nodes.map(n => {
                   const cid = (n.node.courses || [])[0];
-                  const chip = `<span class="node-chip ${cid ? 'has-course' : ''}" title="${esc(n.pointsText.slice(0, 80))}${cid ? '\n点击打开 TeachAny 课件：' + cid : ''}">${esc(n.node.name)}${cid ? ' ↗' : ''}</span>`;
+                  const domainTip = n.node.domain ? `单元：${n.node.domain}\n` : '';
+                  const chip = `<span class="node-chip ${cid ? 'has-course' : ''}" title="${domainTip}${esc(n.pointsText.slice(0, 80))}${cid ? '\n点击打开 TeachAny 课件：' + cid : ''}">${esc(n.node.name)}${cid ? ' ↗' : ''}</span>`;
                   return cid ? `<a class="node-chip-link" href="${courseUrl(cid)}" target="_blank" rel="noopener">${chip}</a>` : chip;
                 }).join('')}</div>
               </div>`).join('')}
@@ -959,13 +984,19 @@ ${studentPart ? studentPart + '\n' : ''}课标知识点（本年级）：${nodeN
         </div>
         ${matchBlock}
         ${renderCourseGraph(p)}
+        ${p.official ? `<div class="block req-block">
+          <h3>任务要求 <span class="policy-tag">《指南》官方任务示例</span></h3>
+          <p class="block-note" style="margin-bottom:6px">官方任务：${esc(p.official.title)}（${esc(p.official.grade)}） · 建议 ${esc(p.hours)}${(p.official.grade.includes('4') && p.grade >= 7) || (p.official.grade.includes('7') && p.grade <= 6) ? `　·　官方示例定位 ${esc(p.official.grade)}，本方案已按 ${p.grade} 年级学段适配调整` : ''}</p>
+          <p>${esc(p.official.req)}</p>
+        </div>` : ''}
         <div class="block tasks-block">
-          <h3>4 课时任务链 <span class="policy-tag">政策要求 ≥4 课时</span>${p.aiEnhanced ? ' <span class="policy-tag ai">AI 个性化生成</span>' : ''}</h3>
+          <h3>科学探究任务链${p.aiEnhanced ? ' <span class="policy-tag ai">AI 个性化细化</span>' : ''}</h3>
+          <p class="block-note">依据《指南》"${esc(p.subdomain.name)}"实施建议${p.aiEnhanced ? '，结合学生问题与计划由 AI 细化' : ''}；遵循"提出问题→设计方案→动手实验→分析改进→分享反思"链条</p>
           <div class="task-list">
             ${p.tasks.map(t => `
               <div class="task-item">
-                <span class="task-no">课时 ${t.no}</span>
-                <div class="task-body"><b>${esc(t.title)}</b><p>${esc(t.detail)}</p></div>
+                <span class="task-no">${esc(t.stage)}</span>
+                <div class="task-body"><p>${esc(t.detail)}</p></div>
               </div>`).join('')}
           </div>
         </div>
@@ -1014,7 +1045,7 @@ ${studentPart ? studentPart + '\n' : ''}课标知识点（本年级）：${nodeN
           <h4>${secNo++}. 任务卡</h4>
           <p class="sheet-q">驱动问题：<b>"${esc(p.drivingQuestion)}"</b></p>
           <div class="task-steps">
-            ${p.tasks.map(t => `<div class="task-step"><span>课时${t.no}</span><b>${esc(t.title)}</b></div>`).join('')}
+            ${p.tasks.map(t => `<div class="task-step"><span>${esc(t.stage)}</span></div>`).join('')}
           </div>
         </div>
         ${hasPlan ? `
@@ -1144,8 +1175,15 @@ ${studentPart ? studentPart + '\n' : ''}课标知识点（本年级）：${nodeN
       L.push(`建议融合学科：${p.recommended.map(subjectName).join('、')}`);
     }
     L.push('');
-    L.push(`## 4 课时任务链${p.aiEnhanced ? '（AI 个性化生成）' : ''}`);
-    p.tasks.forEach(t => L.push(`${t.no}. **课时${t.no}·${t.title}**：${t.detail}`));
+    if (p.official) {
+      L.push(`## 任务要求（《指南》官方任务示例）`);
+      L.push(`**${p.official.title}** · ${p.official.grade} · 建议${p.hours}`);
+      L.push('');
+      L.push(p.official.req);
+      L.push('');
+    }
+    L.push(`## 科学探究任务链${p.aiEnhanced ? '（AI 个性化细化）' : ''}`);
+    p.tasks.forEach(t => L.push(`${t.no}. **${t.stage}**：${t.detail}`));
     L.push('');
     L.push(`## 表现性评价量表（纪实性记录）`);
     p.evaluation.forEach(e => L.push(`- ${e.dim}：${e.desc}`));

@@ -43,13 +43,14 @@ function trimPoint(p) {
   return clean.length > MAX_POINT_LEN ? clean.slice(0, MAX_POINT_LEN) + '…' : clean;
 }
 
-function extractNode(node, subject, subjectName) {
+function extractNode(node, subject, subjectName, domainName) {
   const { min, max } = parseGrade(node.grade);
   const points = (node.curriculum_points || [])
     .map(trimPoint)
     .filter(Boolean)
     .slice(0, MAX_POINTS_PER_NODE);
   const item = { id: node.id, name: node.name, points };
+  if (domainName) item.domain = domainName; // 课程单元（章/模块）
   if (node.textbook_semester) item.semester = node.textbook_semester;
   // TeachAny 知识树关系字段：先修/拓展/关联课件（课程图谱用）
   if (Array.isArray(node.prerequisites) && node.prerequisites.length) item.prerequisites = node.prerequisites;
@@ -74,7 +75,7 @@ function main() {
 
       for (const domain of tree.domains || []) {
         for (const node of domain.nodes || []) {
-          const { item, min, max } = extractNode(node, tree.subject, tree.name);
+          const { item, min, max } = extractNode(node, tree.subject, tree.name, domain.name);
           for (let g = min; g <= max && g <= 9; g++) {
             if (g < 1) continue;
             if (!grades[g]) grades[g] = {};
