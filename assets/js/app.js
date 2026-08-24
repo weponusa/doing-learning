@@ -169,6 +169,68 @@
     return result;
   }
 
+  /* ---------- LLM 语义匹配（遍历全部课标，补充规则未命中） ----------
+   * 规则匹配（关键词子串）即时呈现；LLM 异步扫描该年级+高一年级全部节点，
+   * 排除字面相似但内容无关的误匹配，补充语义相关但关键词未覆盖的节点。
+   * 结果按 grade|sub.id|keywords 缓存 localStorage，避免重复调用。
+   */
+  const llmMatchCache = (() => {
+    try { return JSON.parse(localStorage.getItem('doing-learning-llm-match-v2') || '{}'); } catch (e) { return {}; }
+  })();
+
+  function findNodeInGrade(grade, id) {
+    for (const s of (C.grades[grade] || [])) {
+      const n = s.nodes.find(x => x.id === id);
+      if (n) return { subject: s.subject, subjectName: s.name, node: n };
+    }
+    return null;
+  }
+
+  async function matchWithLLM(grade, sub) {
+    if (!window.DOING_LLM) return null;
+    const cacheKey = `${grade}|${sub.id}|${(sub.keywords || []).join(',')}`;
+    if (llmMatchCache[cacheKey]) return llmMatchCache[cacheKey];
+
+    const nextGrade = grade + 1;
+    const fmtNodes = (g) => (C.grades[g] || []).flatMap(s =>
+      s.nodes.map(n => `${n.id}|${s.name}|${n.name}|${(n.points || []).join(' ').slice(0, 40)}`)).join('\n');
+    const messages = [
+      { role: 'system', content: '你是义务教育课程专家。从课标知识点清单中筛选与探究主题相关的条目，严格输出 JSON，不要输出任何解释。' },
+      { role: 'user', content: `探究主题：${sub.name}（${sub.desc}）
+请从以下课标知识点清单中，选出能直接支撑该主题探究活动的知识点。
+
+选择标准（严格遵守）：
+1. 只选知识点内容本身能直接支撑该主题探究的（实验/观察/制作/调查/数据分析）
+2. 跨学科仅限：数学的数据处理与测量、语文的观察记录与说明表达、信息科技的计算与编程
+3. 严禁选择仅字面相似或牵联想到的：例如主题是"认识人工智能"时，"传染病与免疫""微生物""散文阅读""小说阅读"一律不选；"三角形分类"≠"生物分类"
+4. 宁缺毋滥，0-8 个；拿不准的一律不选
+
+每个选择给出 15 字以内理由。输出 JSON：
+{"current": [{"id": "节点id", "reason": "理由"}], "next": [{"id": "节点id", "reason": "理由"}]}
+
+【本年级（${grade} 年级）课标知识点】
+${fmtNodes(grade)}
+
+【高一年级（${nextGrade} 年级）课标知识点】
+${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
+    ];
+    const resp = await window.DOING_LLM.chat(messages, { maxTokens: 800, temperature: 0.1, timeoutMs: 45000 });
+    const data = resp && window.DOING_LLM.parseJSON(resp.content);
+    if (!data) return null;
+    // 防幻觉：id 必须真实存在于对应年级课标；兼容纯 id 与 {id, reason} 两种格式
+    const valid = (g, arr) => (Array.isArray(arr) ? arr
+      .map(it => {
+        const id = typeof it === 'string' ? it : (it && it.id);
+        const reason = (it && typeof it === 'object') ? String(it.reason || '') : '';
+        return id && findNodeInGrade(g, id) ? { id, reason } : null;
+      })
+      .filter(Boolean) : []);
+    const result = { current: valid(grade, data.current), next: valid(nextGrade, data.next) };
+    llmMatchCache[cacheKey] = result;
+    try { localStorage.setItem('doing-learning-llm-match-v2', JSON.stringify(llmMatchCache)); } catch (e) { }
+    return result;
+  }
+
   /* ---------- 已选知识点收集 ----------
    * 以勾选集为准，穷举"本年级 + 高一年级"全部学科节点；
    * 命中信息（score/matched）从 full 匹配结果补充；未命中但手选的节点 score=0
@@ -418,6 +480,7 @@
         <div class="path-section-head"><span class="path-tag next">拓展挑战</span><h3>更高一年级</h3></div>
         <div class="block"><p class="block-note">9 年级已是义务教育阶段最高年级，可专注本年级知识的综合运用。</p></div>
       </div>`}
+      <div class="ai-match-status" id="ai-match-status"></div>
       <div class="path-toolbar">
         <span id="sel-count"></span>
         <button class="btn btn-small" id="btn-sel-all">全选</button>
@@ -450,6 +513,67 @@
     });
     $('#btn-back-sub2').addEventListener('click', () => goStep(1));
     $('#btn-to-question').addEventListener('click', () => goStep(3));
+    updateCount();
+    triggerAiMatch(dom, sub, updateCount);
+  }
+
+  /* ---------- AI 语义匹配触发与补充渲染 ---------- */
+  async function triggerAiMatch(dom, sub, updateCount) {
+    const statusEl = $('#ai-match-status');
+    if (!statusEl) return;
+    const totalNodes = ((C.grades[state.grade] || []).reduce((a, s) => a + s.nodes.length, 0))
+      + ((C.grades[state.grade + 1] || []).reduce((a, s) => a + s.nodes.length, 0));
+    statusEl.innerHTML = `<span class="ai-scanning">AI 正在语义扫描本年级与高一年级全部 ${totalNodes} 个课标知识点…</span>`;
+
+    const result = await matchWithLLM(state.grade, sub);
+    if (!statusEl.isConnected) return; // 用户已离开该页
+    if (!result) {
+      statusEl.innerHTML = `<span class="ai-done">AI 语义匹配不可用，已使用规则匹配结果</span>`;
+      return;
+    }
+
+    // 已渲染（规则命中/推荐学科）的节点 key，避免重复
+    const existing = new Set($$('.node-check').map(c => c.dataset.key));
+    const newItems = [];
+    result.current.forEach(({ id, reason }) => {
+      const f = findNodeInGrade(state.grade, id);
+      if (f && !existing.has(nodeKey(state.grade, f.subject, f.node))) newItems.push({ grade: state.grade, reason, ...f });
+    });
+    result.next.forEach(({ id, reason }) => {
+      const f = findNodeInGrade(state.grade + 1, id);
+      if (f && !existing.has(nodeKey(state.grade + 1, f.subject, f.node))) newItems.push({ grade: state.grade + 1, reason, ...f });
+    });
+
+    if (!newItems.length) {
+      statusEl.innerHTML = `<span class="ai-done">AI 语义扫描完成：规则匹配已覆盖相关知识点</span>`;
+      return;
+    }
+
+    // AI 补充节点默认勾选
+    newItems.forEach(it => state.selectedKeys.push(nodeKey(it.grade, it.subject, it.node)));
+    statusEl.innerHTML = `<span class="ai-done">AI 语义扫描完成：补充 ${newItems.length} 个规则未命中的相关知识点（已默认勾选）</span>`;
+
+    const section = document.createElement('div');
+    section.className = 'path-section';
+    section.id = 'ai-supplement';
+    section.innerHTML = `
+      <div class="path-section-head"><span class="path-tag ai">AI 语义补充</span><h3>规则未命中但 AI 认为相关的知识点</h3></div>
+      <div class="path-group"><div class="node-chips">
+        ${newItems.map(it => {
+          const key = nodeKey(it.grade, it.subject, it.node);
+          const reasonTip = it.reason ? `AI 理由：${it.reason}\n` : '';
+          return `<button class="node-check on ai-chip" data-key="${esc(key)}" title="${esc(it.subjectName)}｜${reasonTip}${esc((it.node.points || []).join(' ').slice(0, 100))}">${esc(it.node.name)}${it.grade > state.grade ? '<i class="ai-mark">拓</i>' : ''}</button>`;
+        }).join('')}
+      </div></div>`;
+    statusEl.after(section);
+
+    $$('.node-check', section).forEach(c => c.addEventListener('click', () => {
+      const key = c.dataset.key;
+      const i = state.selectedKeys.indexOf(key);
+      if (i >= 0) state.selectedKeys.splice(i, 1); else state.selectedKeys.push(key);
+      c.classList.toggle('on');
+      updateCount();
+    }));
     updateCount();
   }
 

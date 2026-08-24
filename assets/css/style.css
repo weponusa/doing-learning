@@ -398,6 +398,34 @@ input, textarea { font-family: inherit; }
 .graph-scroll { overflow-x: auto; }
 .graph-node { cursor: default; }
 
+/* AI 语义匹配 */
+.ai-match-status { margin: 16px 0 4px; font-size: 12.5px; min-height: 20px; }
+.ai-scanning { color: #A78BFA; }
+.ai-scanning::before {
+  content: '';
+  display: inline-block;
+  width: 10px; height: 10px;
+  border: 2px solid rgba(167, 139, 250, 0.3);
+  border-top-color: #A78BFA;
+  border-radius: 50%;
+  margin-right: 8px;
+  animation: spin 1s linear infinite;
+  vertical-align: -1px;
+}
+.ai-done { color: var(--ok); }
+.ai-chip { border-color: rgba(167, 139, 250, 0.45); }
+.ai-chip.on { background: rgba(167, 139, 250, 0.14); border-color: #A78BFA; }
+.ai-chip.on::before { color: #A78BFA; }
+.ai-mark {
+  font-style: normal;
+  font-size: 10px;
+  color: #A78BFA;
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  border-radius: 4px;
+  padding: 0 4px;
+  margin-left: 5px;
+}
+
 /* ---------- 学生提问 ---------- */
 .question-box {
   background: var(--card);
