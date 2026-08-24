@@ -10,8 +10,11 @@ window.DOMAIN_LIB = {
   version: '1.0',
   policy: {
     title: '义务教育阶段科学教育"做中学"领航行动指南',
-    issued: '2026年8月印发',
+    docNo: '教监管厅〔2026〕1 号',
+    issued: '教育部办公厅 2026年7月29日印发',
     effective: '2026年秋季学期起全国实施',
+    url: 'https://www.moe.gov.cn/srcsite/A29/202608/t20260803_1445982.html',
+    fullText: 'policy.html',
     requirement: '4-9年级每名学生每学期至少完成1项科学探究任务，每项不少于4课时；1-3年级完成科学课程规定的探究实践活动',
     chain: ['提出问题', '设计方案', '动手实验', '分析改进', '分享反思'],
     evaluation: ['问题意识', '探究实践能力', '反思改进能力', '合作交流能力'],

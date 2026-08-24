@@ -1104,7 +1104,8 @@ ${studentPart ? studentPart + '\n' : ''}课标知识点（本年级）：${nodeN
     const L = [];
     L.push(`# 做中学 · ${p.domain.name}「${p.subdomain.name}」${p.grade}年级${p.semester}学期方案`);
     L.push('');
-    L.push(`> 依据：${p.policy.title}（${p.policy.issued}，${p.policy.effective}）`);
+    L.push(`> 依据：${p.policy.title}（${p.policy.docNo ? p.policy.docNo + '，' : ''}${p.policy.issued}，${p.policy.effective}）`);
+    if (p.policy.url) L.push(`> 原文：${p.policy.url}`);
     L.push('');
     L.push(`## 本学期做中学目标`);
     L.push(p.goal);

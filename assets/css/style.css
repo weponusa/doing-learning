@@ -801,6 +801,10 @@ input, textarea { font-family: inherit; }
 }
 #site-footer p { font-size: 12.5px; color: var(--text-3); line-height: 1.8; }
 #site-footer b { color: var(--text-2); }
+#site-footer a { color: var(--sky); text-decoration: none; border-bottom: 1px dashed rgba(96, 165, 250, 0.4); }
+#site-footer a:hover { color: var(--text); border-bottom-style: solid; }
+#site-footer a.ext-link { color: var(--text-3); font-size: 12px; border: none; }
+#site-footer a.ext-link:hover { color: var(--sky); }
 
 /* ---------- 响应式 ---------- */
 @media (max-width: 860px) {
