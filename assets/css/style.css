@@ -398,6 +398,36 @@ input, textarea { font-family: inherit; }
 .graph-scroll { overflow-x: auto; }
 .graph-node { cursor: default; }
 
+/* 拓展年级折叠组 */
+.ext-grade {
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 10px;
+  background: var(--card);
+  overflow: hidden;
+}
+.ext-grade summary {
+  cursor: pointer;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+  user-select: none;
+}
+.ext-grade summary::-webkit-details-marker { display: none; }
+.ext-grade summary::before {
+  content: '▸';
+  color: #A78BFA;
+  transition: transform .2s ease;
+  font-size: 13px;
+}
+.ext-grade[open] summary::before { transform: rotate(90deg); }
+.ext-grade summary:hover { background: rgba(255, 255, 255, 0.03); }
+.ext-grade-label { font-size: 14px; font-weight: 700; }
+.ext-grade-count { font-size: 12px; color: var(--text-3); margin-left: auto; }
+.ext-grade .path-list { padding: 0 16px 14px; }
+
 /* AI 语义匹配 */
 .ai-match-status { margin: 16px 0 4px; font-size: 12.5px; min-height: 20px; }
 .ai-scanning { color: #A78BFA; }

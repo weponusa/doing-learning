@@ -2,13 +2,13 @@
  * curriculum.js  ·  做中学课标数据层（生成产物，勿手改）
  * 生成命令: node scripts/build-curriculum.js
  * 来源: teachany-courseware/data/trees/cn/{elementary,middle}
- * 覆盖: 1-9 年级 · 656 个课标节点
+ * 覆盖: 1-9 年级 · 1001 个课标节点
  * ============================================================ */
 window.CURRICULUM = {
   "meta": {
     "source": "teachany-courseware/data/trees/cn/{elementary,middle}",
-    "generated": "2026-08-24",
-    "totalNodes": 656,
+    "generated": "2026-08-25",
+    "totalNodes": 1001,
     "stages": {
       "elementary": {
         "subjects": 7,
@@ -17,6 +17,10 @@ window.CURRICULUM = {
       "middle": {
         "subjects": 11,
         "nodes": 367
+      },
+      "high": {
+        "subjects": 11,
+        "nodes": 345
       }
     }
   },
@@ -10692,6 +10696,5453 @@ window.CURRICULUM = {
             ],
             "courses": [
               "psych-m-g9-mental-health"
+            ]
+          }
+        ]
+      }
+    ],
+    "10": [
+      {
+        "subject": "chinese",
+        "name": "高中语文",
+        "nodes": [
+          {
+            "id": "chn-h-idiom-usage-h",
+            "name": "成语辨析与运用",
+            "points": [
+              "语言积累、梳理与探究任务群旨在培养学生丰富语言积累、梳理语言现象的习惯，在观察、探索语言文字现象的过程中发现语言文字运用规律。",
+              "通过梳理和整合，将积累的语言材料和学习的语文知识结构化，将言语活动经验逐渐转化为具体的学习方法和策略，并能在语言实践中自觉地运用。",
+              "能够辨识、分析、比较、归纳和概括基本的语言现象，并能有理有据地表达自己的观点和阐述自己的发现；运用基本的语言规律和逻辑规则，判别语言运用的正误。"
+            ],
+            "domain": "语言文字运用",
+            "courses": [
+              "chn-h-idiom-usage-h"
+            ]
+          },
+          {
+            "id": "chn-h-sentence-revision-h",
+            "name": "病句修改与句式变换",
+            "points": [
+              "运用基本的语言规律和逻辑规则，判别语言运用的正误，准确、生动、有逻辑地表达自己的认识。",
+              "语言积累、梳理与探究任务群旨在通过观察、探索语言文字现象，发现语言文字运用规律，并能在实践中运用。"
+            ],
+            "domain": "语言文字运用",
+            "prerequisites": [
+              "chn-h-idiom-usage-h"
+            ],
+            "courses": [
+              "chn-h-sentence-revision-h"
+            ]
+          },
+          {
+            "id": "chn-h-info-reading",
+            "name": "实用类文本（论述类/信息类）",
+            "points": [
+              "学习任务群的设计着眼于培养语言文字运用基础能力，充分顾及问题导向、跨文化、自主合作、个性化、创造性等因素，并关注语言文字运用的新现象和跨媒介运用的新特点。",
+              "学习任务群以自主、合作、探究性学习为主要学习方式，凸显学生学习语文的根本途径。这些学习任务群追求语言、知识、技能和思想情感、文化修养等多方面、多层次目标发展的综合效应。"
+            ],
+            "domain": "现代文阅读",
+            "courses": [
+              "chn-h-info-reading"
+            ]
+          },
+          {
+            "id": "chn-h-literary-reading-h",
+            "name": "文学类文本阅读",
+            "points": [
+              "文学阅读与写作（2.5学分）",
+              "感受和体验文学作品的语言、形象和情感之美，能欣赏、鉴别和评价不同时代、不同风格的作品，具有正确的价值观、高尚的审美情趣和审美品位。",
+              "从最使自己感动的故事、人物、场景、语言等方面入手，反复阅读品味，深入探究，欣赏语言表达的精彩之处，梳理小说的感人场景乃至整体的艺术架构，理清人物关系，感受、欣赏人物形象，探究人物的精神世界，体会小说的…"
+            ],
+            "domain": "现代文阅读",
+            "prerequisites": [
+              "chn-h-info-reading"
+            ],
+            "courses": [
+              "chn-h-literary-reading-h"
+            ]
+          },
+          {
+            "id": "chn-h-practical-reading",
+            "name": "非连续性实用文本",
+            "points": [
+              "必修课程7个：...'实用性阅读与交流'。",
+              "学习任务群的设计着眼于培养语言文字运用基础能力，...覆盖历来语文课程所包含的古今'实用类'...等基本语篇类型。",
+              "实用性阅读与交流（1学分）"
+            ],
+            "domain": "现代文阅读",
+            "prerequisites": [
+              "chn-h-info-reading"
+            ],
+            "courses": [
+              "chn-h-practical-reading"
+            ]
+          },
+          {
+            "id": "chn-h-classical-vocab-h",
+            "name": "文言实词",
+            "points": [
+              "语言积累与建构。积累较为丰富的语言材料和言语活动经验，形成良好的语感；在已经积累的语言材料间建立起有机的联系，在探究中理解、掌握祖国语言文字运用的基本规律。",
+              "语言梳理与整合。通过梳理和整合，将积累的语言材料和学习的语文知识结构化，将言语活动经验逐渐转化为具体的学习方法和策略，并能在语言实践中自觉地运用。",
+              "必修课程7个：“整本书阅读与研讨”“当代文化参与”“跨媒介阅读与交流”“语言积累、梳理与探究”“文学阅读与写作”“思辨性阅读与表达”“实用性阅读与交流”。"
+            ],
+            "domain": "古诗文阅读",
+            "courses": [
+              "chn-h-classical-vocab-h"
+            ]
+          },
+          {
+            "id": "chn-h-classical-function-words",
+            "name": "文言虚词",
+            "points": [
+              "语言积累、梳理与探究任务群要求：积累文言文阅读经验，梳理文言词语，掌握其意义和用法。",
+              "语言积累与建构目标：积累较为丰富的语言材料和言语活动经验，形成良好的语感；在探究中理解、掌握祖国语言文字运用的基本规律。",
+              "语言梳理与整合目标：通过梳理和整合，将积累的语言材料学习的语文知识结构化，将言语活动经验逐渐转化为具体的学习方法和策略。"
+            ],
+            "domain": "古诗文阅读",
+            "prerequisites": [
+              "chn-h-classical-vocab-h"
+            ],
+            "courses": [
+              "chn-h-classical-function-words"
+            ]
+          },
+          {
+            "id": "chn-h-classical-grammar-h",
+            "name": "文言句式与语法",
+            "points": [
+              "语言积累、梳理与探究任务群要求：在自主修改病句和分析句子结构的过程中，体会汉语句子的结构特点和虚词用法，进一步领悟语法规律。",
+              "语言积累、梳理与探究任务群要求：在运用口语和书面语表达的过程中，对比两种语体用词和造句的差别，体会口语与书面语的风格差异。",
+              "语言积累、梳理与探究任务群要求：反思和总结自己写作时遣词造句的经验，建构初步的逻辑和修辞知识，提高语用能力，增强表达的个性化。"
+            ],
+            "domain": "古诗文阅读",
+            "prerequisites": [
+              "chn-h-classical-function-words"
+            ],
+            "courses": [
+              "chn-h-classical-grammar-h"
+            ]
+          },
+          {
+            "id": "chn-h-poetry-imagery-h",
+            "name": "古诗词意象与意境",
+            "points": [
+              "鉴赏文学作品。感受和体验文学作品的语言、形象和情感之美，能欣赏、鉴别和评价不同时代、不同风格的作品。",
+              "审美鉴赏与创造是指学生在语文学习中，通过审美体验、评价等活动形成正确的审美意识、健康向上的审美情趣与鉴赏品位。",
+              "增进对祖国语言文字的美感体验。感受祖国语言文字独特的美，增强热爱祖国语言文字的感情。"
+            ],
+            "domain": "古诗文阅读",
+            "semester": "上",
+            "prerequisites": [
+              "chn-h-classical-vocab-h"
+            ],
+            "courses": [
+              "chn-h-poetry-imagery-h"
+            ]
+          },
+          {
+            "id": "chn-h-poetry-expression-h",
+            "name": "古诗词表现手法",
+            "points": [
+              "鉴赏文学作品。感受和体验文学作品的语言、形象和情感之美，能欣赏、鉴别和评价不同时代、不同风格的作品。",
+              "美的表达与创造。能运用祖国语言文字表达自己的审美体验，表达自己的情感、态度和观念，表现和创造自己心中的美好形象。",
+              "学习任务群的设计着眼于培养语言文字运用基础能力，充分顾及问题导向、跨文化、自主合作、个性化、创造性等因素。"
+            ],
+            "domain": "古诗文阅读",
+            "prerequisites": [
+              "chn-h-poetry-imagery-h"
+            ],
+            "courses": [
+              "chn-h-poetry-expression-h"
+            ]
+          },
+          {
+            "id": "chn-h-essay-structure-h",
+            "name": "作文审题立意与结构",
+            "points": [
+              "能凭借语感和对语言运用规律的把握，根据具体的语言情境和不同的对象，运用口头和书面语言文明得体地进行表达与交流。",
+              "讲究语言文字表达的效果及美感，具有创新意识。",
+              "学习任务群的设计着眼于培养语言文字运用基础能力，充分顾及问题导向、跨文化、自主合作、个性化、创造性等因素。"
+            ],
+            "domain": "写作",
+            "courses": [
+              "chn-h-essay-structure-h"
+            ]
+          },
+          {
+            "id": "chn-h-argumentative-essay",
+            "name": "议论文写作",
+            "points": [
+              "思辨性阅读与表达（1.5学分）",
+              "发展逻辑思维。能够辨识、分析、比较、归纳和概括基本的语言现象和文学现象，并能有理有据地表达自己的观点和阐述自己的发现；运用基本的语言规律和逻辑规则，判别语言运用的正误，准确、生动、有逻辑地表达自己的认…",
+              "学习任务群的设计着眼于培养语言文字运用基础能力，充分顾及问题导向、跨文化、自主合作、个性化、创造性等因素，并关注语言文字运用的新现象和跨媒介运用的新特点。"
+            ],
+            "domain": "写作",
+            "semester": "下",
+            "prerequisites": [
+              "chn-h-essay-structure-h",
+              "chn-h-info-reading"
+            ],
+            "courses": [
+              "chn-h-argumentative-essay"
+            ]
+          },
+          {
+            "id": "chn-h-countryside-china",
+            "name": "《乡土中国》（学术论著阅读）",
+            "points": [
+              "在指定范围内选择阅读一部学术著作。通读全书，勾画圈点，争取读懂；梳理全书大纲小目及其关联，做出全书内容提要；把握书中的重要观点和作品的价值取向。",
+              "通过反复阅读和思考，探究本书的语言特点和论述逻辑。",
+              "本任务群在必修阶段安排1学分，18课时。应完成一部长篇小说和一部学术著作的阅读，重在引导学生建构整本书的阅读经验与方法。"
+            ],
+            "domain": "整本书阅读",
+            "prerequisites": [
+              "chn-h-info-reading"
+            ],
+            "courses": [
+              "chn-h-countryside-china"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "math",
+        "name": "高中数学",
+        "nodes": [
+          {
+            "id": "math-h-sets",
+            "name": "集合",
+            "points": [
+              "内容包括：集合的概念与表示、集合的基本关系、集合的基本运算。",
+              "（1）集合的概念与表示 ①通过实例，了解集合的含义，理解元素与集合的属于关系。",
+              "（3）集合的基本运算 ①理解两个集合的并集与交集的含义，能求两个集合的并集与交集。"
+            ],
+            "domain": "预备知识（集合·逻辑·不等式）",
+            "courses": [
+              "math-high-sets"
+            ]
+          },
+          {
+            "id": "math-h-sets-logic",
+            "name": "集合运算",
+            "points": [
+              "内容包括：集合、常用逻辑用语、相等关系与不等关系、从函数观点看一元二次方程和一元二次不等式。",
+              "集合的概念与表示：通过实例，了解集合的含义，理解元素与集合的属于关系。针对具体问题，能在自然语言和图形语言的基础上，用符号语言刻画集合。",
+              "常用逻辑用语内容包括：必要条件、充分条件、充要条件，全称量词与存在量词，全称量词命题与存在量词命题的否定。"
+            ],
+            "domain": "预备知识（集合·逻辑·不等式）",
+            "prerequisites": [
+              "math-h-sets"
+            ],
+            "courses": [
+              "math-h-sets-logic"
+            ]
+          },
+          {
+            "id": "math-h-propositions",
+            "name": "常用逻辑用语",
+            "points": [
+              "通过对典型数学命题的梳理，理解充要条件的意义，理解数学定义与充要条件的关系。",
+              "常用逻辑用语是数学语言的重要组成部分，是数学表达和交流的工具，是逻辑思维的基本语言。",
+              "本单元的学习，可以帮助学生使用常用逻辑用语表达数学对象、进行数学推理，体会常用逻辑用语在表述数学内容和论证数学结论中的作用。"
+            ],
+            "domain": "预备知识（集合·逻辑·不等式）",
+            "prerequisites": [
+              "math-h-sets"
+            ],
+            "courses": [
+              "math-high-propositions"
+            ]
+          },
+          {
+            "id": "math-h-inequalities",
+            "name": "不等式性质",
+            "points": [
+              "梳理等式的性质，理解不等式的概念，掌握不等式的性质。",
+              "掌握基本不等式√(ab)≤(a+b)/2（a,b≥0）。结合具体实例，能用基本不等式解决简单的最大值或最小值问题。",
+              "经历从实际情境中抽象出一元二次不等式的过程，了解一元二次不等式的现实意义。能借助一元二次函数求解一元二次不等式，并能用集合表示一元二次不等式的解集。"
+            ],
+            "domain": "预备知识（集合·逻辑·不等式）",
+            "prerequisites": [
+              "math-h-sets"
+            ],
+            "courses": [
+              "math-high-inequalities"
+            ]
+          },
+          {
+            "id": "math-h-basic-inequality",
+            "name": "基本不等式",
+            "points": [
+              "掌握基本不等式√(ab)≤(a+b)/2（a,b≥0）。结合具体实例，能用基本不等式解决简单的最大值或最小值问题。",
+              "内容包括：等式与不等式的性质、基本不等式。"
+            ],
+            "domain": "预备知识（集合·逻辑·不等式）",
+            "prerequisites": [
+              "math-h-inequalities"
+            ],
+            "courses": [
+              "math-high-basic-inequality"
+            ]
+          },
+          {
+            "id": "math-h-linear-programming",
+            "name": "线性规划",
+            "points": [
+              "线性规划：2017年版高中数学课程标准已将线性规划内容移出必修和选择性必修范围，不再作为高考内容。相关内容可参考不等式与优化问题，如用不等式组刻画约束条件、求目标函数最值等。"
+            ],
+            "domain": "预备知识（集合·逻辑·不等式）",
+            "prerequisites": [
+              "math-h-inequalities"
+            ],
+            "courses": [
+              "math-high-linear-programming"
+            ]
+          },
+          {
+            "id": "math-h-functions-concept",
+            "name": "函数概念",
+            "points": [
+              "内容包括：函数概念与性质、幂函数、指数函数、对数函数、三角函数、函数应用。",
+              "函数概念与性质、幂函数、指数函数、对数函数、三角函数、函数应用。"
+            ],
+            "domain": "函数",
+            "prerequisites": [
+              "math-h-sets"
+            ],
+            "courses": [
+              "math-high-functions-concept"
+            ]
+          },
+          {
+            "id": "math-h-function-properties",
+            "name": "函数性质（单调性/奇偶性）",
+            "points": [
+              "内容包括：函数概念与性质、幂函数、指数函数、对数函数、三角函数、函数应用。",
+              "主题二 函数：函数概念与性质、幂函数、指数函数、对数函数、三角函数、函数应用。"
+            ],
+            "domain": "函数",
+            "prerequisites": [
+              "math-h-functions-concept"
+            ],
+            "courses": [
+              "math-high-function-properties"
+            ]
+          },
+          {
+            "id": "math-h-power-function",
+            "name": "幂函数",
+            "points": [
+              "内容包括：函数概念与性质、幂函数、指数函数、对数函数、三角函数、函数应用。",
+              "主题二函数：幂函数、指数函数、对数函数。"
+            ],
+            "domain": "函数",
+            "prerequisites": [
+              "math-h-function-properties"
+            ],
+            "courses": [
+              "math-high-power-function"
+            ]
+          },
+          {
+            "id": "math-h-exponential-function",
+            "name": "指数函数",
+            "points": [
+              "内容包括：函数概念与性质、幂函数、指数函数、对数函数、三角函数、函数应用。",
+              "主题二函数包括幂函数、指数函数、对数函数等内容的学习。"
+            ],
+            "domain": "函数",
+            "prerequisites": [
+              "math-h-function-properties"
+            ],
+            "courses": [
+              "math-high-exponential-function"
+            ]
+          },
+          {
+            "id": "math-h-logarithmic-function",
+            "name": "对数函数",
+            "points": [
+              "内容包括：函数概念与性质、幂函数、指数函数、对数函数、三角函数、函数应用。",
+              "幂函数、指数函数、对数函数是三类重要的基本初等函数，是进一步学习数学的基础。",
+              "理解对数函数的概念，了解对数函数的单调性，掌握对数函数图象通过的特殊点。"
+            ],
+            "domain": "函数",
+            "prerequisites": [
+              "math-h-exponential-function"
+            ],
+            "courses": [
+              "math-high-logarithmic-function"
+            ]
+          },
+          {
+            "id": "math-h-functions-advanced",
+            "name": "函数综合性质",
+            "points": [
+              "内容包括：函数概念与性质、幂函数、指数函数、对数函数、三角函数、函数应用。",
+              "高中数学课程内容突出函数、几何与代数、概率与统计、数学建模活动与数学探究活动四条主线。",
+              "用函数理解方程和不等式是数学的基本思想方法。本单元的学习，可以帮助学生用一元二次函数认识一元二次方程和一元二次不等式。"
+            ],
+            "domain": "函数",
+            "prerequisites": [
+              "math-h-logarithmic-function",
+              "math-h-power-function"
+            ],
+            "courses": [
+              "math-h-functions-advanced"
+            ]
+          },
+          {
+            "id": "math-h-function-models",
+            "name": "函数模型及其应用",
+            "points": [
+              "数学建模是对现实问题进行数学抽象，用数学语言表达问题、用数学方法构建模型解决问题的素养。",
+              "数学建模过程主要包括：在实际情境中从数学的视角发现问题、提出问题，分析问题、建立模型，确定参数、计算求解，检验结果、改进模型，最终解决实际问题。",
+              "通过高中数学课程的学习，学生能获得进一步学习以及未来发展所必需的数学基础知识、基本技能、基本思想、基本活动经验；提高从数学角度发现和提出问题的能力、分析和解决问题的能力。"
+            ],
+            "domain": "函数",
+            "prerequisites": [
+              "math-h-functions-advanced"
+            ],
+            "courses": [
+              "math-high-function-models"
+            ]
+          },
+          {
+            "id": "math-h-trig-ratios",
+            "name": "任意角与三角函数定义",
+            "points": [
+              "内容包括：函数概念与性质、幂函数、指数函数、对数函数、三角函数、函数应用。",
+              "三角函数是基本初等函数，它是描述周期现象的重要数学模型，在数学和其他领域中具有重要作用。",
+              "借助单位圆理解任意角三角函数（正弦、余弦、正切）的定义。"
+            ],
+            "domain": "三角函数",
+            "prerequisites": [
+              "math-h-function-properties"
+            ],
+            "courses": [
+              "math-high-trig-ratios"
+            ]
+          },
+          {
+            "id": "math-h-trig-identities",
+            "name": "三角恒等变换",
+            "points": [
+              "（４）三角恒等变换 ①经历推导两角差余弦公式的过程，知道两角差余弦公式的 意义。 ②能从两角差的余弦公式推导出两角和与差的正弦、余弦、正 切公式，二倍角的正弦、余弦、正切公式，了解它们的内在联系。 ③…"
+            ],
+            "domain": "三角函数",
+            "prerequisites": [
+              "math-h-trig-ratios"
+            ],
+            "courses": [
+              "math-high-trig-identities"
+            ]
+          },
+          {
+            "id": "math-h-trig-graphs",
+            "name": "三角函数图像与性质",
+            "points": [
+              "内容包括：函数概念与性质、幂函数、指数函数、对数函数、三角函数、函数应用。",
+              "三角函数是描述周期现象的重要数学模型，在数学和其他领域中都有重要应用。",
+              "借助单位圆理解三角函数（正弦、余弦、正切）的定义，能画出这些三角函数的图象。"
+            ],
+            "domain": "三角函数",
+            "prerequisites": [
+              "math-h-trig-identities"
+            ],
+            "courses": [
+              "math-high-trig-graphs"
+            ]
+          },
+          {
+            "id": "math-h-trigonometric-functions",
+            "name": "三角函数综合应用",
+            "points": [
+              "内容包括：函数概念与性质、幂函数、指数函数、对数函数、三角函数、函数应用。",
+              "三角函数是必修课程主题二“函数”中的一个单元。"
+            ],
+            "domain": "三角函数",
+            "prerequisites": [
+              "math-h-trig-graphs"
+            ],
+            "courses": [
+              "math-h-trigonometric-functions"
+            ]
+          },
+          {
+            "id": "math-h-law-of-sines-cosines",
+            "name": "正弦定理与余弦定理",
+            "points": [
+              "内容包括：平面向量及其应用、复数、立体几何初步。",
+              "平面向量及其应用：借助向量和向量运算，探索三角形边长与角度的关系，掌握正弦定理、余弦定理。"
+            ],
+            "domain": "三角函数",
+            "prerequisites": [
+              "math-h-trig-graphs"
+            ],
+            "courses": [
+              "math-high-law-of-sines-cosines"
+            ]
+          },
+          {
+            "id": "math-h-vector-basics",
+            "name": "平面向量的概念与运算",
+            "points": [
+              "内容包括：平面向量及其应用"
+            ],
+            "domain": "向量",
+            "courses": [
+              "math-high-vector-basics"
+            ]
+          },
+          {
+            "id": "math-h-vector-coordinates",
+            "name": "平面向量的坐标运算",
+            "points": [
+              "内容包括：平面向量及其应用、复数、立体几何初步。",
+              "平面向量及其应用：借助实例和平面向量的几何表示，掌握平面向量加、减、数乘运算及运算规则，理解其几何意义。",
+              "理解平面向量数量积的概念、物理背景及其几何意义，会计算平面向量的数量积。"
+            ],
+            "domain": "向量",
+            "prerequisites": [
+              "math-h-vector-basics"
+            ],
+            "courses": [
+              "math-high-vector-coordinates"
+            ]
+          },
+          {
+            "id": "math-h-arithmetic-sequence",
+            "name": "等差数列",
+            "points": [
+              "内容包括：等差数列的概念、等差数列的前n项和公式。",
+              "掌握等差数列的通项公式与前n项和公式，能在具体的问题情境中识别等差数列。",
+              "引导学生通过具体实例理解等差数列的概念，探索并掌握等差数列的通项公式与前n项和公式。"
+            ],
+            "domain": "数列",
+            "prerequisites": [
+              "math-h-functions-concept"
+            ],
+            "courses": [
+              "math-high-arithmetic-sequence"
+            ]
+          },
+          {
+            "id": "math-h-geometric-sequence",
+            "name": "等比数列",
+            "points": [
+              "（３）等比数列 ①通过生活中的实例，理解等比数列的概念和通项公式的意义。 ②探索并掌握等比数列的前狀项和公式，理解等比数列的通项 公式与前狀项和公式的关系。 ③能在具体的问题情境中，发现数列的等比关系…"
+            ],
+            "domain": "数列",
+            "prerequisites": [
+              "math-h-arithmetic-sequence"
+            ],
+            "courses": [
+              "math-high-geometric-sequence"
+            ]
+          },
+          {
+            "id": "math-h-sequence-summation",
+            "name": "数列求和",
+            "points": [
+              "１．数列 本单元的学习，可以帮助学生通过对日常生活中实际问题的分 析，了解数列的概念；探索并掌握等差数列和等比数列的变化规律， 建立通项公式和前狀项和公式；能运用等差数列、等比数列解决简 单的实际问题…"
+            ],
+            "domain": "数列",
+            "prerequisites": [
+              "math-h-geometric-sequence"
+            ],
+            "courses": [
+              "math-high-sequence-summation"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "english",
+        "name": "高中英语",
+        "nodes": [
+          {
+            "id": "eng-h-word-formation-h",
+            "name": "构词法（派生/合成/转化）",
+            "points": [
+              "语言知识涵盖语音知识、词汇知识、语法知识、语篇知识和语用知识，是构成语言能力的重要基础。",
+              "词汇知识包括词汇、词块、构词法等，学生应掌握构词法知识，如常用前缀、后缀、词根等，以扩大词汇量。"
+            ],
+            "domain": "词汇",
+            "courses": [
+              "eng-h-word-formation-h"
+            ]
+          },
+          {
+            "id": "eng-h-tense-system",
+            "name": "时态与语态系统",
+            "points": [
+              "语言知识涵盖语音知识、词汇知识、语法知识、语篇知识和语用知识，是构成语言能力的重要基础。",
+              "语法知识是‘形式—意义—使用’的统一体，与语音、词汇、语篇和语用知识紧密相连，直接影响语言理解和表达的准确性和得体性。",
+              "在语篇中理解和运用过去、现在和将来时的被动语态。"
+            ],
+            "domain": "语法",
+            "courses": [
+              "eng-h-tense-system"
+            ]
+          },
+          {
+            "id": "eng-h-noun-clauses",
+            "name": "名词性从句",
+            "points": [
+              "语言知识涵盖语音知识、词汇知识、语法知识、语篇知识和语用知识，是构成语言能力的重要基础。",
+              "所有的语言学习活动都应该在一定的主题语境下进行，即学生围绕某一具体的主题语境，基于不同类型的语篇，在解决问题的过程中，运用语言技能获取、梳理、整合语言知识和文化知识，深化对语言的理解。"
+            ],
+            "domain": "语法",
+            "prerequisites": [
+              "eng-h-tense-system"
+            ],
+            "courses": [
+              "eng-h-noun-clauses"
+            ]
+          },
+          {
+            "id": "eng-h-attributive-clauses-h",
+            "name": "定语从句",
+            "points": [
+              "语言知识涵盖语音知识、词汇知识、语法知识、语篇知识和语用知识，是构成语言能力的重要基础。",
+              "语法知识是‘形式—意义—使用’的统一体，与语音、词汇、语篇和语用知识紧密相连，直接影响语言理解和表达的准确性和得体性。"
+            ],
+            "domain": "语法",
+            "prerequisites": [
+              "eng-h-tense-system"
+            ],
+            "courses": [
+              "eng-h-attributive-clauses-h"
+            ]
+          },
+          {
+            "id": "eng-h-adverbial-clauses-h",
+            "name": "状语从句",
+            "points": [
+              "语言知识涵盖语音知识、词汇知识、语法知识、语篇知识和语用知识，是构成语言能力的重要基础。",
+              "所有的语言学习活动都应该在一定的主题语境下进行，即学生围绕某一具体的主题语境，基于不同类型的语篇，在解决问题的过程中，运用语言技能获取、梳理、整合语言知识和文化知识。"
+            ],
+            "domain": "语法",
+            "prerequisites": [
+              "eng-h-tense-system"
+            ],
+            "courses": [
+              "eng-h-adverbial-clauses-h"
+            ]
+          },
+          {
+            "id": "eng-h-advanced-grammar",
+            "name": "语法综合进阶",
+            "points": [
+              "语言知识涵盖语音知识、词汇知识、语法知识、语篇知识和语用知识，是构成语言能力的重要基础。",
+              "课程内容的六个要素是一个相互关联的有机整体，所有的语言学习活动都应该在一定的主题语境下进行。",
+              "学生基于语篇，在分析问题和解决问题的过程中，促进自身语言知识学习、语言技能发展。"
+            ],
+            "domain": "语法",
+            "prerequisites": [
+              "eng-h-adverbial-clauses-h"
+            ],
+            "courses": [
+              "eng-h-advanced-grammar"
+            ]
+          },
+          {
+            "id": "eng-h-reading-detail-h",
+            "name": "阅读细节题",
+            "points": [
+              "语言技能分理解性技能和表达性技能，具体包括听、说、读、看（viewing）、写等，学生基于语篇所开展的学习活动即是基于这些语言技能，理解语篇和对语篇作出回应的活动。",
+              "所有的语言学习活动都应该在一定的主题语境下进行，即学生围绕某一具体的主题语境，基于不同类型的语篇，在解决问题的过程中，运用语言技能获取、梳理、整合语言知识和文化知识，深化对语言的理解，重视对语篇的赏析…",
+              "语言能力指在社会情境中，以听、说、读、看、写等方式理解和表达意义的能力，以及在学习和使用语言的过程中形成的语言意识和语感。"
+            ],
+            "domain": "阅读理解",
+            "prerequisites": [
+              "eng-h-vocab-3500"
+            ],
+            "courses": [
+              "eng-h-reading-detail-h"
+            ]
+          },
+          {
+            "id": "eng-h-reading-inference-h",
+            "name": "阅读推理题",
+            "points": [
+              "语言技能分理解性技能和表达性技能，具体包括听、说、读、看（viewing）、写等，学生基于语篇所开展的学习活动即是基于这些语言技能，理解语篇和对语篇作出回应的活动。",
+              "思维品质指思维在逻辑性、批判性、创新性等方面所表现的能力和水平。思维品质的发展有助于提升学生分析和解决问题的能力，使他们能够从跨文化视角观察和认识世界，对事物作出正确的价值判断。",
+              "思维品质目标：能辨析语言和文化中的具体现象，梳理、概括信息，建构新概念，分析、推断信息的逻辑关系，正确评判各种思想观点，创造性地表达自己的观点。"
+            ],
+            "domain": "阅读理解",
+            "prerequisites": [
+              "eng-h-reading-detail-h"
+            ],
+            "courses": [
+              "eng-h-reading-inference-h"
+            ]
+          },
+          {
+            "id": "eng-h-cloze-narrative",
+            "name": "完形填空（记叙型）",
+            "points": [
+              "语篇类型包括口头和书面语篇以及不同的文体形式，如记叙文、说明文、议论文、应用文、访谈、对话等连续性文本。",
+              "语言技能分理解性技能和表达性技能，具体包括听、说、读、看、写等，学生基于语篇所开展的学习活动即是基于这些语言技能，理解语篇和对语篇作出回应的活动。",
+              "所有的语言学习活动都应该在一定的主题语境下进行，即学生围绕某一具体的主题语境，基于不同类型的语篇，在解决问题的过程中，运用语言技能获取、梳理、整合语言知识和文化知识。"
+            ],
+            "domain": "完形填空",
+            "prerequisites": [
+              "eng-h-vocab-3500"
+            ],
+            "courses": [
+              "eng-h-cloze-narrative"
+            ]
+          },
+          {
+            "id": "eng-h-application-letter",
+            "name": "应用文写作（书信/邮件）",
+            "points": [
+              "语篇类型包括口头和书面语篇以及不同的文体形式，如记叙文、说明文、议论文、应用文、访谈、对话等连续性文本。",
+              "语言技能分理解性技能和表达性技能，具体包括听、说、读、看、写等，学生基于语篇所开展的学习活动即是基于这些语言技能，理解语篇和对语篇作出回应的活动。"
+            ],
+            "domain": "写作",
+            "prerequisites": [
+              "eng-h-tense-system"
+            ],
+            "courses": [
+              "eng-h-application-letter"
+            ]
+          },
+          {
+            "id": "eng-h-essay-writing",
+            "name": "议论文/记叙文写作",
+            "points": [
+              "语言能力指在社会情境中，以听、说、读、看、写等方式理解和表达意义的能力。",
+              "语言技能分理解性技能和表达性技能，具体包括听、说、读、看（viewing）、写等。",
+              "使学生基于已有的知识，依托不同类型的语篇，在分析问题和解决问题的过程中，促进自身语言知识学习、语言技能发展。"
+            ],
+            "domain": "写作",
+            "prerequisites": [
+              "eng-h-application-letter",
+              "eng-h-advanced-grammar"
+            ],
+            "courses": [
+              "eng-h-essay-writing"
+            ]
+          },
+          {
+            "id": "eng-h-listening-short-h",
+            "name": "短对话听力",
+            "points": [
+              "语言技能分理解性技能和表达性技能，具体包括听、说、读、看（viewing）、写等，学生基于语篇所开展的学习活动即是基于这些语言技能，理解语篇和对语篇作出回应的活动。",
+              "语言能力指在社会情境中，以听、说、读、看、写等方式理解和表达意义的能力，以及在学习和使用语言的过程中形成的语言意识和语感。",
+              "语篇类型包括口头和书面语篇以及不同的文体形式，如记叙文、说明文、议论文、应用文、访谈、对话等连续性文本。"
+            ],
+            "domain": "听力",
+            "courses": [
+              "eng-h-listening-short-h"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "physics",
+        "name": "高中物理",
+        "nodes": [
+          {
+            "id": "phy-h-motion-description",
+            "name": "运动的描述",
+            "points": [
+              "理解位移、速度和加速度。通过实验，探究匀变速直线运动的特点，能用公式、图像等方法描述匀变速直线运动。",
+              "能用位移、速度、加速度等物理量描述物体的直线运动，能用匀变速直线运动的规律解释或解决生活中的具体问题。",
+              "通过瞬时速度和加速度概念的建构，体会物理问题研究中的极限方法和抽象思维方法。"
+            ],
+            "domain": "运动学",
+            "semester": "上",
+            "courses": [
+              "phy-h-motion-description"
+            ]
+          },
+          {
+            "id": "phy-h-kinematics-linear",
+            "name": "直线运动综合",
+            "points": [
+              "理解位移、速度和加速度。通过实验，探究匀变速直线运动的特点，能用公式、图像等方法描述匀变速直线运动。",
+              "能用位移、速度、加速度等物理量描述物体的直线运动，能用匀变速直线运动的规律解释或解决生活中的具体问题。",
+              "通过瞬时速度和加速度概念的建构，体会物理问题研究中的极限方法和抽象思维方法。"
+            ],
+            "domain": "运动学",
+            "prerequisites": [
+              "phy-h-motion-description"
+            ],
+            "courses": [
+              "phy-h-kinematics-linear"
+            ]
+          },
+          {
+            "id": "phy-h-uniform-acceleration",
+            "name": "匀变速直线运动",
+            "points": [
+              "通过实验，探究匀变速直线运动的特点，能用公式、图像等方法描述匀变速直线运动，理解匀变速直线运动的规律，能运用其解决实际问题。",
+              "能用位移、速度、加速度等物理量描述物体的直线运动，能用匀变速直线运动的规律解释或解决生活中的具体问题。",
+              "用打点计时器、频闪照相或其他实验工具研究匀变速直线运动的规律。"
+            ],
+            "domain": "运动学",
+            "prerequisites": [
+              "phy-h-motion-description"
+            ],
+            "courses": [
+              "phy-h-uniform-acceleration"
+            ]
+          },
+          {
+            "id": "phy-h-free-fall",
+            "name": "自由落体运动",
+            "points": [
+              "通过实验，认识自由落体运动规律。结合物理学史的相关内容，认识物理实验与科学推理在物理学研究中的作用。",
+              "查阅资料，了解伽利略研究自由落体运动的实验和推理方法。",
+              "观察质量相同、大小和形状不同的物体在空气中下落的现象，了解空气阻力对落体运动的影响。"
+            ],
+            "domain": "运动学",
+            "prerequisites": [
+              "phy-h-uniform-acceleration"
+            ],
+            "courses": [
+              "phy-h-free-fall"
+            ]
+          },
+          {
+            "id": "phy-h-circular-motion",
+            "name": "圆周运动",
+            "points": [
+              "会用线速度、角速度、周期描述匀速圆周运动。知道匀速圆周运动向心加速度的大小和方向。",
+              "通过实验，探究并了解匀速圆周运动向心力大小与半径、角速度、质量的关系。",
+              "能用牛顿第二定律分析匀速圆周运动的向心力。了解生产生活中的离心现象及其产生的原因。"
+            ],
+            "domain": "运动学",
+            "prerequisites": [
+              "phy-h-uniform-acceleration"
+            ],
+            "courses": [
+              "phy-h-circular-motion"
+            ]
+          },
+          {
+            "id": "phy-h-common-forces",
+            "name": "常见的力",
+            "points": [
+              "认识重力、弹力与摩擦力。通过实验，了解胡克定律。知道滑动摩擦和静摩擦现象，能用动摩擦因数计算滑动摩擦力的大小。",
+              "能对物体的受力和运动情况进行分析，得出结论。能从物理学的运动与相互作用的视角分析自然与生活中的有关简单问题。"
+            ],
+            "domain": "相互作用与牛顿定律",
+            "prerequisites": [
+              "phy-h-motion-description"
+            ],
+            "courses": [
+              "phy-h-common-forces"
+            ]
+          },
+          {
+            "id": "phy-h-force-decomposition",
+            "name": "力的合成与分解",
+            "points": [
+              "通过实验，了解力的合成与分解，知道矢量和标量。能用共点力的平衡条件分析生产生活中的问题。",
+              "能对物体的受力和运动情况进行分析，得出结论。能从物理学的运动与相互作用的视角分析自然与生活中的有关简单问题。"
+            ],
+            "domain": "相互作用与牛顿定律",
+            "semester": "上",
+            "prerequisites": [
+              "phy-h-common-forces"
+            ],
+            "courses": [
+              "phy-h-force-decomposition"
+            ]
+          },
+          {
+            "id": "phy-h-newton-laws",
+            "name": "牛顿运动定律",
+            "points": [
+              "通过实验，探究物体运动的加速度与物体受力、物体质量的关系。理解牛顿运动定律，能用牛顿运动定律解释生产生活中的有关现象、解决有关问题。",
+              "能对物体的受力和运动情况进行分析，得出结论。能从物理学的运动与相互作用的视角分析自然与生活中的有关简单问题。",
+              "通过探究物体间相互作用与运动状态变化的关系等实验，引导学生运用控制变量等研究方法设计实验方案，学会分析和处理实验数据的方法，提高科学探究能力。"
+            ],
+            "domain": "相互作用与牛顿定律",
+            "semester": "上",
+            "prerequisites": [
+              "phy-h-force-decomposition",
+              "phy-h-uniform-acceleration"
+            ],
+            "courses": [
+              "phy-h-newton-laws"
+            ]
+          },
+          {
+            "id": "phy-h-projectile-motion",
+            "name": "抛体运动",
+            "points": [
+              "通过实验，探究并认识平抛运动的规律。会用运动合成与分解的方法分析平抛运动。",
+              "体会将复杂运动分解为简单运动的物理思想。能分析生产生活中的抛体运动。"
+            ],
+            "domain": "相互作用与牛顿定律",
+            "prerequisites": [
+              "phy-h-newton-laws"
+            ],
+            "courses": [
+              "phy-h-projectile-motion"
+            ]
+          },
+          {
+            "id": "phy-h-universal-gravitation",
+            "name": "万有引力定律",
+            "points": [
+              "通过史实，了解万有引力定律的发现过程。知道万有引力定律。认识发现万有引力定律的重要意义。",
+              "以万有引力定律为例，了解统一性观念在科学认识中的重要意义。",
+              "会计算人造地球卫星的环绕速度。知道第二宇宙速度和第三宇宙速度。"
+            ],
+            "domain": "相互作用与牛顿定律",
+            "prerequisites": [
+              "phy-h-newton-laws",
+              "phy-h-circular-motion"
+            ],
+            "courses": [
+              "phy-h-universal-gravitation"
+            ]
+          },
+          {
+            "id": "phy-h-gravitation",
+            "name": "引力综合",
+            "points": [
+              "通过史实，了解万有引力定律的发现过程。知道万有引力定律。认识发现万有引力定律的重要意义。",
+              "会计算人造地球卫星的环绕速度。知道第二宇宙速度和第三宇宙速度。",
+              "以万有引力定律为例，了解统一性观念在科学认识中的重要意义。"
+            ],
+            "domain": "相互作用与牛顿定律",
+            "prerequisites": [
+              "phy-h-universal-gravitation"
+            ],
+            "courses": [
+              "phy-h-gravitation"
+            ]
+          },
+          {
+            "id": "phy-h-satellite-motion",
+            "name": "卫星运动与航天",
+            "points": [
+              "会计算人造地球卫星的环绕速度。知道第二宇宙速度和第三宇宙速度。",
+              "通过史实，了解万有引力定律的发现过程。知道万有引力定律。认识发现万有引力定律的重要意义。",
+              "能用牛顿第二定律分析匀速圆周运动的向心力。了解生产生活中的离心现象及其产生的原因。"
+            ],
+            "domain": "相互作用与牛顿定律",
+            "prerequisites": [
+              "phy-h-universal-gravitation"
+            ],
+            "courses": [
+              "phy-h-satellite-motion"
+            ]
+          },
+          {
+            "id": "phy-h-work-concept",
+            "name": "功与功率",
+            "points": [
+              "理解功和功率。了解生产生活中常见机械的功率大小及其意义。",
+              "分析物体移动的方向与所受力的方向不在一条直线上时，该力所做的功。",
+              "分析汽车发动机的功率一定时，牵引力与速度的关系。"
+            ],
+            "domain": "功与能",
+            "prerequisites": [
+              "phy-h-newton-laws"
+            ],
+            "courses": [
+              "phy-h-work-concept"
+            ]
+          },
+          {
+            "id": "phy-h-work-energy",
+            "name": "功能关系综合",
+            "points": [
+              "理解功和功率。了解生产生活中常见机械的功率大小及其意义。",
+              "理解动能和动能定理。能用动能定理解释生产生活中的现象。",
+              "理解重力势能，知道重力势能的变化与重力做功的关系。定性了解弹性势能。"
+            ],
+            "domain": "功与能",
+            "prerequisites": [
+              "phy-h-work-concept"
+            ],
+            "courses": [
+              "phy-h-work-energy"
+            ]
+          },
+          {
+            "id": "phy-h-kinetic-energy-theorem",
+            "name": "动能定理",
+            "points": [
+              "理解动能和动能定理。能用动能定理解释生产生活中的现象。",
+              "根据牛顿第二定律推导出动能定理。"
+            ],
+            "domain": "功与能",
+            "prerequisites": [
+              "phy-h-work-concept"
+            ],
+            "courses": [
+              "phy-h-kinetic-energy-theorem"
+            ]
+          },
+          {
+            "id": "phy-h-potential-energy",
+            "name": "势能（重力/弹性）",
+            "points": [
+              "理解重力势能，知道重力势能的变化与重力做功的关系。定性了解弹性势能。",
+              "通过实验，验证机械能守恒定律。理解机械能守恒定律，体会守恒观念对认识物理规律的重要性。"
+            ],
+            "domain": "功与能",
+            "prerequisites": [
+              "phy-h-work-concept"
+            ],
+            "courses": [
+              "phy-h-potential-energy"
+            ]
+          },
+          {
+            "id": "phy-h-energy-conservation-mech",
+            "name": "机械能守恒定律",
+            "points": [
+              "通过实验，验证机械能守恒定律。理解机械能守恒定律，体会守恒观念对认识物理规律的重要性。",
+              "能用机械能守恒定律分析生产生活中的有关问题。"
+            ],
+            "domain": "功与能",
+            "prerequisites": [
+              "phy-h-kinetic-energy-theorem",
+              "phy-h-potential-energy"
+            ],
+            "courses": [
+              "phy-h-energy-conservation-mech"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "chemistry",
+        "name": "高中化学",
+        "nodes": [
+          {
+            "id": "chem-h-substance-classification-h",
+            "name": "物质的分类",
+            "points": [
+              "认识元素可以组成不同种类的物质，根据物质的组成和性质可以对物质进行分类。",
+              "能从不同层次认识物质的多样性，并对物质进行分类。"
+            ],
+            "domain": "物质的分类与化学用语",
+            "semester": "上",
+            "courses": [
+              "chem-h-substance-classification-h"
+            ]
+          },
+          {
+            "id": "chem-h-dispersion-system",
+            "name": "分散系（溶液/胶体）",
+            "points": [
+              "认识胶体是一种常见的分散系。",
+              "实验及探究活动：胶体的丁达尔实验；"
+            ],
+            "domain": "物质的分类与化学用语",
+            "prerequisites": [
+              "chem-h-substance-classification-h"
+            ],
+            "courses": [
+              "chem-h-dispersion-system"
+            ]
+          },
+          {
+            "id": "chem-h-mole-concept",
+            "name": "物质的量（摩尔）",
+            "points": [
+              "了解物质的量及其相关物理量的含义和应用，体会定量研究对化学科学的重要作用。",
+              "能基于物质的量认识物质组成及其化学变化，运用物质的量、摩尔质量、气体摩尔体积、物质的量浓度之间的相互关系进行简单计算。",
+              "学生必做实验：配制一定物质的量浓度的溶液。"
+            ],
+            "domain": "物质的分类与化学用语",
+            "courses": [
+              "chem-h-mole-concept"
+            ]
+          },
+          {
+            "id": "chem-h-gas-molar-volume",
+            "name": "气体摩尔体积",
+            "points": [
+              "了解物质的量及其相关物理量的含义和应用，体会定量研究对化学科学的重要作用。",
+              "能基于物质的量认识物质组成及其化学变化，运用物质的量、摩尔质量、气体摩尔体积、物质的量浓度之间的相互关系进行简单计算。"
+            ],
+            "domain": "物质的分类与化学用语",
+            "prerequisites": [
+              "chem-h-mole-concept"
+            ],
+            "courses": [
+              "chem-h-gas-molar-volume"
+            ]
+          },
+          {
+            "id": "chem-h-solution-concentration-h",
+            "name": "物质的量浓度",
+            "points": [
+              "了解物质的量及其相关物理量的含义和应用，体会定量研究对化学科学的重要作用。",
+              "能基于物质的量认识物质组成及其化学变化，运用物质的量、摩尔质量、气体摩尔体积、物质的量浓度之间的相互关系进行简单计算。",
+              "实验及探究活动：配制一定物质的量浓度的溶液。"
+            ],
+            "domain": "物质的分类与化学用语",
+            "prerequisites": [
+              "chem-h-mole-concept"
+            ],
+            "courses": [
+              "chem-h-solution-concentration-h"
+            ]
+          },
+          {
+            "id": "chem-h-electrolyte-concept",
+            "name": "电解质与非电解质",
+            "points": [
+              "认识酸、碱、盐等电解质在水溶液中或熔融状态下能发生电离。",
+              "通过实验事实认识离子反应及其发生的条件，了解常见离子的检验方法。",
+              "实验及探究活动：电解质的电离；探究溶液中离子反应的实质及发生条件（测定电流或溶液电导率的变化）。"
+            ],
+            "domain": "离子反应与电解质",
+            "prerequisites": [
+              "chem-h-substance-classification-h"
+            ],
+            "courses": [
+              "ext-58712846-conductivity-principle"
+            ]
+          },
+          {
+            "id": "chem-h-ionic-reactions-electrolyte",
+            "name": "电解质与离子反应综合",
+            "points": [
+              "认识酸、碱、盐等电解质在水溶液中或熔融状态下能发生电离。",
+              "通过实验事实认识离子反应及其发生的条件，了解常见离子的检验方法。",
+              "实验及探究活动：电解质的电离；探究溶液中离子反应的实质及发生条件（测定电流或溶液电导率的变化）。"
+            ],
+            "domain": "离子反应与电解质",
+            "prerequisites": [
+              "chem-h-electrolyte-concept"
+            ],
+            "courses": [
+              "chem-h-ionic-reactions-electrolyte"
+            ]
+          },
+          {
+            "id": "chem-h-ionic-equation",
+            "name": "离子方程式",
+            "points": [
+              "认识酸、碱、盐等电解质在水溶液中或熔融状态下能发生电离。",
+              "通过实验事实认识离子反应及其发生的条件，了解常见离子的检验方法。"
+            ],
+            "domain": "离子反应与电解质",
+            "prerequisites": [
+              "chem-h-electrolyte-concept"
+            ],
+            "courses": [
+              "chem-h-ionic-equation"
+            ]
+          },
+          {
+            "id": "chem-h-ion-identification",
+            "name": "离子检验与共存",
+            "points": [
+              "通过实验事实认识离子反应及其发生的条件，了解常见离子的检验方法。",
+              "能根据物质的特征反应和干扰因素选取适当的检验试剂。",
+              "常见离子的检验方法（如补铁剂中的铁元素）。"
+            ],
+            "domain": "离子反应与电解质",
+            "prerequisites": [
+              "chem-h-ionic-equation"
+            ],
+            "courses": [
+              "chem-h-ion-identification"
+            ]
+          },
+          {
+            "id": "chem-h-oxidation-reduction",
+            "name": "氧化还原反应概念",
+            "points": [
+              "认识有化合价变化的反应是氧化还原反应，了解氧化还原反应的本质是电子的转移，知道常见的氧化剂和还原剂。",
+              "氧化还原反应本质的探究；过氧化氢的氧化性、还原性的探究。"
+            ],
+            "domain": "氧化还原反应",
+            "prerequisites": [
+              "chem-h-ionic-equation"
+            ],
+            "courses": [
+              "chem-oxidation-reduction"
+            ]
+          },
+          {
+            "id": "chem-h-redox-equation",
+            "name": "氧化还原方程式配平",
+            "points": [
+              "认识有化合价变化的反应是氧化还原反应，了解氧化还原反应的本质是电子的转移，知道常见的氧化剂和还原剂。",
+              "氧化还原反应本质的探究；过氧化氢的氧化性、还原性的探究；"
+            ],
+            "domain": "氧化还原反应",
+            "prerequisites": [
+              "chem-h-oxidation-reduction"
+            ],
+            "courses": [
+              "chem-h-redox-equation"
+            ]
+          },
+          {
+            "id": "chem-h-sodium-compounds",
+            "name": "钠及其化合物",
+            "points": [
+              "结合真实情境中的应用实例或通过实验探究，了解钠、铁及其重要化合物的主要性质，了解这些物质在生产、生活中的应用。",
+              "实验及探究活动：金属钠的性质；碳酸钠与碳酸氢钠性质的比较；"
+            ],
+            "domain": "元素化合物",
+            "prerequisites": [
+              "chem-h-ionic-equation",
+              "chem-h-oxidation-reduction"
+            ],
+            "courses": [
+              "chem-h-sodium-compounds"
+            ]
+          },
+          {
+            "id": "chem-h-aluminum-compounds",
+            "name": "铝及其化合物",
+            "points": [
+              "结合真实情境中的应用实例或通过实验探究，了解钠、铁及其重要化合物的主要性质，了解这些物质在生产、生活中的应用。",
+              "铁及其化合物的性质实验；氢氧化亚铁的制备；"
+            ],
+            "domain": "元素化合物",
+            "prerequisites": [
+              "chem-h-sodium-compounds"
+            ],
+            "courses": [
+              "chem-h-aluminum-compounds"
+            ]
+          },
+          {
+            "id": "chem-h-iron-compounds",
+            "name": "铁及其化合物",
+            "points": [
+              "结合真实情境中的应用实例或通过实验探究，了解钠、铁及其重要化合物的主要性质，了解这些物质在生产、生活中的应用。",
+              "铁及其化合物的性质实验；氢氧化亚铁的制备；"
+            ],
+            "domain": "元素化合物",
+            "prerequisites": [
+              "chem-h-aluminum-compounds",
+              "chem-h-redox-equation"
+            ],
+            "courses": [
+              "chem-h-iron-compounds"
+            ]
+          },
+          {
+            "id": "chem-h-silicon-compounds",
+            "name": "硅及其化合物",
+            "points": [
+              "结合真实情境中的应用实例或通过实验探究，了解氯、氮、硫及其重要化合物的主要性质，认识这些物质在生产中的应用和对生态环境的影响。",
+              "认识元素可以组成不同种类的物质，根据物质的组成和性质可以对物质进行分类；同类物质具有相似的性质，一定条件下各类物质可以相互转化。",
+              "紧密联系生产和生活实际，创设丰富多样的真实问题情境。"
+            ],
+            "domain": "元素化合物",
+            "prerequisites": [
+              "chem-h-ionic-equation"
+            ],
+            "courses": [
+              "chem-h-silicon-compounds"
+            ]
+          },
+          {
+            "id": "chem-h-chlorine-compounds",
+            "name": "氯及其化合物",
+            "points": [
+              "结合真实情境中的应用实例或通过实验探究，了解氯、氮、硫及其重要化合物的主要性质，认识这些物质在生产中的应用和对生态环境的影响。",
+              "氯气的制备及性质；氯水的性质及成分探究；"
+            ],
+            "domain": "元素化合物",
+            "prerequisites": [
+              "chem-h-redox-equation"
+            ],
+            "courses": [
+              "chem-titration-agno3"
+            ]
+          },
+          {
+            "id": "chem-h-sulfur-nitrogen",
+            "name": "硫和氮及其化合物",
+            "points": [
+              "结合真实情境中的应用实例或通过实验探究，了解氯、氮、硫及其重要化合物的主要性质，认识这些物质在生产中的应用和对生态环境的影响。",
+              "不同价态含硫物质的转化。",
+              "氮氧化物的性质与转化；浓、稀硝酸的性质；氨气的制备及性质；铵盐的性质。"
+            ],
+            "domain": "元素化合物",
+            "prerequisites": [
+              "chem-h-chlorine-compounds"
+            ],
+            "courses": [
+              "chem-h-sulfur-nitrogen"
+            ]
+          },
+          {
+            "id": "chem-h-atom-structure-h",
+            "name": "原子结构",
+            "points": [
+              "认识化学是在原子、分子水平上研究物质的组成、结构、性质、转化及其应用的一门基础学科，其特征是认识物质和创造物质。",
+              "能从元素和原子、分子水平认识物质的组成、结构、性质和变化，形成“结构决定性质”的观念。",
+              "有关理论、模型不断发展的史实：苯分子结构、原子结构模型、氧化还原反应理论等。"
+            ],
+            "domain": "原子结构与周期律",
+            "semester": "上",
+            "courses": [
+              "chem-h-atom-structure-h"
+            ]
+          },
+          {
+            "id": "chem-h-periodic-law",
+            "name": "元素周期律",
+            "points": [
+              "主题1：化学科学与实验探究【教学提示】情境素材建议：有关化学发现的故事：元素周期律的发展等。",
+              "素养1 宏观辨识与微观探析：能从元素和原子、分子水平认识物质的组成、结构、性质和变化，形成“结构决定性质”的观念。",
+              "课程目标1：能从物质的微观层面理解其组成、结构和性质的联系，形成“结构决定性质，性质决定应用”的观念。"
+            ],
+            "domain": "原子结构与周期律",
+            "prerequisites": [
+              "chem-h-atom-structure-h"
+            ],
+            "courses": [
+              "chem-h-periodic-law"
+            ]
+          },
+          {
+            "id": "chem-h-periodic-table-h",
+            "name": "元素周期表",
+            "points": [
+              "认识元素可以组成不同种类的物质，根据物质的组成和性质可以对物质进行分类；同类物质具有相似的性质。",
+              "能从元素和原子、分子水平认识物质的组成、结构、性质和变化，形成“结构决定性质”的观念。"
+            ],
+            "domain": "原子结构与周期律",
+            "semester": "上",
+            "prerequisites": [
+              "chem-h-periodic-law"
+            ],
+            "courses": [
+              "chem-h-periodic-table-h"
+            ]
+          },
+          {
+            "id": "chem-h-chemical-bond",
+            "name": "化学键",
+            "points": [
+              "认识化学是在原子、分子水平上研究物质的组成、结构、性质、转化及其应用的一门基础学科。",
+              "能从元素和原子、分子水平认识物质的组成、结构、性质和变化，形成“结构决定性质”的观念。"
+            ],
+            "domain": "原子结构与周期律",
+            "semester": "下",
+            "prerequisites": [
+              "chem-h-periodic-table-h"
+            ],
+            "courses": [
+              "chem-h-chemical-bond"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "biology",
+        "name": "高中生物",
+        "nodes": [
+          {
+            "id": "bio-h-cell-structure",
+            "name": "细胞总论",
+            "points": [
+              "1.2.2 阐明细胞内具有多个相对独立的结构，担负着物质运输、合成与分解、能量转换和信息传递等生命活动",
+              "1.3.1 说明有些生物体只有一个细胞，而有的由很多细胞构成，这些细胞形态和功能多样，但都具有相似的基本结构",
+              "建构并使用细胞模型，阐明细胞各部分结构通过分工与合作，形成相互协调的有机整体，实现细胞水平的各项生命活动"
+            ],
+            "domain": "细胞的结构",
+            "courses": [
+              "bio-h-cell-structure"
+            ]
+          },
+          {
+            "id": "bio-h-elements-compounds",
+            "name": "组成细胞的元素与化合物",
+            "points": [
+              "说出细胞主要由C、H、O、N、P、S等元素构成，它们以碳链为骨架形成复杂的生物大分子",
+              "概述糖类有多种类型，它们既是细胞的重要结构成分，又是生命活动的主要能源物质",
+              "阐明蛋白质通常由20种氨基酸分子组成，它的功能取决于氨基酸序列及其形成的空间结构，细胞的功能主要由蛋白质完成"
+            ],
+            "domain": "细胞的结构",
+            "prerequisites": [
+              "bio-h-cell-structure"
+            ],
+            "courses": [
+              "bio-h-elements-compounds"
+            ]
+          },
+          {
+            "id": "bio-h-protein-nucleic-acid",
+            "name": "蛋白质与核酸",
+            "points": [
+              "阐明蛋白质通常由20种氨基酸分子组成，它的功能取决于氨基酸序列及其形成的空间结构，细胞的功能主要由蛋白质完成",
+              "概述核酸由核苷酸聚合而成，是储存与传递遗传信息的生物大分子"
+            ],
+            "domain": "细胞的结构",
+            "prerequisites": [
+              "bio-h-elements-compounds"
+            ],
+            "courses": [
+              "bio-h-protein-nucleic-acid"
+            ]
+          },
+          {
+            "id": "bio-h-sugar-lipid",
+            "name": "糖类与脂质",
+            "points": [
+              "概述糖类有多种类型，它们既是细胞的重要结构成分，又是生命活动的主要能源物质",
+              "举例说出不同种类的脂质对维持细胞结构和功能有重要作用"
+            ],
+            "domain": "细胞的结构",
+            "prerequisites": [
+              "bio-h-elements-compounds"
+            ],
+            "courses": [
+              "bio-h-sugar-lipid"
+            ]
+          },
+          {
+            "id": "bio-h-cell-membrane",
+            "name": "细胞膜结构",
+            "points": [
+              "1.2.1 概述细胞都由质膜包裹，质膜将细胞与其生活环境分开，能控制物质进出，并参与细胞间的信息交流",
+              "建构并使用细胞模型，阐明细胞各部分结构通过分工与合作，形成相互协调的有机整体，实现细胞水平的各项生命活动",
+              "尝试制作真核细胞的结构模型"
+            ],
+            "domain": "细胞的结构",
+            "prerequisites": [
+              "bio-h-protein-nucleic-acid",
+              "bio-h-sugar-lipid"
+            ],
+            "courses": [
+              "bio-h-cell-membrane"
+            ]
+          },
+          {
+            "id": "bio-h-organelles",
+            "name": "细胞器",
+            "points": [
+              "阐明细胞内具有多个相对独立的结构，担负着物质运输、合成与分解、能量转换和信息传递等生命活动",
+              "举例说明细胞各部分结构之间相互联系、协调一致，共同执行细胞的各项生命活动",
+              "建构并使用细胞模型，阐明细胞各部分结构通过分工与合作，形成相互协调的有机整体，实现细胞水平的各项生命活动"
+            ],
+            "domain": "细胞的结构",
+            "prerequisites": [
+              "bio-h-cell-membrane"
+            ],
+            "courses": [
+              "bio-h-organelles"
+            ]
+          },
+          {
+            "id": "bio-h-endomembrane-system",
+            "name": "生物膜系统",
+            "points": [
+              "阐明细胞内具有多个相对独立的结构，担负着物质运输、合成与分解、能量转换和信息传递等生命活动",
+              "举例说明细胞各部分结构之间相互联系、协调一致，共同执行细胞的各项生命活动"
+            ],
+            "domain": "细胞的结构",
+            "prerequisites": [
+              "bio-h-organelles"
+            ],
+            "courses": [
+              "bio-h-endomembrane-system"
+            ]
+          },
+          {
+            "id": "bio-h-nucleus",
+            "name": "细胞核",
+            "points": [
+              "1.2.3 阐明遗传信息主要储存在细胞核中",
+              "建构并使用细胞模型，阐明细胞各部分结构通过分工与合作，形成相互协调的有机整体，实现细胞水平的各项生命活动"
+            ],
+            "domain": "细胞的结构",
+            "prerequisites": [
+              "bio-h-organelles"
+            ],
+            "courses": [
+              "bio-h-nucleus"
+            ]
+          },
+          {
+            "id": "bio-h-prokaryote-eukaryote",
+            "name": "原核细胞与真核细胞",
+            "points": [
+              "描述原核细胞与真核细胞的最大区别是原核细胞没有由核膜包被的细胞核",
+              "观察多种多样的细胞，说明这些细胞具有多种形态和功能，但同时又都具有相似的基本结构"
+            ],
+            "domain": "细胞的结构",
+            "prerequisites": [
+              "bio-h-nucleus"
+            ],
+            "courses": [
+              "bio-h-prokaryote-eukaryote"
+            ]
+          },
+          {
+            "id": "bio-h-cell-metabolism",
+            "name": "细胞代谢总论",
+            "points": [
+              "阐明ATP是驱动细胞生命活动的直接能源物质。",
+              "说明植物细胞的叶绿体从太阳光中捕获能量，这些能量在二氧化碳和水转变为糖与氧气的过程中，转换并储存为糖分子中的化学能。",
+              "说明生物通过细胞呼吸将储存在有机分子中的能量转化为生命活动可以利用的能量。"
+            ],
+            "domain": "细胞代谢",
+            "prerequisites": [
+              "bio-h-cell-membrane"
+            ],
+            "courses": [
+              "bio-h-cell-metabolism"
+            ]
+          },
+          {
+            "id": "bio-h-transport-across-membrane",
+            "name": "物质跨膜运输",
+            "points": [
+              "阐明质膜具有选择透过性",
+              "举例说明有些物质顺浓度梯度进出细胞，不需要额外提供能量；有些物质逆浓度梯度进出细胞，需要能量和载体蛋白",
+              "举例说明大分子物质可以通过胞吞、胞吐进出细胞"
+            ],
+            "domain": "细胞代谢",
+            "prerequisites": [
+              "bio-h-cell-membrane"
+            ],
+            "courses": [
+              "bio-h-transport-across-membrane"
+            ]
+          },
+          {
+            "id": "bio-h-enzyme",
+            "name": "酶",
+            "points": [
+              "2.2.1 说明绝大多数酶是一类能催化生化反应的蛋白质，酶活性受到环境因素（如pH和温度等）的影响",
+              "探究酶催化的专一性、高效性及影响酶活性的因素"
+            ],
+            "domain": "细胞代谢",
+            "prerequisites": [
+              "bio-h-transport-across-membrane"
+            ],
+            "courses": [
+              "bio-h-enzyme"
+            ]
+          },
+          {
+            "id": "bio-h-atp",
+            "name": "ATP 与能量代谢",
+            "points": [
+              "解释ATP是驱动细胞生命活动的直接能源物质",
+              "从物质与能量视角，探索光合作用与呼吸作用，阐明细胞生命活动过程中贯穿着物质与能量的变化"
+            ],
+            "domain": "细胞代谢",
+            "prerequisites": [
+              "bio-h-enzyme"
+            ],
+            "courses": [
+              "bio-h-atp"
+            ]
+          },
+          {
+            "id": "bio-h-cellular-respiration",
+            "name": "细胞呼吸",
+            "points": [
+              "说明生物通过细胞呼吸将储存在有机分子中的能量转化为生命活动可以利用的能量",
+              "从物质与能量视角，探索光合作用与呼吸作用，阐明细胞生命活动过程中贯穿着物质与能量的变化"
+            ],
+            "domain": "细胞代谢",
+            "prerequisites": [
+              "bio-h-atp"
+            ],
+            "courses": [
+              "bio-h-cellular-respiration"
+            ]
+          },
+          {
+            "id": "bio-h-photosynthesis",
+            "name": "光合作用",
+            "points": [
+              "说明植物细胞的叶绿体从太阳光中捕获能量，这些能量在二氧化碳和水转变为糖与氧气的过程中，转换并储存为糖分子中的化学能",
+              "从物质与能量视角，探索光合作用与呼吸作用，阐明细胞生命活动过程中贯穿着物质与能量的变化",
+              "探究不同环境因素对光合作用的影响"
+            ],
+            "domain": "细胞代谢",
+            "prerequisites": [
+              "bio-h-atp"
+            ],
+            "courses": [
+              "bio-h-photosynthesis"
+            ]
+          },
+          {
+            "id": "bio-h-photosynthesis-respiration-relation",
+            "name": "光合与呼吸的关系",
+            "points": [
+              "从物质与能量视角，探索光合作用与呼吸作用，阐明细胞生命活动过程中贯穿着物质与能量的变化",
+              "说明植物细胞的叶绿体从太阳光中捕获能量，这些能量在二氧化碳和水转变为糖与氧气的过程中，转换并储存为糖分子中的化学能",
+              "说明生物通过细胞呼吸将储存在有机分子中的能量转化为生命活动可以利用的能量"
+            ],
+            "domain": "细胞代谢",
+            "prerequisites": [
+              "bio-h-cellular-respiration",
+              "bio-h-photosynthesis"
+            ],
+            "courses": [
+              "bio-h-photosynthesis-respiration-relation"
+            ]
+          },
+          {
+            "id": "bio-h-cell-division",
+            "name": "细胞分裂综合",
+            "points": [
+              "2.3.1 描述细胞通过不同的方式进行分裂，其中有丝分裂保证了遗传信息在亲代和子代细胞中的一致性",
+              "观察处于细胞周期不同阶段的细胞，结合有丝分裂模型，描述细胞增殖的主要特征",
+              "制作和观察根尖细胞有丝分裂简易装片，或观察其永久装片"
+            ],
+            "domain": "细胞的生命历程",
+            "prerequisites": [
+              "bio-h-nucleus"
+            ],
+            "courses": [
+              "bio-h-cell-division-demo"
+            ]
+          },
+          {
+            "id": "bio-h-cell-cycle",
+            "name": "细胞周期",
+            "points": [
+              "2.3.1 描述细胞通过不同的方式进行分裂，其中有丝分裂保证了遗传信息在亲代和子代细胞中的一致性",
+              "观察处于细胞周期不同阶段的细胞，结合有丝分裂模型，描述细胞增殖的主要特征"
+            ],
+            "domain": "细胞的生命历程",
+            "prerequisites": [
+              "bio-h-photosynthesis-respiration-relation"
+            ],
+            "courses": [
+              "bio-h-cell-cycle"
+            ]
+          },
+          {
+            "id": "bio-h-mitosis",
+            "name": "有丝分裂",
+            "points": [
+              "描述细胞通过不同的方式进行分裂，其中有丝分裂保证了遗传信息在亲代和子代细胞中的一致性。",
+              "观察处于细胞周期不同阶段的细胞，结合有丝分裂模型，描述细胞增殖的主要特征。",
+              "制作和观察根尖细胞有丝分裂简易装片，或观察其永久装片。"
+            ],
+            "domain": "细胞的生命历程",
+            "prerequisites": [
+              "bio-h-cell-cycle"
+            ],
+            "courses": [
+              "bio-h-mitosis"
+            ]
+          },
+          {
+            "id": "bio-h-meiosis",
+            "name": "减数分裂",
+            "points": [
+              "本模块选取的减数分裂和受精作用、DNA分子的结构和功能、遗传和变异的基本原理及应用等知识，主要是从细胞水平和分子水平阐述生命的延续性",
+              "描述细胞通过不同的方式进行分裂，其中有丝分裂保证了遗传信息在亲代和子代细胞中的一致性"
+            ],
+            "domain": "细胞的生命历程",
+            "prerequisites": [
+              "bio-h-mitosis"
+            ],
+            "courses": [
+              "bio-meiosis"
+            ]
+          },
+          {
+            "id": "bio-h-cell-differentiation",
+            "name": "细胞分化",
+            "points": [
+              "说明在个体发育过程中，细胞在形态、结构和功能方面发生特异性的分化，形成了复杂的多细胞生物体。",
+              "观察处于细胞周期不同阶段的细胞，结合有丝分裂模型，描述细胞增殖的主要特征，并举例说明细胞的分化、衰老、死亡等生命现象。"
+            ],
+            "domain": "细胞的生命历程",
+            "prerequisites": [
+              "bio-h-mitosis"
+            ],
+            "courses": [
+              "bio-h-cell-differentiation"
+            ]
+          },
+          {
+            "id": "bio-h-stem-cell",
+            "name": "干细胞",
+            "points": [
+              "2.3.2 说明在个体发育过程中，细胞在形态、结构和功能方面发生特异性的分化，形成了复杂的多细胞生物体",
+              "观察处于细胞周期不同阶段的细胞，结合有丝分裂模型，描述细胞增殖的主要特征，并举例说明细胞的分化、衰老、死亡等生命现象"
+            ],
+            "domain": "细胞的生命历程",
+            "prerequisites": [
+              "bio-h-cell-differentiation"
+            ],
+            "courses": [
+              "bio-h-stem-cell"
+            ]
+          },
+          {
+            "id": "bio-h-cell-aging-apoptosis",
+            "name": "细胞衰老与凋亡",
+            "points": [
+              "描述在正常情况下，细胞衰老和死亡是一种自然的生理过程",
+              "观察处于细胞周期不同阶段的细胞，结合有丝分裂模型，描述细胞增殖的主要特征，并举例说明细胞的分化、衰老、死亡等生命现象"
+            ],
+            "domain": "细胞的生命历程",
+            "prerequisites": [
+              "bio-h-stem-cell"
+            ],
+            "courses": [
+              "bio-h-cell-aging-apoptosis"
+            ]
+          },
+          {
+            "id": "bio-h-cancer-cell",
+            "name": "癌细胞与癌症防治",
+            "points": [
+              "2.3.3 描述在正常情况下，细胞衰老和死亡是一种自然的生理过程",
+              "观察处于细胞周期不同阶段的细胞，结合有丝分裂模型，描述细胞增殖的主要特征，并举例说明细胞的分化、衰老、死亡等生命现象"
+            ],
+            "domain": "细胞的生命历程",
+            "prerequisites": [
+              "bio-h-cell-aging-apoptosis"
+            ],
+            "courses": [
+              "bio-h-cancer-cell"
+            ]
+          },
+          {
+            "id": "bio-h-genetics-mendel",
+            "name": "孟德尔遗传综合",
+            "points": [
+              "概述DNA分子上的遗传信息通过RNA指导蛋白质的合成，遗传信息控制生物性状，并代代相传。",
+              "本模块包括遗传的细胞基础、遗传的分子基础、遗传的基本规律、生物的变异和生物的进化等内容。"
+            ],
+            "domain": "孟德尔遗传定律",
+            "prerequisites": [
+              "bio-h-meiosis"
+            ],
+            "courses": [
+              "bio-h-genetics-mendel"
+            ]
+          },
+          {
+            "id": "bio-h-mendel-law-1",
+            "name": "分离定律",
+            "points": [
+              "概述DNA分子上的遗传信息通过RNA指导蛋白质的合成",
+              "本模块包括遗传的细胞基础、遗传的分子基础、遗传的基本规律、生物的变异和生物的进化等内容"
+            ],
+            "domain": "孟德尔遗传定律",
+            "prerequisites": [
+              "bio-h-meiosis"
+            ],
+            "courses": [
+              "bio-h-mendel-law-1"
+            ]
+          },
+          {
+            "id": "bio-h-mendel-law-2",
+            "name": "自由组合定律",
+            "points": [
+              "概述DNA分子上的遗传信息通过RNA指导蛋白质的合成，遗传信息控制生物性状，并代代相传。",
+              "本模块包括遗传的细胞基础、遗传的分子基础、遗传的基本规律、生物的变异和生物的进化等内容。"
+            ],
+            "domain": "孟德尔遗传定律",
+            "prerequisites": [
+              "bio-h-mendel-law-1"
+            ],
+            "courses": [
+              "bio-h-mendel-law-2"
+            ]
+          },
+          {
+            "id": "bio-h-sex-linked-inheritance",
+            "name": "伴性遗传",
+            "points": [
+              "3.2.3 举例说明性染色体上的基因传递和性别相关联",
+              "阐明有性生殖中基因的分离和自由组合使得子代的基因型和表型有多种可能，并可由此预测子代的遗传性状"
+            ],
+            "domain": "孟德尔遗传定律",
+            "prerequisites": [
+              "bio-h-mendel-law-2"
+            ],
+            "courses": [
+              "bio-h-sex-linked-inheritance"
+            ]
+          },
+          {
+            "id": "bio-h-human-genetics",
+            "name": "人类遗传病",
+            "points": [
+              "本模块包括遗传的细胞基础、遗传的分子基础、遗传的基本规律、生物的变异和生物的进化等内容。",
+              "本模块选取的减数分裂和受精作用、DNA分子的结构和功能、遗传和变异的基本原理及应用等知识，主要是从细胞水平和分子水平阐述生命的延续性。"
+            ],
+            "domain": "孟德尔遗传定律",
+            "prerequisites": [
+              "bio-h-sex-linked-inheritance"
+            ],
+            "courses": [
+              "bio-h-human-genetics"
+            ]
+          },
+          {
+            "id": "bio-h-dna-gene",
+            "name": "DNA 与基因综合",
+            "points": [
+              "概述DNA分子是由四种脱氧核苷酸构成，通常由两条碱基互补配对的反向平行长链形成双螺旋结构，碱基的排列顺序编码了遗传信息",
+              "概述DNA分子通过半保留方式进行复制",
+              "概述DNA分子上的遗传信息通过RNA指导蛋白质的合成"
+            ],
+            "domain": "基因的分子基础",
+            "prerequisites": [
+              "bio-h-human-genetics"
+            ],
+            "courses": [
+              "bio-h-dna-gene"
+            ]
+          },
+          {
+            "id": "bio-h-dna-is-genetic-material",
+            "name": "DNA 是遗传物质",
+            "points": [
+              "概述多数生物的基因是DNA分子的功能片段，有些病毒的基因在RNA分子上",
+              "概述DNA分子是由四种脱氧核苷酸构成，通常由两条碱基互补配对的反向平行长链形成双螺旋结构，碱基的排列顺序编码了遗传信息"
+            ],
+            "domain": "基因的分子基础",
+            "prerequisites": [
+              "bio-h-human-genetics"
+            ],
+            "courses": [
+              "bio-h-dna-is-genetic-material"
+            ]
+          },
+          {
+            "id": "bio-h-dna-structure",
+            "name": "DNA 分子结构",
+            "points": [
+              "概述DNA分子是由四种脱氧核苷酸构成，通常由两条碱基互补配对的反向平行长链形成双螺旋结构，碱基的排列顺序编码了遗传信息",
+              "亲代传递给子代的遗传信息主要编码在DNA分子上"
+            ],
+            "domain": "基因的分子基础",
+            "prerequisites": [
+              "bio-h-dna-is-genetic-material"
+            ],
+            "courses": [
+              "bio-h-dna-structure"
+            ]
+          },
+          {
+            "id": "bio-h-dna-replication",
+            "name": "DNA 复制",
+            "points": [
+              "概述DNA分子通过半保留方式进行复制",
+              "概述DNA分子是由四种脱氧核苷酸构成，通常由两条碱基互补配对的反向平行长链形成双螺旋结构，碱基的排列顺序编码了遗传信息"
+            ],
+            "domain": "基因的分子基础",
+            "prerequisites": [
+              "bio-h-dna-structure"
+            ],
+            "courses": [
+              "bio-h-dna-replication"
+            ]
+          },
+          {
+            "id": "bio-h-gene-concept",
+            "name": "基因的概念与表达",
+            "points": [
+              "概述多数生物的基因是DNA分子的功能片段，有些病毒的基因在RNA分子上",
+              "概述DNA分子是由四种脱氧核苷酸构成，通常由两条碱基互补配对的反向平行长链形成双螺旋结构，碱基的排列顺序编码了遗传信息"
+            ],
+            "domain": "基因的分子基础",
+            "prerequisites": [
+              "bio-h-dna-replication"
+            ],
+            "courses": [
+              "bio-h-gene-concept"
+            ]
+          },
+          {
+            "id": "bio-h-gene-to-protein",
+            "name": "从基因到蛋白质",
+            "points": [
+              "概述DNA分子上的遗传信息通过RNA指导蛋白质的合成",
+              "概述多数生物的基因是DNA分子的功能片段，有些病毒的基因在RNA分子上",
+              "概述DNA分子是由四种脱氧核苷酸构成，通常由两条碱基互补配对的反向平行长链形成双螺旋结构，碱基的排列顺序编码了遗传信息"
+            ],
+            "domain": "基因的分子基础",
+            "prerequisites": [
+              "bio-h-gene-concept"
+            ],
+            "courses": [
+              "bio-h-gene-to-protein"
+            ]
+          },
+          {
+            "id": "bio-h-gene-regulation",
+            "name": "基因表达调控",
+            "points": [
+              "概述DNA分子上的遗传信息通过RNA指导蛋白质的合成",
+              "概述多数生物的基因是DNA分子的功能片段，有些病毒的基因在RNA分子上"
+            ],
+            "domain": "基因的分子基础",
+            "prerequisites": [
+              "bio-h-gene-to-protein"
+            ],
+            "courses": [
+              "bio-h-gene-regulation"
+            ]
+          },
+          {
+            "id": "bio-h-genetic-variation",
+            "name": "遗传变异综合",
+            "points": [
+              "本模块包括遗传的细胞基础、遗传的分子基础、遗传的基本规律、生物的变异和生物的进化等内容。",
+              "生物通过生殖、发育和遗传实现生命的延续和种族的繁衍，通过进化形成物种多样性和适应性，进化的本质是遗传物质的改变。",
+              "选取的现代生物进化理论和物种形成等知识，主要是为了阐明生物进化的过程和原因。"
+            ],
+            "domain": "变异与进化",
+            "prerequisites": [
+              "bio-h-gene-regulation"
+            ],
+            "courses": [
+              "bio-h-genetic-variation"
+            ]
+          },
+          {
+            "id": "bio-h-gene-mutation",
+            "name": "基因突变",
+            "points": [
+              "概念3 遗传信息控制生物性状，并代代相传 3.1 亲代传递给子代的遗传信息主要编码在DNA分子上",
+              "本模块包括遗传的细胞基础、遗传的分子基础、遗传的基本规律、生物的变异和生物的进化等内容。"
+            ],
+            "domain": "变异与进化",
+            "prerequisites": [
+              "bio-h-gene-regulation"
+            ],
+            "courses": [
+              "bio-h-gene-mutation"
+            ]
+          },
+          {
+            "id": "bio-h-chromosome-variation",
+            "name": "染色体变异",
+            "points": [
+              "本模块包括遗传的细胞基础、遗传的分子基础、遗传的基本规律、生物的变异和生物的进化等内容。",
+              "本模块选取的减数分裂和受精作用、DNA分子的结构和功能、遗传和变异的基本原理及应用等知识，主要是从细胞水平和分子水平阐述生命的延续性；"
+            ],
+            "domain": "变异与进化",
+            "prerequisites": [
+              "bio-h-gene-mutation"
+            ],
+            "courses": [
+              "bio-h-chromosome-variation"
+            ]
+          },
+          {
+            "id": "bio-h-breeding",
+            "name": "育种",
+            "points": [
+              "本模块包括遗传的细胞基础、遗传的分子基础、遗传的基本规律、生物的变异和生物的进化等内容。",
+              "本模块选取的减数分裂和受精作用、DNA分子的结构和功能、遗传和变异的基本原理及应用等知识，主要是从细胞水平和分子水平阐述生命的延续性；"
+            ],
+            "domain": "变异与进化",
+            "prerequisites": [
+              "bio-h-chromosome-variation"
+            ],
+            "courses": [
+              "bio-h-breeding"
+            ]
+          },
+          {
+            "id": "bio-h-evolution-evidence",
+            "name": "生物进化的证据",
+            "points": [
+              "本模块包括遗传的细胞基础、遗传的分子基础、遗传的基本规律、生物的变异和生物的进化等内容。",
+              "选取的现代生物进化理论和物种形成等知识，主要是为了阐明生物进化的过程和原因。"
+            ],
+            "domain": "变异与进化",
+            "prerequisites": [
+              "bio-h-breeding"
+            ],
+            "courses": [
+              "bio-h-evolution-evidence"
+            ]
+          },
+          {
+            "id": "bio-h-natural-selection",
+            "name": "自然选择与适应",
+            "points": [
+              "本模块包括遗传的细胞基础、遗传的分子基础、遗传的基本规律、生物的变异和生物的进化等内容。",
+              "选取的现代生物进化理论和物种形成等知识，主要是为了阐明生物进化的过程和原因。"
+            ],
+            "domain": "变异与进化",
+            "prerequisites": [
+              "bio-h-evolution-evidence"
+            ],
+            "courses": [
+              "bio-h-natural-selection"
+            ]
+          },
+          {
+            "id": "bio-h-speciation",
+            "name": "物种形成",
+            "points": [
+              "选取的现代生物进化理论和物种形成等知识，主要是为了阐明生物进化的过程和原因。",
+              "本模块包括遗传的细胞基础、遗传的分子基础、遗传的基本规律、生物的变异和生物的进化等内容。"
+            ],
+            "domain": "变异与进化",
+            "prerequisites": [
+              "bio-h-natural-selection"
+            ],
+            "courses": [
+              "bio-h-speciation"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "geography",
+        "name": "高中地理",
+        "nodes": [
+          {
+            "id": "geo-h-earth-in-universe",
+            "name": "地球的宇宙环境",
+            "points": [
+              "运用资料，描述地球所处的宇宙环境，说明太阳对地球的影响。",
+              "了解基本的地球科学知识，理解一些自然地理现象的过程与原理。"
+            ],
+            "domain": "地球与宇宙环境",
+            "courses": [
+              "geo-h-earth-in-universe"
+            ]
+          },
+          {
+            "id": "geo-h-earth-rotation",
+            "name": "地球的自转（地方时/地转偏向力）",
+            "points": [
+              "结合实例，说明地球运动的地理意义。",
+              "结合地球运动、自然环境要素的物质运动和能量交换，以及自然地理基本过程，分析现实世界的一些自然现象、过程及其对人类活动的影响。"
+            ],
+            "domain": "地球与宇宙环境",
+            "prerequisites": [
+              "geo-h-earth-in-universe"
+            ],
+            "courses": [
+              "geo-h-earth-rotation"
+            ]
+          },
+          {
+            "id": "geo-h-earth-revolution",
+            "name": "地球的公转（黄赤交角/正午太阳高度）",
+            "points": [
+              "结合实例，说明地球运动的地理意义。",
+              "结合地球运动、自然环境要素的物质运动和能量交换，以及自然地理基本过程，分析现实世界的一些自然现象、过程及其对人类活动的影响。"
+            ],
+            "domain": "地球与宇宙环境",
+            "prerequisites": [
+              "geo-h-earth-rotation"
+            ],
+            "courses": [
+              "geo-h-earth-revolution"
+            ]
+          },
+          {
+            "id": "geo-h-earth-motion",
+            "name": "地球运动综合",
+            "points": [
+              "结合实例，说明地球运动的地理意义。",
+              "结合地球运动、自然环境要素的物质运动和能量交换，以及自然地理基本过程，分析现实世界的一些自然现象、过程及其对人类活动的影响。"
+            ],
+            "domain": "地球与宇宙环境",
+            "prerequisites": [
+              "geo-h-earth-revolution"
+            ],
+            "courses": [
+              "geo-h-earth-motion"
+            ]
+          },
+          {
+            "id": "geo-h-earth-structure",
+            "name": "地球的内部圈层与结构",
+            "points": [
+              "运用示意图，说明地球的圈层结构。",
+              "能够运用地球科学的基础知识，说明一些自然现象之间的关系和变化过程。"
+            ],
+            "domain": "地球与宇宙环境",
+            "prerequisites": [
+              "geo-h-earth-in-universe"
+            ],
+            "courses": [
+              "geo-h-earth-structure"
+            ]
+          },
+          {
+            "id": "geo-h-atmosphere",
+            "name": "大气圈综合",
+            "points": [
+              "运用示意图等，说明大气受热过程与热力环流原理, 并解释相关现象。",
+              "运用示意图，分析锋、低压（气旋）、高压（反气旋）等天气系统，并运用简易天气图，解释常见天气现象的成因。",
+              "运用示意图，说明气压带、风带的分布，并分析气压带、风带对气候形成的作用，以及气候对自然地理景观形成的影响。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-earth-rotation"
+            ],
+            "courses": [
+              "geo-h-atmosphere"
+            ]
+          },
+          {
+            "id": "geo-h-atmospheric-heating",
+            "name": "大气的受热过程",
+            "points": [
+              "运用示意图等，说明大气受热过程与热力环流原理, 并解释相关现象。",
+              "能够运用地球科学的基础知识，说明一些自然现象之间的关系和变化过程（综合思维）。",
+              "以认识自然地理要素及其与人类活动的关系为线索组织教学。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-atmosphere"
+            ],
+            "courses": [
+              "geo-h-atmospheric-heating"
+            ]
+          },
+          {
+            "id": "geo-h-atmospheric-circulation",
+            "name": "大气环流（三圈环流）",
+            "points": [
+              "运用示意图，说明气压带、风带的分布，并分析气压带、风带对气候形成的作用，以及气候对自然地理景观形成的影响。",
+              "能够运用地球运动、自然环境的整体性等知识，说明自然环境与人类活动之间的关系，以及尊重自然规律的重要性。",
+              "以自然环境系统及其要素发展、演变过程对人类活动的影响为线索组织教学。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-atmospheric-heating"
+            ],
+            "courses": [
+              "geo-h-atmospheric-circulation"
+            ]
+          },
+          {
+            "id": "geo-h-global-circulation",
+            "name": "全球性大气环流",
+            "points": [
+              "运用示意图，说明气压带、风带的分布，并分析气压带、风带对气候形成的作用，以及气候对自然地理景观形成的影响。",
+              "能够运用地球运动、自然环境的整体性等知识，说明自然环境与人类活动之间的关系，以及尊重自然规律的重要性。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-atmospheric-circulation"
+            ],
+            "courses": [
+              "geo-h-global-circulation"
+            ]
+          },
+          {
+            "id": "geo-h-weather-system",
+            "name": "常见天气系统",
+            "points": [
+              "运用示意图，分析锋、低压（气旋）、高压（反气旋）等天气系统，并运用简易天气图，解释常见天气现象的成因。",
+              "能够运用地球运动、自然环境的整体性等知识，说明自然环境与人类活动之间的关系，以及尊重自然规律的重要性。",
+              "以自然环境系统及其要素发展、演变过程对人类活动的影响为线索组织教学。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-global-circulation"
+            ],
+            "courses": [
+              "geo-h-weather-system"
+            ]
+          },
+          {
+            "id": "geo-h-monsoon-system",
+            "name": "季风系统",
+            "points": [
+              "运用示意图，说明气压带、风带的分布，并分析气压带、风带对气候形成的作用，以及气候对自然地理景观形成的影响。",
+              "运用示意图，分析锋、低压（气旋）、高压（反气旋）等天气系统，并运用简易天气图，解释常见天气现象的成因。",
+              "以自然环境系统及其要素发展、演变过程对人类活动的影响为线索组织教学。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-global-circulation"
+            ],
+            "courses": [
+              "geo-h-monsoon-system",
+              "geo-monsoon"
+            ]
+          },
+          {
+            "id": "geo-h-climate-types",
+            "name": "气候类型与分布",
+            "points": [
+              "运用示意图，说明气压带、风带的分布，并分析气压带、风带对气候形成的作用，以及气候对自然地理景观形成的影响。",
+              "运用图表并结合实例，分析自然环境的整体性和地域分异规律。",
+              "能够运用自然环境的整体性和地域分异规律，认识区域的自然环境，掌握因地制宜等基本地理思想方法（区域认知）。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-weather-system"
+            ],
+            "courses": [
+              "geo-h-climate-types"
+            ]
+          },
+          {
+            "id": "geo-h-climate-change",
+            "name": "全球气候变化",
+            "points": [
+              "运用碳循环和温室效应原理，分析碳排放对环境的影响，说明碳减排国际合作的重要性。",
+              "综合分析各种区域性或全球性资源和环境问题对国家安全的影响。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-climate-types"
+            ],
+            "courses": [
+              "geo-h-climate-change"
+            ]
+          },
+          {
+            "id": "geo-h-hydrosphere",
+            "name": "水圈综合",
+            "points": [
+              "运用示意图，说明水循环的过程及其地理意义。",
+              "运用世界洋流分布图，说明世界洋流的分布规律，并举例说明洋流对地理环境和人类活动的影响。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-atmospheric-heating"
+            ],
+            "courses": [
+              "geo-h-hydrosphere"
+            ]
+          },
+          {
+            "id": "geo-h-water-cycle",
+            "name": "水循环",
+            "points": [
+              "运用示意图，说明水循环的过程及其地理意义。",
+              "能够运用地球科学的基础知识，说明一些自然现象之间的关系和变化过程（综合思维）。",
+              "以认识自然地理要素及其与人类活动的关系为线索组织教学。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-hydrosphere"
+            ],
+            "courses": [
+              "geo-h-water-cycle"
+            ]
+          },
+          {
+            "id": "geo-h-ocean-current",
+            "name": "洋流",
+            "points": [
+              "运用世界洋流分布图，说明世界洋流的分布规律，并举例说明洋流对地理环境和人类活动的影响。",
+              "能够运用地球运动、自然环境的整体性等知识，说明自然环境与人类活动之间的关系，以及尊重自然规律的重要性。",
+              "以自然环境系统及其要素发展、演变过程对人类活动的影响为线索组织教学。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-water-cycle",
+              "geo-h-global-circulation"
+            ],
+            "courses": [
+              "geo-h-ocean-current"
+            ]
+          },
+          {
+            "id": "geo-h-river-features",
+            "name": "河流特征与开发利用",
+            "points": [
+              "绘制示意图，解释各类陆地水体之间的相互关系。",
+              "运用世界洋流分布图，说明世界洋流的分布规律，并举例说明洋流对地理环境和人类活动的影响。",
+              "运用示意图，说明水循环的过程及其地理意义。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-water-cycle"
+            ],
+            "courses": [
+              "geo-h-river-features"
+            ]
+          },
+          {
+            "id": "geo-h-plate-tectonics",
+            "name": "板块构造理论",
+            "points": [
+              "运用示意图，说明岩石圈物质循环过程。",
+              "结合实例，解释内力和外力对地表形态变化的影响，并说明人类活动与地表形态的关系。",
+              "能够运用地球运动、自然环境的整体性等知识，说明自然环境与人类活动之间的关系，以及尊重自然规律的重要性。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-earth-structure"
+            ],
+            "courses": [
+              "geo-h-plate-tectonics"
+            ]
+          },
+          {
+            "id": "geo-h-crustal-movement",
+            "name": "地壳运动",
+            "points": [
+              "结合实例，解释内力和外力对地表形态变化的影响，并说明人类活动与地表形态的关系。",
+              "运用示意图，说明岩石圈物质循环过程。",
+              "以自然环境系统及其要素发展、演变过程对人类活动的影响为线索组织教学。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-plate-tectonics"
+            ],
+            "courses": [
+              "geo-h-crustal-movement"
+            ]
+          },
+          {
+            "id": "geo-h-landforms",
+            "name": "主要地貌类型",
+            "points": [
+              "结合实例，解释内力和外力对地表形态变化的影响，并说明人类活动与地表形态的关系。",
+              "运用示意图，说明岩石圈物质循环过程。",
+              "能够运用地球运动、自然环境的整体性等知识，说明自然环境与人类活动之间的关系，以及尊重自然规律的重要性。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-crustal-movement"
+            ],
+            "courses": [
+              "geo-h-landforms"
+            ]
+          },
+          {
+            "id": "geo-h-vegetation-soil",
+            "name": "植被与土壤",
+            "points": [
+              "1.9 通过野外观察或运用土壤标本，说明土壤的主要形成因素。",
+              "1.10 通过野外观察或运用视频、图像，识别主要植被，说明其与自然环境的关系。",
+              "能够运用地球科学的基础知识，说明一些自然现象之间的关系和变化过程（综合思维）。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-climate-types"
+            ],
+            "courses": [
+              "geo-h-vegetation-soil"
+            ]
+          },
+          {
+            "id": "geo-h-natural-integrity",
+            "name": "自然地理环境整体性",
+            "points": [
+              "运用图表并结合实例，分析自然环境的整体性和地域分异规律。",
+              "能够运用自然环境的整体性和地域分异规律，认识区域的自然环境，掌握因地制宜等基本地理思想方法。",
+              "以自然环境系统及其要素发展、演变过程对人类活动的影响为线索组织教学。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-vegetation-soil",
+              "geo-h-landforms"
+            ],
+            "courses": [
+              "geo-h-natural-integrity"
+            ]
+          },
+          {
+            "id": "geo-h-natural-zones",
+            "name": "自然地理环境差异性（自然带）",
+            "points": [
+              "运用图表并结合实例，分析自然环境的整体性和地域分异规律。",
+              "能够运用自然环境的整体性和地域分异规律，认识区域的自然环境，掌握因地制宜等基本地理思想方法。",
+              "以自然环境系统及其要素发展、演变过程对人类活动的影响为线索组织教学。引导学生关注自然环境各要素的特征、演变过程及自然环境的整体性和差异性。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-natural-integrity"
+            ],
+            "courses": [
+              "geo-h-natural-zones",
+              "geo-h-natural-zones-demo"
+            ]
+          },
+          {
+            "id": "geo-h-natural-disaster",
+            "name": "自然灾害",
+            "points": [
+              "运用资料，说明常见自然灾害的成因，了解避灾、防灾的措施。",
+              "能够在一定程度上合理描述和解释特定区域的自然现象，并说明其对人类的影响。",
+              "指导学生运用体验、观察、观测、实验、野外考察等方式开展地理实践活动。"
+            ],
+            "domain": "自然地理（大气·水·地貌·整体性）",
+            "prerequisites": [
+              "geo-h-crustal-movement",
+              "geo-h-weather-system"
+            ],
+            "courses": [
+              "geo-h-natural-disaster"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "history",
+        "name": "高中历史",
+        "nodes": [
+          {
+            "id": "ancient-china-h",
+            "name": "中国古代史：文明起源与制度演进总览",
+            "points": [
+              "在时空框架中梳理中国古代史主线：文明起源、早期国家、先秦变局、秦汉统一与制度演进。",
+              "运用制度、经济、疆域、思想四类证据解释统一多民族封建国家的形成与长期维系。"
+            ],
+            "domain": "中国古代史",
+            "courses": [
+              "ancient-china-h"
+            ]
+          },
+          {
+            "id": "hist-h-ancient-civ",
+            "name": "中华文明起源（史前·新石器）",
+            "points": [
+              "通过了解石器时代中国境内有代表性的文化遗存，认识它们与中华文明起源以及私有制、阶级和国家产生的关系。",
+              "早期中华文明：通过了解石器时代中国境内有代表性的文化遗存，认识它们与中华文明起源以及私有制、阶级和国家产生的关系。"
+            ],
+            "domain": "中国古代史",
+            "courses": [
+              "hist-h-ancient-civ"
+            ]
+          },
+          {
+            "id": "hist-h-early-state",
+            "name": "中华文明的起源与早期国家",
+            "points": [
+              "通过了解石器时代中国境内有代表性的文化遗存，认识它们与中华文明起源以及私有制、阶级和国家产生的关系。",
+              "通过甲骨文、青铜铭文及其他文献记载，了解私有制、阶级和早期国家的特征。"
+            ],
+            "domain": "中国古代史",
+            "semester": "上",
+            "prerequisites": [
+              "hist-h-ancient-civ"
+            ],
+            "courses": [
+              "hist-h-early-state"
+            ]
+          },
+          {
+            "id": "hist-h-pre-qin",
+            "name": "先秦（夏商周·春秋战国）",
+            "points": [
+              "通过了解夏商周的更替，认识中华文明的早期发展特征。",
+              "通过了解春秋战国时期的经济发展和政治变动，理解战国变法运动的必然性。",
+              "通过了解百家争鸣的局面，认识这一时期的思想繁荣及其对后世的深远影响。"
+            ],
+            "domain": "中国古代史",
+            "prerequisites": [
+              "hist-h-early-state"
+            ],
+            "courses": [
+              "hist-h-pre-qin"
+            ]
+          },
+          {
+            "id": "hist-h-feudal-system",
+            "name": "秦汉统一与中央集权制度",
+            "points": [
+              "通过了解秦朝的统一业绩和汉朝削藩、开疆拓土、尊崇儒术等举措，认识统一多民族封建国家的建立及巩固在中国历史上的意义。",
+              "通过了解秦汉时期的社会矛盾和农民起义，认识秦朝崩溃和两汉衰亡的原因。"
+            ],
+            "domain": "中国古代史",
+            "prerequisites": [
+              "hist-h-pre-qin"
+            ],
+            "courses": [
+              "hist-h-feudal-system"
+            ]
+          },
+          {
+            "id": "hist-h-qin-han-empire",
+            "name": "秦汉帝国",
+            "points": [
+              "通过了解秦朝的统一业绩和汉朝削藩、开疆拓土、尊崇儒术等举措，认识统一多民族封建国家的建立及巩固在中国历史上的意义。",
+              "通过了解秦汉时期的社会矛盾和农民起义，认识秦朝崩溃和两汉衰亡的原因。"
+            ],
+            "domain": "中国古代史",
+            "prerequisites": [
+              "hist-h-feudal-system"
+            ],
+            "courses": [
+              "hist-h-qin-han-empire"
+            ]
+          },
+          {
+            "id": "hist-h-imperial-system",
+            "name": "隋唐至明清政治制度演变",
+            "points": [
+              "通过了解三国两晋南北朝政权更迭的历史脉络，隋唐时期封建社会的高度繁荣，认识三国两晋南北朝至隋唐时期的制度变化与创新。",
+              "通过了解明清时期封建专制的发展、世界的变化对中国的影响，认识中国社会面临的危机。"
+            ],
+            "domain": "中国古代史",
+            "prerequisites": [
+              "hist-h-qin-han-empire"
+            ],
+            "courses": [
+              "hist-sui-tang-ming-qing-political"
+            ]
+          },
+          {
+            "id": "hist-h-wei-jin-tang",
+            "name": "三国两晋南北朝与隋唐",
+            "points": [
+              "通过了解三国两晋南北朝政权更迭的历史脉络，隋唐时期封建社会的高度繁荣，认识三国两晋南北朝至隋唐时期的制度变化与创新、民族交融、区域开发和思想文化领域的新成就。"
+            ],
+            "domain": "中国古代史",
+            "prerequisites": [
+              "hist-h-imperial-system"
+            ],
+            "courses": [
+              "hist-h-wei-jin-tang"
+            ]
+          },
+          {
+            "id": "hist-h-song-yuan-ming-qing-h",
+            "name": "宋元明清",
+            "points": [
+              "通过了解两宋的政治和军事，认识这一时期在政治、经济、文化与社会等方面的新变化；通过了解辽夏金元诸政权的建立、发展和相关制度建设，认识北方少数民族政权在统一多民族封建国家发展中的重要作用。",
+              "通过了解明清时期统一全国和经略边疆的相关举措，知道南海诸岛、台湾及其包括钓鱼岛在内的附属岛屿是中国版图一部分，认识这一时期统一多民族国家版图奠定的重要意义；了解明清时期社会经济、思想文化的重要变化。"
+            ],
+            "domain": "中国古代史",
+            "prerequisites": [
+              "hist-h-wei-jin-tang"
+            ],
+            "courses": [
+              "hist-h-song-yuan-ming-qing-h"
+            ]
+          },
+          {
+            "id": "hist-h-ancient-economy",
+            "name": "古代经济（农业/手工业/商业）",
+            "points": [
+              "通过了解春秋战国时期的经济发展和政治变动，理解战国时期变法运动的必然性。",
+              "通过了解明清时期社会经济、思想文化的重要变化；通过了解明清时期封建专制的发展、世界的变化对中国的影响，认识中国社会面临的危机。"
+            ],
+            "domain": "中国古代史",
+            "prerequisites": [
+              "hist-h-song-yuan-ming-qing-h"
+            ],
+            "courses": [
+              "hist-h-ancient-economy"
+            ]
+          },
+          {
+            "id": "hist-h-ancient-culture",
+            "name": "中国古代思想文化",
+            "points": [
+              "通过了解甲骨文、青铜铭文及其他文献记载，了解私有制、阶级和早期国家的特征。",
+              "通过了解春秋战国时期的经济发展和政治变动，理解战国时期变法运动的必然性；了解老子、孔子学说；通过孟子、荀子、庄子等了解“百家争鸣”的局面及其意义。",
+              "了解并认同中华优秀传统文化、革命文化、社会主义先进文化，了解中国各个历史时期的英雄人物，传承民族气节、崇尚英雄气概，认识中华文明的历史价值和现实意义。"
+            ],
+            "domain": "中国古代史",
+            "prerequisites": [
+              "hist-h-song-yuan-ming-qing-h"
+            ],
+            "courses": [
+              "hist-h-ancient-culture"
+            ]
+          },
+          {
+            "id": "hist-h-ancient-thought",
+            "name": "古代思想文化（儒/道/法/佛）",
+            "points": [
+              "通过了解春秋战国时期的经济发展和政治变动，理解战国时期变法运动的必然性；了解老子、孔子学说；通过孟子、荀子、庄子等了解“百家争鸣”的局面及其意义。",
+              "了解并认同中华优秀传统文化、革命文化、社会主义先进文化，了解中国各个历史时期的英雄人物，传承民族气节、崇尚英雄气概，认识中华文明的历史价值和现实意义。"
+            ],
+            "domain": "中国古代史",
+            "prerequisites": [
+              "hist-h-ancient-culture"
+            ],
+            "courses": [
+              "hist-h-ancient-thought"
+            ]
+          },
+          {
+            "id": "hist-h-opium-war-h",
+            "name": "鸦片战争与近代中国",
+            "points": [
+              "认识列强侵华对中国社会的影响，概述晚清时期中国人民反抗外来侵略的斗争事迹，理解其性质和意义；认识社会各阶级为挽救危局所作的努力及存在的局限性。",
+              "通过了解明清时期封建专制的发展、世界的变化对中国的影响，认识中国社会面临的危机。"
+            ],
+            "domain": "中国近现代史",
+            "prerequisites": [
+              "hist-h-ancient-thought"
+            ],
+            "courses": [
+              "hist-h-opium-war-h"
+            ]
+          },
+          {
+            "id": "hist-h-semi-colonial",
+            "name": "半殖民地半封建社会的形成",
+            "points": [
+              "认识列强侵华对中国社会的影响，概述晚清时期中国人民反抗外来侵略的斗争事迹，理解其性质和意义；认识社会各阶级为挽救危局所作的努力及存在的局限性。",
+              "通过了解鸦片战争、甲午中日战争、八国联军侵华等重大事件，理解近代中国半殖民地半封建社会形成的历史进程。"
+            ],
+            "domain": "中国近现代史",
+            "prerequisites": [
+              "hist-h-opium-war-h"
+            ],
+            "courses": [
+              "hist-h-semi-colonial"
+            ]
+          },
+          {
+            "id": "hist-h-reform-revolution-h",
+            "name": "戊戌变法与辛亥革命",
+            "points": [
+              "认识列强侵华对中国社会的影响，概述晚清时期中国人民反抗外来侵略的斗争事迹，理解其性质和意义；认识社会各阶级为挽救危局所作的努力及存在的局限性。",
+              "了解孙中山三民主义的基本内容，理解辛亥革命与中华民国建立对中国结束帝制、建立民国的意义及局限性；了解北洋军阀的统治及特点。"
+            ],
+            "domain": "中国近现代史",
+            "prerequisites": [
+              "hist-h-semi-colonial"
+            ],
+            "courses": [
+              "hist-h-reform-revolution-h"
+            ]
+          },
+          {
+            "id": "hist-h-xinhai-modern",
+            "name": "辛亥革命与民国建立",
+            "points": [
+              "了解孙中山三民主义的基本内容，理解辛亥革命与中华民国建立对中国结束帝制、建立民国的意义及局限性。",
+              "了解北洋军阀的统治及特点。"
+            ],
+            "domain": "中国近现代史",
+            "prerequisites": [
+              "hist-h-reform-revolution-h"
+            ],
+            "courses": [
+              "hist-h-xinhai-modern"
+            ]
+          },
+          {
+            "id": "hist-h-new-democracy",
+            "name": "新民主主义革命",
+            "points": [
+              "认识五四爱国运动的历史意义，认识马克思主义在中国的传播与中国共产党成立对中国革命的深远影响；认识国共合作领导国民革命的历史作用；了解南京国民政府的成立；认识中国共产党开辟革命新道路的意义；认识红军长征…",
+              "通过了解全面内战的爆发及人民解放战争的进程，分析国民党政权在大陆统治灭亡的原因，探讨中国共产党领导人民取得中国革命胜利的原因和意义。"
+            ],
+            "domain": "中国近现代史",
+            "semester": "下",
+            "prerequisites": [
+              "hist-h-xinhai-modern"
+            ],
+            "courses": [
+              "hist-h-new-democracy"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "politics",
+        "name": "高中思想政治",
+        "nodes": [
+          {
+            "id": "pol-h-req1",
+            "name": "中国特色社会主义",
+            "points": [
+              "【课标】理解社会主义从空想到科学、从理论到实践的发展，坚定中国特色社会主义信念。",
+              "【课标】理解只有社会主义才能救中国，只有中国特色社会主义才能发展中国。",
+              "【课标】理解新时代坚持和发展中国特色社会主义的总任务，学习贯彻习近平新时代中国特色社会主义思想。"
+            ],
+            "domain": "中国特色社会主义"
+          },
+          {
+            "id": "pol-h-req2",
+            "name": "经济与社会",
+            "points": [
+              "【课标】理解我国生产资料所有制与社会主义市场经济体制，把握“两个毫不动摇”。",
+              "【课标】贯彻新发展理念，建设现代化经济体系，推动高质量发展。",
+              "【课标】理解个人收入分配与社会保障制度，践行社会责任促进社会进步。"
+            ],
+            "domain": "经济与社会",
+            "prerequisites": [
+              "pol-h-req1"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "info-tech",
+        "name": "高中信息技术",
+        "nodes": [
+          {
+            "id": "it-h-programming-basics",
+            "name": "程序设计基础（变量/数据类型）",
+            "points": [
+              "从生活实例出发，概述算法的概念与特征，运用恰当的描述方法和控制结构表示简单算法。",
+              "掌握一种程序设计语言的基本知识，使用程序设计语言实现简单算法。",
+              "依据解决问题的需要，设计和表示简单算法；掌握一种程序设计语言的基本知识，利用程序设计语言实现简单算法，解决实际问题。"
+            ],
+            "domain": "程序设计与数据结构",
+            "courses": [
+              "it-h-programming-basics"
+            ]
+          },
+          {
+            "id": "it-h-control-structures",
+            "name": "程序控制结构（顺序/分支/循环）",
+            "points": [
+              "从生活实例出发，概述算法的概念与特征，运用恰当的描述方法和控制结构表示简单算法。",
+              "创设程序设计的活动情境，组织学生在解决问题的过程中探究顺序结构、选择结构和循环结构的特点。"
+            ],
+            "domain": "程序设计与数据结构",
+            "prerequisites": [
+              "it-h-programming-basics"
+            ],
+            "courses": [
+              "it-h-control-structures"
+            ]
+          },
+          {
+            "id": "it-h-functions-modules",
+            "name": "函数与模块化",
+            "points": [
+              "掌握一种程序设计语言的基本知识，使用程序设计语言实现简单算法。",
+              "依据解决问题的需要，设计和表示简单算法；掌握一种程序设计语言的基本知识，利用程序设计语言实现简单算法，解决实际问题。",
+              "创设程序设计的活动情境，组织学生在解决问题的过程中探究顺序结构、选择结构和循环结构的特点。"
+            ],
+            "domain": "程序设计与数据结构",
+            "prerequisites": [
+              "it-h-control-structures"
+            ],
+            "courses": [
+              "it-h-functions-modules"
+            ]
+          },
+          {
+            "id": "it-h-data-structures",
+            "name": "数据结构（列表/栈/队列/树/图）",
+            "points": [
+              "从生活实例出发，概述算法的概念与特征，运用恰当的描述方法和控制结构表示简单算法。",
+              "掌握一种程序设计语言的基本知识，使用程序设计语言实现简单算法。",
+              "依据解决问题的需要，设计和表示简单算法；掌握一种程序设计语言的基本知识，利用程序设计语言实现简单算法，解决实际问题。"
+            ],
+            "domain": "程序设计与数据结构",
+            "prerequisites": [
+              "it-h-functions-modules"
+            ],
+            "courses": [
+              "it-h-data-structures"
+            ]
+          },
+          {
+            "id": "it-h-algorithm-concept",
+            "name": "算法概念与复杂度",
+            "points": [
+              "从生活实例出发，概述算法的概念与特征，运用恰当的描述方法和控制结构表示简单算法。",
+              "掌握一种程序设计语言的基本知识，使用程序设计语言实现简单算法。",
+              "依据解决问题的需要，设计和表示简单算法；掌握一种程序设计语言的基本知识，利用程序设计语言实现简单算法，解决实际问题。"
+            ],
+            "domain": "算法",
+            "prerequisites": [
+              "it-h-data-structures"
+            ],
+            "courses": [
+              "it-h-algorithm-concept"
+            ]
+          },
+          {
+            "id": "it-h-sorting-searching",
+            "name": "排序与查找算法",
+            "points": [
+              "从生活实例出发，概述算法的概念与特征，运用恰当的描述方法和控制结构表示简单算法。",
+              "掌握一种程序设计语言的基本知识，使用程序设计语言实现简单算法。",
+              "依据解决问题的需要，设计和表示简单算法；掌握一种程序设计语言的基本知识，利用程序设计语言实现简单算法，解决实际问题。"
+            ],
+            "domain": "算法",
+            "prerequisites": [
+              "it-h-algorithm-concept"
+            ],
+            "courses": [
+              "it-h-sorting-searching"
+            ]
+          },
+          {
+            "id": "it-h-network-basics",
+            "name": "计算机网络基础（TCP/IP）",
+            "points": [
+              "观察日常生活中的信息系统，理解计算机网络在信息系统中的作用，通过组建小型无线网络，了解常见网络设备的功能，知道接入方式、带宽等因素对信息系统的影响。",
+              "通过组建小型无线网络，了解常见网络设备的功能，知道接入方式、带宽等因素对信息系统的影响。"
+            ],
+            "domain": "网络与信息安全",
+            "prerequisites": [
+              "it-h-programming-basics"
+            ],
+            "courses": [
+              "it-h-network-basics"
+            ]
+          },
+          {
+            "id": "it-h-internet-applications",
+            "name": "互联网应用（HTTP/Web/邮件）",
+            "points": [
+              "观察日常生活中的信息系统，理解计算机网络在信息系统中的作用，通过组建小型无线网络，了解常见网络设备的功能，知道接入方式、带宽等因素对信息系统的影响。",
+              "通过分析典型的信息系统，知道信息系统的组成与功能，理解计算机、移动终端在信息系统中的作用，描述计算机和移动终端的基本工作原理。",
+              "探讨信息技术对社会发展、科技进步以及人们生活、工作与学习的影响，描述信息社会的特征，了解信息技术的发展趋势。"
+            ],
+            "domain": "网络与信息安全",
+            "prerequisites": [
+              "it-h-network-basics"
+            ],
+            "courses": [
+              "it-h-internet-applications"
+            ]
+          },
+          {
+            "id": "it-h-information-security",
+            "name": "信息安全与隐私保护",
+            "points": [
+              "2.5 通过分析信息系统应用实例，了解信息系统安全的基本方法和措施，认识信息安全的重要性。",
+              "具备信息社会责任的学生，具有一定的信息安全意识与能力，能够遵守信息法律法规，信守信息社会的道德与伦理准则。",
+              "理解信息安全对当今社会的影响，能安全、守法地应用信息系统。"
+            ],
+            "domain": "网络与信息安全",
+            "prerequisites": [
+              "it-h-internet-applications"
+            ],
+            "courses": [
+              "it-h-information-security"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "psychology",
+        "name": "高中心理健康教育",
+        "nodes": [
+          {
+            "id": "psych-h-g10-learning-strategy",
+            "name": "学习策略与考试适应",
+            "points": [
+              "培养创新精神和创新能力，掌握学习策略，开发学习潜能，提高学习效率。",
+              "积极应对考试压力，克服考试焦虑。"
+            ],
+            "domain": "学习辅导",
+            "prerequisites": [
+              "psych-h-g10-self-concept"
+            ]
+          },
+          {
+            "id": "psych-h-g10-self-concept",
+            "name": "自我认同与理想信念",
+            "points": [
+              "帮助学生确立正确的自我意识，树立人生理想和信念，形成正确的世界观、人生观和价值观。"
+            ],
+            "domain": "认识自我"
+          },
+          {
+            "id": "psych-h-g10-relationship",
+            "name": "人际关系与沟通",
+            "points": [
+              "正确认识人际关系状况，培养人际沟通能力，促进积极情感反应和体验。",
+              "正确对待和异性同伴的交往，知道友谊和爱情的界限。"
+            ],
+            "domain": "人际交往",
+            "prerequisites": [
+              "psych-h-g10-learning-strategy"
+            ]
+          }
+        ]
+      }
+    ],
+    "11": [
+      {
+        "subject": "chinese",
+        "name": "高中语文",
+        "nodes": [
+          {
+            "id": "chn-h-language-expression-h",
+            "name": "语言表达简明连贯得体",
+            "points": [
+              "能凭借语感和对语言运用规律的把握，根据具体的语言情境和不同的对象，运用口头和书面语言文明得体地进行表达与交流。",
+              "运用基本的语言规律和逻辑规则，判别语言运用的正误，准确、生动、有逻辑地表达自己的认识。",
+              "讲究语言文字表达的效果及美感，具有创新意识。"
+            ],
+            "domain": "语言文字运用",
+            "prerequisites": [
+              "chn-h-sentence-revision-h"
+            ],
+            "courses": [
+              "chn-h-language-expression-h"
+            ]
+          },
+          {
+            "id": "chn-h-literary-deep-analysis",
+            "name": "文学类深度鉴赏",
+            "points": [
+              "鉴赏文学作品。感受和体验文学作品的语言、形象和情感之美，能欣赏、鉴别和评价不同时代、不同风格的作品，具有正确的价值观、高尚的审美情趣和审美品位。",
+              "审美鉴赏与创造是指学生在语文学习中，通过审美体验、评价等活动形成正确的审美意识、健康向上的审美情趣与鉴赏品位，并在此过程中逐步掌握表现美、创造美的方法。",
+              "从最使自己感动的故事、人物、场景、语言等方面入手，反复阅读品味，深入探究，欣赏语言表达的精彩之处，梳理小说的感人场景乃至整体的艺术架构，理清人物关系，感受、欣赏人物形象，探究人物的精神世界，体会小说的…"
+            ],
+            "domain": "现代文阅读",
+            "prerequisites": [
+              "chn-h-literary-reading-h",
+              "chn-h-practical-reading"
+            ],
+            "courses": [
+              "chn-h-literary-deep-analysis"
+            ]
+          },
+          {
+            "id": "chn-h-classical-translation-h",
+            "name": "文言文翻译",
+            "points": [
+              "语言建构与运用是指学生在丰富的语言实践中，通过主动的积累、梳理和整合，逐步掌握祖国语言文字特点及其运用规律，形成个体言语经验，发展在具体语言情境中正确有效地运用祖国语言文字进行交流沟通的能力。",
+              "能凭借语感和对语言运用规律的把握，根据具体的语言情境和不同的对象，运用口头和书面语言文明得体地进行表达与交流；能将具体的语言文字作品置于特定的交际情境和历史文化情境中理解、分析和评价。",
+              "通过梳理和整合，将积累的语言材料和学习的语文知识结构化，将言语活动经验逐渐转化为具体的学习方法和策略，并能在语言实践中自觉地运用。"
+            ],
+            "domain": "古诗文阅读",
+            "prerequisites": [
+              "chn-h-classical-grammar-h"
+            ],
+            "courses": [
+              "chn-h-classical-translation-h"
+            ]
+          },
+          {
+            "id": "chn-h-classical-prose-advanced",
+            "name": "古文经典精读",
+            "points": [
+              "在阅读过程中，探索阅读整本书的门径，形成和积累自己阅读整本书的经验。重视学习前人的阅读经验，根据不同的阅读目的，综合运用精读、略读与浏览的方法阅读整本书，读懂文本，把握文本丰富的内涵和精髓。",
+              "阅读整本书，应以学生利用课内外时间自主阅读、撰写笔记、交流讨论为主，不以教师的讲解代替或限制学生的阅读与思考。教师的主要任务是提出专题学习目标，组织学习活动，引导学生深入思考、讨论与交流。",
+              "学生在反复阅读过程中，每读一遍，重点解决一两个问题，有些地方应仔细推敲，有些地方可以略读或浏览。阅读要有笔记，记下自己思考、探索、研究的心得。"
+            ],
+            "domain": "古诗文阅读",
+            "prerequisites": [
+              "chn-h-classical-translation-h"
+            ],
+            "courses": [
+              "chn-h-classical-prose-advanced"
+            ]
+          },
+          {
+            "id": "chn-h-poetry-emotion",
+            "name": "古诗词情感主旨",
+            "points": [
+              "鉴赏文学作品。感受和体验文学作品的语言、形象和情感之美，能欣赏、鉴别和评价不同时代、不同风格的作品。",
+              "审美鉴赏与创造是指学生在语文学习中，通过审美体验、评价等活动形成正确的审美意识、健康向上的审美情趣与鉴赏品位。"
+            ],
+            "domain": "古诗文阅读",
+            "prerequisites": [
+              "chn-h-poetry-expression-h"
+            ],
+            "courses": [
+              "chn-h-poetry-emotion"
+            ]
+          },
+          {
+            "id": "chn-h-advanced-composition",
+            "name": "高级写作技巧",
+            "points": [
+              "语言表达与交流。能凭借语感和对语言运用规律的把握，根据具体的语言情境和不同的对象，运用口头和书面语言文明得体地进行表达与交流。",
+              "美的表达与创造。能运用祖国语言文字表达自己的审美体验，表达自己的情感、态度和观念，表现和创造自己心中的美好形象；讲究语言文字表达的效果及美感，具有创新意识。",
+              "发展逻辑思维。能够辨识、分析、比较、归纳和概括基本的语言现象和文学现象，并能有理有据地表达自己的观点和阐述自己的发现；运用基本的语言规律和逻辑规则，判别语言运用的正误，准确、生动、有逻辑地表达自己的认…"
+            ],
+            "domain": "写作",
+            "prerequisites": [
+              "chn-h-argumentative-essay"
+            ],
+            "courses": [
+              "chn-h-advanced-composition"
+            ]
+          },
+          {
+            "id": "chn-h-task-driven-writing",
+            "name": "任务驱动型作文",
+            "points": [
+              "学习任务群的设计着眼于培养语言文字运用基础能力，充分顾及问题导向、跨文化、自主合作、个性化、创造性等因素。",
+              "语文课程还应当适应当代社会的发展需要，为培养创新人才发挥重要作用。要引导学生在语言文字运用的过程中发现问题，培养探究意识和发现问题的敏感性，探求解决问题和语言表达的创新路径。",
+              "学习任务群以自主、合作、探究性学习为主要学习方式，凸显学生学习语文的根本途径。这些学习任务群追求语言、知识、技能和思想情感、文化修养等多方面、多层次目标发展的综合效应。"
+            ],
+            "domain": "写作",
+            "prerequisites": [
+              "chn-h-advanced-composition"
+            ],
+            "courses": [
+              "chn-h-task-driven-writing"
+            ]
+          },
+          {
+            "id": "chn-h-red-chamber",
+            "name": "《红楼梦》（长篇小说阅读）",
+            "points": [
+              "在指定范围内选择阅读一部长篇小说。通读全书，整体把握其思想内容和艺术特点。从最使自己感动的故事、人物、场景、语言等方面入手，反复阅读品味，深入探究。",
+              "梳理小说的感人场景乃至整体的艺术架构，理清人物关系，感受、欣赏人物形象，探究人物的精神世界，体会小说的主旨，研究小说的艺术价值。",
+              "联系个人经验，深入理解作品；享受读书的愉悦，从作品中汲取营养，丰富自己的精神世界，逐步形成正确的世界观、人生观和价值观。"
+            ],
+            "domain": "整本书阅读",
+            "prerequisites": [
+              "chn-h-countryside-china",
+              "chn-h-literary-reading-h"
+            ],
+            "courses": [
+              "chn-h-red-chamber"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "math",
+        "name": "高中数学",
+        "nodes": [
+          {
+            "id": "math-h-trigonometry-solution",
+            "name": "解三角形",
+            "points": [
+              "必修课程包括五个主题，分别是预备知识、函数、几何与代数、概率与统计、数学建模活动与数学探究活动。",
+              "三角函数是描述周期现象的重要数学模型，在数学和其他领域中都有广泛的应用。",
+              "通过三角函数的学习，学生能理解三角函数是刻画现实世界周期变化现象的数学模型。"
+            ],
+            "domain": "三角函数",
+            "prerequisites": [
+              "math-h-law-of-sines-cosines"
+            ],
+            "courses": [
+              "math-h-trigonometry-solution"
+            ]
+          },
+          {
+            "id": "math-h-space-figures",
+            "name": "空间几何体的结构",
+            "points": [
+              "内容包括：集合、常用逻辑用语、相等关系与不等关系、从函数观点看一元二次方程和一元二次不等式。",
+              "在集合、常用逻辑用语的教学中，教师应创设合适的教学情境，以义务教育阶段学过的数学内容为载体，引导学生用集合语言和常用逻辑用语梳理、表达学过的相应数学内容。"
+            ],
+            "domain": "立体几何",
+            "courses": [
+              "math-high-space-figures"
+            ]
+          },
+          {
+            "id": "math-h-space-lines-planes",
+            "name": "空间点线面位置关系",
+            "points": [
+              "内容包括：集合、常用逻辑用语、相等关系与不等关系、从函数观点看一元二次方程和一元二次不等式。",
+              "在集合、常用逻辑用语的教学中，教师应创设合适的教学情境，以义务教育阶段学过的数学内容为载体，引导学生用集合语言和常用逻辑用语梳理、表达学过的相应数学内容。"
+            ],
+            "domain": "立体几何",
+            "prerequisites": [
+              "math-h-space-figures"
+            ],
+            "courses": [
+              "math-high-space-lines-planes"
+            ]
+          },
+          {
+            "id": "math-h-parallel-perpendicular",
+            "name": "平行与垂直的判定",
+            "points": [
+              "内容包括：集合、常用逻辑用语、相等关系与不等关系、从函数观点看一元二次方程和一元二次不等式。",
+              "在集合、常用逻辑用语的教学中，教师应创设合适的教学情境，以义务教育阶段学过的数学内容为载体，引导学生用集合语言和常用逻辑用语梳理、表达学过的相应数学内容。"
+            ],
+            "domain": "立体几何",
+            "prerequisites": [
+              "math-h-space-lines-planes"
+            ],
+            "courses": [
+              "math-high-parallel-perpendicular"
+            ]
+          },
+          {
+            "id": "math-h-dihedral-angle",
+            "name": "二面角",
+            "points": [
+              "②能用向量语言表述直线与直线、直线与平面、平面与平面的 夹角以及垂直与平行关系。 ③能用向量方法证明必修内容中有关直线、平面位置关系的判 定定理。 ④能用向量方法解决点到直线、点到平面、相互平行的直线…"
+            ],
+            "domain": "立体几何",
+            "prerequisites": [
+              "math-h-parallel-perpendicular"
+            ],
+            "courses": [
+              "math-high-dihedral-angle"
+            ]
+          },
+          {
+            "id": "math-h-space-vectors",
+            "name": "空间向量及其应用",
+            "points": [
+              "空间向量与代数专题，其中微积分2.5学分，空间向量与代数2学分，概率与统计1.5学分。供有志于学习数理类（如数学、物理、计算机、精密仪器等）专业的学生选择。",
+              "B类课程包括微积分、空间向量与代数、应用统计、模型四个专题，其中微积分2学分，空间向量与代数1学分，应用统计2学分，模型1学分。"
+            ],
+            "domain": "立体几何",
+            "prerequisites": [
+              "math-h-dihedral-angle",
+              "math-h-vector-coordinates"
+            ],
+            "courses": [
+              "math-high-space-vectors"
+            ]
+          },
+          {
+            "id": "math-h-line-equation",
+            "name": "直线方程与位置关系",
+            "points": [
+              "内容包括：集合、常用逻辑用语、相等关系与不等关系、从函数观点看一元二次方程和一元二次不等式。",
+              "在集合、常用逻辑用语的教学中，教师应创设合适的教学情境，以义务教育阶段学过的数学内容为载体，引导学生用集合语言和常用逻辑用语梳理、表达学过的相应数学内容。"
+            ],
+            "domain": "解析几何",
+            "prerequisites": [
+              "math-h-vector-coordinates"
+            ],
+            "courses": [
+              "math-high-line-equation"
+            ]
+          },
+          {
+            "id": "math-h-circle-equation",
+            "name": "圆的方程",
+            "points": [
+              "（２）圆与方程 ①回顾确定圆的几何要素，在平面直角坐标系中，探索并掌握 圆的标准方程与一般方程。 ②能根据给定直线、圆的方程，判断直线与圆、圆与圆的位置 关系。 ③能用直线和圆的方程解决一些简单的数学…"
+            ],
+            "domain": "解析几何",
+            "prerequisites": [
+              "math-h-line-equation"
+            ],
+            "courses": [
+              "math-high-circle-equation"
+            ]
+          },
+          {
+            "id": "math-h-analytic-geometry",
+            "name": "解析几何综合",
+            "points": [
+              "高中数学课程内容突出函数、几何与代数、概率与统计、数学建模活动与数学探究活动四条主线，它们贯穿必修、选择性必修和选修课程。",
+              "直观想象是指借助几何直观和空间想象感知事物的形态与变化，利用空间形式特别是图形，理解和解决数学问题的素养。",
+              "几何与代数主题包括平面向量及其应用、复数、立体几何初步等内容。"
+            ],
+            "domain": "解析几何",
+            "prerequisites": [
+              "math-h-circle-equation"
+            ],
+            "courses": [
+              "math-h-analytic-geometry"
+            ]
+          },
+          {
+            "id": "math-h-ellipse",
+            "name": "椭圆",
+            "points": [
+              "②经历从具体情境中抽象出椭圆的过程，掌握椭圆的定义、标 准方程及简单几何性质。"
+            ],
+            "domain": "解析几何",
+            "prerequisites": [
+              "math-h-circle-equation"
+            ],
+            "courses": [
+              "math-high-ellipse"
+            ]
+          },
+          {
+            "id": "math-h-hyperbola",
+            "name": "双曲线",
+            "points": [
+              "③了解抛物线与双曲线的定义、几何图形和标准方程，以及它 们的简单几何性质。"
+            ],
+            "domain": "解析几何",
+            "prerequisites": [
+              "math-h-ellipse"
+            ],
+            "courses": [
+              "math-high-hyperbola"
+            ]
+          },
+          {
+            "id": "math-h-parabola-h",
+            "name": "抛物线",
+            "points": [
+              "③了解抛物线与双曲线的定义、几何图形和标准方程，以及它 们的简单几何性质。 ④通过圆锥曲线与方程的学习，进一步体会数形结合的思想。 ⑤了解椭圆、抛物线的简单应用。"
+            ],
+            "domain": "解析几何",
+            "prerequisites": [
+              "math-h-ellipse"
+            ],
+            "courses": [
+              "math-high-parabola-h"
+            ]
+          },
+          {
+            "id": "math-h-counting-principles",
+            "name": "计数原理（分类/分步）",
+            "points": [
+              "计数原理包括分类加法计数原理、分步乘法计数原理。分类加法计数原理针对完成一件事的不同方案，分步乘法计数原理针对完成一件事的多个步骤。",
+              "能根据实际问题的特征，正确选择分类加法计数原理或分步乘法计数原理解决简单的实际问题。",
+              "通过实例，理解排列、组合的概念，能利用计数原理推导排列数公式、组合数公式，并能解决简单的实际问题。"
+            ],
+            "domain": "概率与统计",
+            "prerequisites": [
+              "math-h-sets"
+            ],
+            "courses": [
+              "math-high-counting-principles"
+            ]
+          },
+          {
+            "id": "math-h-binomial-theorem",
+            "name": "二项式定理",
+            "points": [
+              "（３）二项式定理 能用多项式运算法则和计数原理证明二项式定理（参见案例１７， １８），会用二项式定理解决与二项展开式有关的简单问题。"
+            ],
+            "domain": "概率与统计",
+            "prerequisites": [
+              "math-h-counting-principles"
+            ],
+            "courses": [
+              "math-high-binomial-theorem"
+            ]
+          },
+          {
+            "id": "math-h-probability-h",
+            "name": "概率",
+            "points": [
+              "概率统计是必修课程的主题四，内容包括概率与统计两个单元。"
+            ],
+            "domain": "概率与统计",
+            "prerequisites": [
+              "math-h-counting-principles"
+            ],
+            "courses": [
+              "math-high-probability-h"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "english",
+        "name": "高中英语",
+        "nodes": [
+          {
+            "id": "eng-h-vocab-3500",
+            "name": "高中 3500 词汇",
+            "points": [
+              "语言知识涵盖语音知识、词汇知识、语法知识、语篇知识和语用知识，是构成语言能力的重要基础。",
+              "高考应以必修课程和选择性必修课程的内容以及学业质量水平二为命题主要依据。",
+              "学生在完成选择性必修课程的8学分后，方可参加高考。"
+            ],
+            "domain": "词汇",
+            "prerequisites": [
+              "eng-h-word-formation-h"
+            ],
+            "courses": [
+              "eng-h-vocab-3500"
+            ]
+          },
+          {
+            "id": "eng-h-non-finite-h",
+            "name": "非谓语动词",
+            "points": [
+              "语言知识涵盖语音知识、词汇知识、语法知识、语篇知识和语用知识，是构成语言能力的重要基础。",
+              "所有的语言学习活动都应该在一定的主题语境下进行，即学生围绕某一具体的主题语境，基于不同类型的语篇，在解决问题的过程中，运用语言技能获取、梳理、整合语言知识和文化知识，深化对语言的理解。",
+              "语言能力目标：具有一定的语言意识和英语语感，在常见的具体语境中整合性地运用已有语言知识，理解口头和书面语篇所表达的意义。"
+            ],
+            "domain": "语法",
+            "prerequisites": [
+              "eng-h-tense-system"
+            ],
+            "courses": [
+              "eng-h-non-finite-h"
+            ]
+          },
+          {
+            "id": "eng-h-subjunctive-mood",
+            "name": "虚拟语气",
+            "points": [
+              "语言知识涵盖语音知识、词汇知识、语法知识、语篇知识和语用知识，是构成语言能力的重要基础。",
+              "语法知识是‘形式—意义—使用’的统一体，与语音、词汇、语篇和语用知识紧密相连，直接影响语言理解和表达的准确性和得体性。"
+            ],
+            "domain": "语法",
+            "prerequisites": [
+              "eng-h-noun-clauses"
+            ],
+            "courses": [
+              "eng-h-subjunctive-mood"
+            ]
+          },
+          {
+            "id": "eng-h-reading-purpose",
+            "name": "阅读主旨与目的题",
+            "points": [
+              "语言能力目标：在常见的具体语境中整合性地运用已有语言知识，理解口头和书面语篇所表达的意义，识别其恰当表意所采用的手段。",
+              "思维品质目标：能辨析语言和文化中的具体现象，梳理、概括信息，建构新概念，分析、推断信息的逻辑关系，正确评判各种思想观点。",
+              "英语学习活动观：使学生通过学习理解、应用实践、迁移创新等一系列活动，获取、阐释和评判语篇意义，表达个人观点、意图和情感态度。"
+            ],
+            "domain": "阅读理解",
+            "prerequisites": [
+              "eng-h-reading-inference-h"
+            ],
+            "courses": [
+              "eng-h-reading-purpose"
+            ]
+          },
+          {
+            "id": "eng-h-reading-7-choose-5",
+            "name": "七选五语篇填空",
+            "points": [
+              "语篇类型包括口头和书面语篇以及不同的文体形式，如记叙文、说明文、议论文、应用文、访谈、对话等连续性文本，以及图表、图示、网页、广告、漫画等非连续性文本，为语言学习提供文体素材。",
+              "语言技能分理解性技能和表达性技能，具体包括听、说、读、看（viewing）、写等，学生基于语篇所开展的学习活动即是基于这些语言技能，理解语篇和对语篇作出回应的活动。",
+              "所有的语言学习活动都应该在一定的主题语境下进行，即学生围绕某一具体的主题语境，基于不同类型的语篇，在解决问题的过程中，运用语言技能获取、梳理、整合语言知识和文化知识，深化对语言的理解，重视对语篇的赏析…"
+            ],
+            "domain": "阅读理解",
+            "prerequisites": [
+              "eng-h-reading-purpose"
+            ],
+            "courses": [
+              "eng-h-reading-7-choose-5"
+            ]
+          },
+          {
+            "id": "eng-h-cloze-comprehensive",
+            "name": "完形填空综合",
+            "points": [
+              "语言技能分理解性技能和表达性技能，具体包括听、说、读、看（viewing）、写等，学生基于语篇所开展的学习活动即是基于这些语言技能，理解语篇和对语篇作出回应的活动。",
+              "所有的语言学习活动都应该在一定的主题语境下进行，即学生围绕某一具体的主题语境，基于不同类型的语篇，在解决问题的过程中，运用语言技能获取、梳理、整合语言知识和文化知识，深化对语言的理解，重视对语篇的赏析…",
+              "英语学习活动观是指学生在主题意义引领下，通过学习理解、应用实践、迁移创新等一系列体现综合性、关联性和实践性等特点的英语学习活动，使学生基于已有的知识，依托不同类型的语篇，在分析问题和解决问题的过程中，…"
+            ],
+            "domain": "完形填空",
+            "prerequisites": [
+              "eng-h-cloze-narrative",
+              "eng-h-context-vocab"
+            ],
+            "courses": [
+              "eng-h-cloze-comprehensive"
+            ]
+          },
+          {
+            "id": "eng-h-continuation-writing",
+            "name": "读后续写",
+            "points": [
+              "语言技能分理解性技能和表达性技能，具体包括听、说、读、看（viewing）、写等，学生基于语篇所开展的学习活动即是基于这些语言技能，理解语篇和对语篇作出回应的活动。",
+              "尝试运用所学语言创造性地表达个人意图、观点和态度，并通过运用各种学习策略，提高理解和表达的效果。",
+              "英语学习活动观是指学生在主题意义引领下，通过学习理解、应用实践、迁移创新等一系列体现综合性、关联性和实践性等特点的英语学习活动。"
+            ],
+            "domain": "写作",
+            "prerequisites": [
+              "eng-h-essay-writing",
+              "eng-h-attributive-clauses-h"
+            ],
+            "courses": [
+              "eng-h-continuation-writing"
+            ]
+          },
+          {
+            "id": "eng-h-listening-long-h",
+            "name": "长对话与独白听力",
+            "points": [
+              "语篇类型包括口头和书面语篇以及不同的文体形式，如记叙文、说明文、议论文、应用文、访谈、对话等连续性文本。",
+              "语言技能分理解性技能和表达性技能，具体包括听、说、读、看（viewing）、写等，学生基于语篇所开展的学习活动即是基于这些语言技能，理解语篇和对语篇作出回应的活动。"
+            ],
+            "domain": "听力",
+            "prerequisites": [
+              "eng-h-listening-short-h",
+              "eng-h-adverbial-clauses-h"
+            ],
+            "courses": [
+              "eng-h-listening-long-h"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "physics",
+        "name": "高中物理",
+        "nodes": [
+          {
+            "id": "phy-h-energy-conservation-general",
+            "name": "能量守恒定律",
+            "points": [
+              "理解机械能守恒定律，体会守恒观念对认识物理规律的重要性。能用机械能守恒定律分析生产生活中的有关问题。",
+              "通过实验，验证机械能守恒定律。"
+            ],
+            "domain": "功与能",
+            "prerequisites": [
+              "phy-h-energy-conservation-mech"
+            ],
+            "courses": [
+              "phy-h-energy-conservation-general"
+            ]
+          },
+          {
+            "id": "phy-h-momentum-impulse",
+            "name": "动量与冲量",
+            "points": [
+              "1.1 动量与动量守恒定律【内容要求】",
+              "1.1.1 理解冲量和动量。通过理论推导和实验，理解动量定理和 动量守恒定律，能用其解释生产生活中的有关现象。知道动量守恒定 律的普适性。 例1 知道火箭的发射利用了反冲现象。 例2 查阅资料，了解中…",
+              "1.1.2 通过实验，了解弹性碰撞和非弹性碰撞的特点。定量分析 一维碰撞问题并能解释生产生活中的弹性碰撞和非弹性碰撞现象。"
+            ],
+            "domain": "动量",
+            "prerequisites": [
+              "phy-h-newton-laws"
+            ],
+            "courses": [
+              "phy-h-momentum-impulse"
+            ]
+          },
+          {
+            "id": "phy-h-momentum",
+            "name": "动量",
+            "points": [
+              "1.1 动量与动量守恒定律【内容要求】",
+              "1.1.1 理解冲量和动量。通过理论推导和实验，理解动量定理和 动量守恒定律，能用其解释生产生活中的有关现象。知道动量守恒定 律的普适性。 例1 知道火箭的发射利用了反冲现象。 例2 查阅资料，了解中…",
+              "1.1.2 通过实验，了解弹性碰撞和非弹性碰撞的特点。定量分析 一维碰撞问题并能解释生产生活中的弹性碰撞和非弹性碰撞现象。"
+            ],
+            "domain": "动量",
+            "semester": "上",
+            "prerequisites": [
+              "phy-h-momentum-impulse"
+            ],
+            "courses": [
+              "phy-h-momentum"
+            ]
+          },
+          {
+            "id": "phy-h-momentum-conservation",
+            "name": "动量守恒定律",
+            "points": [
+              "通过实验，验证机械能守恒定律。理解机械能守恒定律，体会守恒观念对认识物理规律的重要性。",
+              "能用机械能守恒定律分析生产生活中的有关问题。"
+            ],
+            "domain": "动量",
+            "prerequisites": [
+              "phy-h-momentum-impulse"
+            ],
+            "courses": [
+              "phy-h-momentum-conservation"
+            ]
+          },
+          {
+            "id": "phy-h-collision-types",
+            "name": "碰撞与反冲",
+            "points": [
+              "1.1 动量与动量守恒定律【内容要求】",
+              "1.1.1 理解冲量和动量。通过理论推导和实验，理解动量定理和 动量守恒定律，能用其解释生产生活中的有关现象。知道动量守恒定 律的普适性。 例1 知道火箭的发射利用了反冲现象。 例2 查阅资料，了解中…",
+              "1.1.2 通过实验，了解弹性碰撞和非弹性碰撞的特点。定量分析 一维碰撞问题并能解释生产生活中的弹性碰撞和非弹性碰撞现象。"
+            ],
+            "domain": "动量",
+            "prerequisites": [
+              "phy-h-momentum-conservation",
+              "phy-h-energy-conservation-mech"
+            ],
+            "courses": [
+              "phy-h-collision-types"
+            ]
+          },
+          {
+            "id": "phy-h-electrostatics",
+            "name": "静电现象",
+            "points": [
+              "3.1.1 通过实验，了解静电现象。能用原子结构模型和电荷守恒 的知识分析静电现象。 例1 通过多种方式使物体带电，观察静电现象。 例2 演示并分析静电感应现象。",
+              "3.1.2 知道点电荷模型。知道两个点电荷间相互作用的规律。体 会探究库仑定律过程中的科学思想和方法。 例3 与质点模型类比，体会在什么情境下可将带电体抽象为点 电荷。 例4 体会库仑扭秤实验设计的巧…"
+            ],
+            "domain": "静电场",
+            "prerequisites": [
+              "phy-h-newton-laws"
+            ],
+            "courses": [
+              "phy-h-electrostatics"
+            ]
+          },
+          {
+            "id": "phy-h-coulomb-law",
+            "name": "库仑定律",
+            "points": [
+              "3.1.1 通过实验，了解静电现象。能用原子结构模型和电荷守恒 的知识分析静电现象。 例1 通过多种方式使物体带电，观察静电现象。 例2 演示并分析静电感应现象。",
+              "3.1.2 知道点电荷模型。知道两个点电荷间相互作用的规律。体 会探究库仑定律过程中的科学思想和方法。 例3 与质点模型类比，体会在什么情境下可将带电体抽象为点 电荷。 例4 体会库仑扭秤实验设计的巧…"
+            ],
+            "domain": "静电场",
+            "prerequisites": [
+              "phy-h-electrostatics"
+            ],
+            "courses": [
+              "phy-h-coulomb-law"
+            ]
+          },
+          {
+            "id": "phy-h-electric-field",
+            "name": "电场与电场强度",
+            "points": [
+              "3.1.3 知道电场是一种物质。了解电场强度，体会用物理量之比 定义新物理量的方法。会用电场线描述电场。 例5 用电场线描绘两个等量异种点电荷周围的电场。",
+              "3.1.4 了解生产生活中关于静电的利用与防护。 例6 分析讨论静电在激光打印、静电喷雾和静电除尘等技术中 的应用。知道在有可燃气体、粉尘的环境中如何防止静电事故。"
+            ],
+            "domain": "静电场",
+            "prerequisites": [
+              "phy-h-coulomb-law"
+            ],
+            "courses": [
+              "phy-h-electric-field"
+            ]
+          },
+          {
+            "id": "phy-h-electric-potential",
+            "name": "电势与电势能",
+            "points": [
+              "3.1.5 知道静电场中的电荷具有电势能。了解电势能、电势和电 --- 势差的含义。知道匀强电场中电势差与电场强度的关系。能分析带电 粒子在电场中的运动情况，能解释相关的物理现象。",
+              "3.1.6 观察常见的电容器，了解电容器的电容，观察电容器的充、 放电现象。能举例说明电容器的应用。 例7 查阅资料，了解电容器在照相机闪光灯电路中的作用。 活动建议 （1）通过观察、查阅资料等方式，…"
+            ],
+            "domain": "静电场",
+            "prerequisites": [
+              "phy-h-electric-field"
+            ],
+            "courses": [
+              "phy-h-electric-potential"
+            ]
+          },
+          {
+            "id": "phy-h-capacitor",
+            "name": "电容器",
+            "points": [
+              "3.1.6 观察常见的电容器，了解电容器的电容，观察电容器的充、 放电现象。能举例说明电容器的应用。 例7 查阅资料，了解电容器在照相机闪光灯电路中的作用。 活动建议 （1）通过观察、查阅资料等方式，…"
+            ],
+            "domain": "静电场",
+            "prerequisites": [
+              "phy-h-electric-potential"
+            ],
+            "courses": [
+              "phy-h-capacitor"
+            ]
+          },
+          {
+            "id": "phy-h-dc-circuits",
+            "name": "恒定电流与欧姆定律",
+            "points": [
+              "3.2 电路及其应用【内容要求】",
+              "3.2.1 观察并能识别常见的电路元器件，了解它们在电路中的作 用。会使用多用电表。",
+              "3.2.2 通过实验，探究并了解金属导体的电阻与材料、长度和横 截面积的定量关系。会测量金属丝的电阻率。 例1 知道滑动变阻器的工作原理。 例2 通过I-U图像了解材料的电阻特性。"
+            ],
+            "domain": "直流电路",
+            "prerequisites": [
+              "phy-h-capacitor"
+            ],
+            "courses": [
+              "phy-h-dc-circuits"
+            ]
+          },
+          {
+            "id": "phy-h-circuit-analysis",
+            "name": "闭合电路与电路分析",
+            "points": [
+              "3.2.4 理解闭合电路欧姆定律。会测量电源的电动势和内阻。 例3 通过探究电源两端电压与电流的关系，体会图像法在研究 物理问题中的作用。",
+              "3.2.5 理解电功、电功率及焦耳定律，能用焦耳定律解释生产生 活中的电热现象。",
+              "3.2.6 能分析和解决家庭电路中的简单问题，能将安全用电和节 （2017年版2020年修订） 约用电的知识应用于生活实际。 例4 根据某家庭的电器设施，估算该家庭电路中所需导线的 规格。 活动建议 …"
+            ],
+            "domain": "直流电路",
+            "prerequisites": [
+              "phy-h-dc-circuits"
+            ],
+            "courses": [
+              "phy-h-circuit-analysis"
+            ]
+          },
+          {
+            "id": "phy-h-electrical-experiments",
+            "name": "电学实验",
+            "points": [
+              "通过实验，探究并了解闭合电路的欧姆定律。会测量电源的电动势和内阻。",
+              "能完成“测量电源的电动势和内阻”等物理实验。能分析实验现象和数据，发现规律，形成结论，用已有的物理知识进行解释。",
+              "引导学生运用控制变量等研究方法设计实验方案，学会分析和处理实验数据的方法，提高科学探究能力。"
+            ],
+            "domain": "直流电路",
+            "prerequisites": [
+              "phy-h-circuit-analysis"
+            ],
+            "courses": [
+              "phy-h-electrical-experiments"
+            ]
+          },
+          {
+            "id": "phy-h-gas-laws",
+            "name": "气体实验定律与理想气体（热学）",
+            "points": [
+              "3.1.6 通过实验，了解气体实验定律。知道理想气体模型。能用 分子动理论和统计观点解释气体压强和气体实验定律。 活动建议 （1）设计实验，比较肥皂水和清水的表面张力。 （2）通过调查，了解生活中表现…",
+              "3.2.1 知道热力学第一定律。通过有关史实，了解热力学第一定 律和能量守恒定律的发现过程，体会科学探索中的挫折和失败对科学 发现的意义。",
+              "3.2.2 理解能量守恒定律，能用能量守恒的观点解释自然现象。"
+            ],
+            "domain": "热学",
+            "prerequisites": [
+              "phy-h-energy-conservation-general"
+            ],
+            "courses": [
+              "phy-h-gas-laws"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "chemistry",
+        "name": "高中化学",
+        "nodes": [
+          {
+            "id": "chem-h-molecular-structure",
+            "name": "分子结构与性质",
+            "points": [
+              "认识化学是在原子、分子水平上研究物质的组成、结构、性质、转化及其应用的一门基础学科，其特征是认识物质和创造物质。",
+              "能从元素和原子、分子水平认识物质的组成、结构、性质和变化，形成“结构决定性质”的观念。",
+              "能认识化学现象与模型之间的联系，能运用多种认知模型来描述和解释物质的结构、性质和变化。"
+            ],
+            "domain": "原子结构与周期律",
+            "prerequisites": [
+              "chem-h-chemical-bond"
+            ],
+            "courses": [
+              "chem-h-molecular-structure"
+            ]
+          },
+          {
+            "id": "chem-h-thermochemistry",
+            "name": "热化学（焓变）",
+            "points": [
+              "认识化学变化的本质特征是有新物质生成，并伴有能量转化；认识化学变化有一定限度、速率，是可以调控的。",
+              "关注化学变化中的能量转化；能用对立统一、联系发展和动态平衡的观点考察化学反应，预测在一定条件下某种物质可能发生的化学变化。",
+              "选择性必修课程依据化学学科的基础性研究领域，设置“化学反应原理”模块。"
+            ],
+            "domain": "化学反应与能量",
+            "prerequisites": [
+              "chem-h-chemical-bond"
+            ],
+            "courses": [
+              "chem-h-thermochemistry"
+            ]
+          },
+          {
+            "id": "chem-h-enthalpy-change",
+            "name": "焓变与反应热",
+            "points": [
+              "认识化学变化的本质特征是有新物质生成，并伴有能量转化；认识化学变化有一定限度、速率，是可以调控的。",
+              "关注化学变化中的能量转化；能用对立统一、联系发展和动态平衡的观点考察化学反应，预测在一定条件下某种物质可能发生的化学变化。"
+            ],
+            "domain": "化学反应与能量",
+            "prerequisites": [
+              "chem-h-thermochemistry"
+            ],
+            "courses": [
+              "chem-h-enthalpy-change"
+            ]
+          },
+          {
+            "id": "chem-h-hess-law",
+            "name": "盖斯定律",
+            "points": [
+              "认识化学变化的本质特征是有新物质生成，并伴有能量转化；认识化学变化有一定限度、速率，是可以调控的。",
+              "能从内因与外因、量变与质变等方面较全面地分析物质的化学变化，关注化学变化中的能量转化；能用对立统一、联系发展和动态平衡的观点考察化学反应。"
+            ],
+            "domain": "化学反应与能量",
+            "prerequisites": [
+              "chem-h-enthalpy-change"
+            ],
+            "courses": [
+              "chem-h-hess-law"
+            ]
+          },
+          {
+            "id": "chem-h-reaction-rate",
+            "name": "化学反应速率",
+            "points": [
+              "认识化学变化有一定限度、速率，是可以调控的。能多角度、动态地分析化学变化，运用化学反应原理解决简单的实际问题。",
+              "能从内因与外因、量变与质变等方面较全面地分析物质的化学变化，关注化学变化中的能量转化；能用对立统一、联系发展和动态平衡的观点考察化学反应。"
+            ],
+            "domain": "化学反应速率与平衡",
+            "prerequisites": [
+              "chem-h-hess-law"
+            ],
+            "courses": [
+              "chem-h-reaction-rate"
+            ]
+          },
+          {
+            "id": "chem-h-chemical-equilibrium",
+            "name": "化学平衡",
+            "points": [
+              "认识化学变化有一定限度、速率，是可以调控的。能多角度、动态地分析化学变化，运用化学反应原理解决简单的实际问题。",
+              "能用对立统一、联系发展和动态平衡的观点考察化学反应，预测在一定条件下某种物质可能发生的化学变化。",
+              "选择性必修课程设置3个模块，包括“化学反应原理”模块。"
+            ],
+            "domain": "化学反应速率与平衡",
+            "prerequisites": [
+              "chem-h-reaction-rate"
+            ],
+            "courses": [
+              "chem-h-chemical-equilibrium"
+            ]
+          },
+          {
+            "id": "chem-h-reaction-rate-equilibrium",
+            "name": "速率与平衡综合",
+            "points": [
+              "认识化学变化有一定限度、速率，是可以调控的。能多角度、动态地分析化学变化，运用化学反应原理解决简单的实际问题。",
+              "能用对立统一、联系发展和动态平衡的观点考察化学反应，预测在一定条件下某种物质可能发生的化学变化。",
+              "选择性必修课程依据化学学科的基础性研究领域，设置“化学反应原理”模块。"
+            ],
+            "domain": "化学反应速率与平衡",
+            "prerequisites": [
+              "chem-h-chemical-equilibrium"
+            ],
+            "courses": [
+              "chem-h-reaction-rate-equilibrium"
+            ]
+          },
+          {
+            "id": "chem-h-le-chatelier",
+            "name": "勒夏特列原理",
+            "points": [
+              "认识化学变化有一定限度、速率，是可以调控的。能多角度、动态地分析化学变化，运用化学反应原理解决简单的实际问题。",
+              "能用对立统一、联系发展和动态平衡的观点考察化学反应，预测在一定条件下某种物质可能发生的化学变化。",
+              "选择性必修课程中，依据化学学科的基础性研究领域，设置“化学反应原理”模块。"
+            ],
+            "domain": "化学反应速率与平衡",
+            "prerequisites": [
+              "chem-h-chemical-equilibrium"
+            ],
+            "courses": [
+              "chem-h-le-chatelier"
+            ]
+          },
+          {
+            "id": "chem-h-equilibrium-constant",
+            "name": "平衡常数",
+            "points": [
+              "认识化学变化有一定限度、速率，是可以调控的。能多角度、动态地分析化学变化，运用化学反应原理解决简单的实际问题。",
+              "能用对立统一、联系发展和动态平衡的观点考察化学反应，预测在一定条件下某种物质可能发生的化学变化。"
+            ],
+            "domain": "化学反应速率与平衡",
+            "prerequisites": [
+              "chem-h-le-chatelier"
+            ],
+            "courses": [
+              "chem-h-equilibrium-constant"
+            ]
+          },
+          {
+            "id": "chem-h-electrochemistry",
+            "name": "电化学基础",
+            "points": [
+              "认识化学变化有一定限度、速率，是可以调控的。能多角度、动态地分析化学变化，运用化学反应原理解决简单的实际问题。",
+              "认识化学变化的本质特征是有新物质生成，并伴有能量转化；",
+              "了解实验、假说、模型、比较、分类等方法在化学科学研究中的运用。"
+            ],
+            "domain": "电化学",
+            "prerequisites": [
+              "chem-h-oxidation-reduction"
+            ],
+            "courses": [
+              "chem-h-electrochemistry"
+            ]
+          },
+          {
+            "id": "chem-h-galvanic-cell",
+            "name": "原电池",
+            "points": [
+              "情境素材建议：有关化学发现的故事：电离理论的建立、元素周期律的发展、原电池的发现、氯气的发现、人工合成尿素、工业合成氨、青蒿素的提取等。",
+              "认识化学变化的本质特征是有新物质生成，并伴有能量转化；认识化学变化有一定限度、速率，是可以调控的。",
+              "能从内因与外因、量变与质变等方面较全面地分析物质的化学变化，关注化学变化中的能量转化。"
+            ],
+            "domain": "电化学",
+            "prerequisites": [
+              "chem-h-electrochemistry"
+            ],
+            "courses": [
+              "chem-h-galvanic-cell",
+              "lithium-ion-battery-tech"
+            ]
+          },
+          {
+            "id": "chem-h-electrolysis",
+            "name": "电解池",
+            "points": [
+              "认识有化合价变化的反应是氧化还原反应，了解氧化还原反应的本质是电子的转移，知道常见的氧化剂和还原剂。",
+              "电解质的电离；探究溶液中离子反应的实质及发生条件（测定电流或溶液电导率的变化）。"
+            ],
+            "domain": "电化学",
+            "prerequisites": [
+              "chem-h-galvanic-cell"
+            ],
+            "courses": [
+              "chem-h-electrolysis"
+            ]
+          },
+          {
+            "id": "chem-h-metal-corrosion-h",
+            "name": "金属的腐蚀与防护（高中）",
+            "points": [
+              "认识有化合价变化的反应是氧化还原反应，了解氧化还原反应的本质是电子的转移，知道常见的氧化剂和还原剂。",
+              "能多角度、动态地分析化学变化，运用化学反应原理解决简单的实际问题。",
+              "紧密联系生产和生活实际，创设丰富多样的真实问题情境。"
+            ],
+            "domain": "电化学",
+            "prerequisites": [
+              "chem-h-electrolysis"
+            ],
+            "courses": [
+              "chem-h-metal-corrosion-h"
+            ]
+          },
+          {
+            "id": "chem-h-corrosion-protection",
+            "name": "防腐原理与应用",
+            "points": [
+              "认识有化合价变化的反应是氧化还原反应，了解氧化还原反应的本质是电子的转移，知道常见的氧化剂和还原剂。",
+              "能多角度、动态地分析化学变化，运用化学反应原理解决简单的实际问题。",
+              "紧密联系生产和生活实际，创设丰富多样的真实问题情境。"
+            ],
+            "domain": "电化学",
+            "prerequisites": [
+              "chem-h-metal-corrosion-h"
+            ],
+            "courses": [
+              "chem-h-corrosion-protection"
+            ]
+          },
+          {
+            "id": "chem-h-organic-intro",
+            "name": "有机化合物入门",
+            "points": [
+              "在选择性必修课程中，依据化学学科的基础性研究领域，设置“化学反应原理”“物质结构与性质”“有机化学基础”3个模块。",
+              "选择性必修课程包括3个模块，每个模块2学分，共6学分。"
+            ],
+            "domain": "有机化学基础",
+            "prerequisites": [
+              "chem-h-chemical-bond"
+            ],
+            "courses": [
+              "chem-h-organic-intro"
+            ]
+          },
+          {
+            "id": "chem-h-hydrocarbon",
+            "name": "烃（烷/烯/炔/芳）",
+            "points": [
+              "【内容要求】2.1 烃的性质与应用 认识烷烃、烯烃、炔烃和芳香烃的组成和结构特点，比较这些有 机化合物的组成、结构和性质的差异。了解烃类在日常生活、有机合 成和化工生产中的重要作用。"
+            ],
+            "domain": "有机化学基础",
+            "prerequisites": [
+              "chem-h-organic-intro"
+            ],
+            "courses": [
+              "chem-h-hydrocarbon"
+            ]
+          },
+          {
+            "id": "chem-h-hydrocarbons",
+            "name": "烃类综合",
+            "points": [
+              "【内容要求】2.1 烃的性质与应用 认识烷烃、烯烃、炔烃和芳香烃的组成和结构特点，比较这些有 机化合物的组成、结构和性质的差异。了解烃类在日常生活、有机合 成和化工生产中的重要作用。 2.2 烃的衍生…"
+            ],
+            "domain": "有机化学基础",
+            "prerequisites": [
+              "chem-h-hydrocarbon"
+            ],
+            "courses": [
+              "chem-h-hydrocarbons"
+            ]
+          },
+          {
+            "id": "chem-h-functional-groups",
+            "name": "官能团（醇/酚/醛/酸/酯）",
+            "points": [
+              "2.2 烃的衍生物的性质与应用 认识卤代烃、醇、醛、羧酸、酯、酚的组成和结构特点、性质、 转化关系及其在生产、生活中的重要应用，知道醚、酮、胺和酰胺的 结构特点及其应用。"
+            ],
+            "domain": "有机化学基础",
+            "prerequisites": [
+              "chem-h-hydrocarbons"
+            ],
+            "courses": [
+              "chem-h-functional-groups"
+            ]
+          },
+          {
+            "id": "chem-h-organic-derivatives",
+            "name": "烃的衍生物",
+            "points": [
+              "在选择性必修课程中，依据化学学科的基础性研究领域，设置“化学反应原理”“物质结构与性质”“有机化学基础”3个模块。",
+              "选择性必修课程设置3个模块。"
+            ],
+            "domain": "有机化学基础",
+            "prerequisites": [
+              "chem-h-functional-groups"
+            ],
+            "courses": [
+              "chem-h-organic-derivatives"
+            ]
+          },
+          {
+            "id": "chem-h-organic-reactions",
+            "name": "有机反应类型",
+            "points": [
+              "2.3 有机反应类型与有机合成 认识加成、取代、消去反应及氧化还原反应的特点和规律，了解 有机反应类型和有机化合物组成结构特点的关系。认识有机合成的关 键是碳骨架的构建和官能团的转化，了解设计有机合成…"
+            ],
+            "domain": "有机化学基础",
+            "semester": "下",
+            "prerequisites": [
+              "chem-h-organic-derivatives"
+            ],
+            "courses": [
+              "chem-h-organic-reactions"
+            ]
+          },
+          {
+            "id": "chem-h-organic-synthesis",
+            "name": "有机合成路线设计",
+            "points": [
+              "在选择性必修课程中，依据化学学科的基础性研究领域，设置“化学反应原理”“物质结构与性质”“有机化学基础”3个模块。",
+              "选择性必修课程包括3个模块，每个模块2学分，共6学分。"
+            ],
+            "domain": "有机化学基础",
+            "prerequisites": [
+              "chem-h-organic-reactions"
+            ],
+            "courses": [
+              "chem-h-organic-synthesis"
+            ]
+          },
+          {
+            "id": "chem-h-biomolecules",
+            "name": "生物大分子（糖/蛋白质/核酸）",
+            "points": [
+              "3.2 生物大分子 认识糖类和蛋白质的组成和性质特点。了解淀粉和纤维素及其与 葡萄糖的关系，了解葡萄糖的结构特点、主要性质与应用。知道糖类 在食品加工和生物质能源开发上的应用。认识氨基酸的组成、结构特…"
+            ],
+            "domain": "有机化学基础",
+            "prerequisites": [
+              "chem-h-organic-reactions"
+            ],
+            "courses": [
+              "chem-h-biomolecules"
+            ]
+          },
+          {
+            "id": "chem-h-polymers",
+            "name": "高分子合成与应用",
+            "points": [
+              "3.3 合成高分子 认识塑料、合成橡胶、合成纤维的组成和结构特点，了解新型高 分子材料的优异性能及其在高新技术领域中的应用。"
+            ],
+            "domain": "有机化学基础",
+            "prerequisites": [
+              "chem-h-organic-reactions"
+            ],
+            "courses": [
+              "chem-h-polymers"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "biology",
+        "name": "高中生物",
+        "nodes": [
+          {
+            "id": "bio-h-internal-environment",
+            "name": "内环境与稳态",
+            "points": [
+              "稳态与调节（2学分）生物与环境（2学分）生物技术与工程（2学分）分子与细胞（2学分）遗传与进化（2学分）必修选择性必修选修（每模块1学分)",
+              "选择性必修部分有“稳态与调节”“生物与环境”和“生物技术与工程”三个模块；"
+            ],
+            "domain": "稳态与调节",
+            "semester": "上",
+            "courses": [
+              "bio-h-internal-environment"
+            ]
+          },
+          {
+            "id": "bio-h-nervous-regulation",
+            "name": "神经调节",
+            "points": [
+              "1.3 神经系统能够及时感知机体内、外环境的变化，并作出反应调控 各器官、系统的活动，实现机体稳态",
+              "1.3.1 概述神经调节的基本方式是反射（可分为条件反射和非条 件反射），其结构基础是反射弧",
+              "1.3.2 阐明神经细胞膜内外在静息状态具有电位差，受到外界刺 激后形成动作电位，并沿神经纤维传导"
+            ],
+            "domain": "稳态与调节",
+            "semester": "上",
+            "prerequisites": [
+              "bio-h-internal-environment",
+              "bio-h-atp"
+            ],
+            "courses": [
+              "bio-h-nervous-regulation"
+            ]
+          },
+          {
+            "id": "bio-h-humoral-regulation",
+            "name": "体液调节",
+            "points": [
+              "概念1 动物生命活动的调节包括神经调节、体液调节和免疫调节等方式，它们共同维持机体的稳态",
+              "举例说明神经调节与体液调节相互协调，共同维持机体的稳态，如体温调节、水盐平衡调节等",
+              "举例说明其他体液成分参与稳态的调节，如二氧化碳对呼吸运动的调节"
+            ],
+            "domain": "稳态与调节",
+            "semester": "上",
+            "prerequisites": [
+              "bio-h-nervous-regulation"
+            ],
+            "courses": [
+              "bio-h-humoral-regulation"
+            ]
+          },
+          {
+            "id": "bio-h-blood-sugar-regulation",
+            "name": "血糖调节与糖尿病",
+            "points": [
+              "血糖调节属于选择性必修课程模块1“稳态与调节”的内容，该模块旨在帮助学生理解生命系统通过调节机制维持稳态。",
+              "稳态与调节模块内容包括生物个体水平的稳态与平衡，如血糖调节、体温调节、水盐平衡调节等。"
+            ],
+            "domain": "稳态与调节",
+            "prerequisites": [
+              "bio-h-humoral-regulation"
+            ],
+            "courses": [
+              "bio-h-blood-sugar-regulation"
+            ]
+          },
+          {
+            "id": "bio-h-immune-regulation",
+            "name": "免疫调节",
+            "points": [
+              "免疫调节是机体维持内环境稳态的重要机制，包括非特异性免疫和特异性免疫。",
+              "举例说明免疫细胞、免疫器官和免疫活性物质等是免疫调节的结构与物质基础。",
+              "阐明特异性免疫是通过体液免疫和细胞免疫两种方式，针对特定病原体发生的免疫应答。"
+            ],
+            "domain": "稳态与调节",
+            "semester": "上",
+            "prerequisites": [
+              "bio-h-humoral-regulation"
+            ],
+            "courses": [
+              "bio-h-immune-regulation"
+            ]
+          },
+          {
+            "id": "bio-h-nervous-humoral-immune",
+            "name": "神经—体液—免疫综合",
+            "points": [
+              "1.3 神经系统能够及时感知机体内、外环境的变化，并作出反应调控 各器官、系统的活动，实现机体稳态",
+              "1.3.1 概述神经调节的基本方式是反射（可分为条件反射和非条 件反射），其结构基础是反射弧",
+              "1.3.2 阐明神经细胞膜内外在静息状态具有电位差，受到外界刺 激后形成动作电位，并沿神经纤维传导"
+            ],
+            "domain": "稳态与调节",
+            "prerequisites": [
+              "bio-h-blood-sugar-regulation",
+              "bio-h-immune-regulation"
+            ],
+            "courses": [
+              "bio-h-nervous-humoral-immune"
+            ]
+          },
+          {
+            "id": "bio-h-plant-hormone",
+            "name": "植物激素调节",
+            "points": [
+              "概念4 植物的生命活动受到多种因素的调节，其中植物激素调节发挥重要作用",
+              "概述科学家经过不断的探索，发现了植物生长素，并揭示了它在调节植物生长时表现出两重性",
+              "举例说明几种主要植物激素的作用，这些激素可通过协同、拮抗等方式共同实现对植物生命活动的调节"
+            ],
+            "domain": "稳态与调节",
+            "prerequisites": [
+              "bio-h-nervous-humoral-immune"
+            ],
+            "courses": [
+              "bio-h-plant-hormone"
+            ]
+          },
+          {
+            "id": "bio-h-ecosystem",
+            "name": "生态系统总论",
+            "points": [
+              "选择性必修部分有“稳态与调节”“生物与环境”和“生物技术与工程”三个模块",
+              "选择性必修课程所选的内容是学生未来职业与专业发展的基础，有助于学生进一步加深对生物学大概念的理解"
+            ],
+            "domain": "生态学",
+            "prerequisites": [
+              "bio-h-community"
+            ],
+            "courses": [
+              "bio-h-ecosystem"
+            ]
+          },
+          {
+            "id": "bio-h-population",
+            "name": "种群及其特征",
+            "points": [
+              "种群是生物进化的基本单位，在一定空间内，同种生物所有个体形成的集合就是种群。",
+              "不同种群在自然条件下基因不能自由交流的现象称为隔离。隔离是物种形成的必要条件。",
+              "阐明具有优势性状的个体在种群中所占比例将会增加。"
+            ],
+            "domain": "生态学",
+            "courses": [
+              "bio-h-population"
+            ]
+          },
+          {
+            "id": "bio-h-community",
+            "name": "群落",
+            "points": [
+              "本模块包括遗传的细胞基础、遗传的分子基础、遗传的基本规律、生物的变异和生物的进化等内容。",
+              "通过进化形成物种多样性和适应性，进化的本质是遗传物质的改变。",
+              "选取的现代生物进化理论和物种形成等知识，主要是为了阐明生物进化的过程和原因。"
+            ],
+            "domain": "生态学",
+            "semester": "下",
+            "prerequisites": [
+              "bio-h-population"
+            ],
+            "courses": [
+              "bio-h-community"
+            ]
+          },
+          {
+            "id": "bio-h-ecosystem-structure",
+            "name": "生态系统结构",
+            "points": [
+              "构、生理特征和分布特点 2.2 生物群落与非生物的环境因素相互作用形成多样化的生态系统， 完成物质循环、能量流动和信息传递",
+              "2.2.1 阐明生态系统由生产者、消费者和分解者等生物因素以及 阳光、空气、水等非生物因素组成，各组分紧密联系使生 态系统成为具有一定结构和功能的统一体",
+              "2.2.2 讨论某一生态系统中生产者和消费者通过食物链和食物网 联系在一起形成复杂的营养结构"
+            ],
+            "domain": "生态学",
+            "prerequisites": [
+              "bio-h-community"
+            ],
+            "courses": [
+              "bio-h-ecosystem-structure"
+            ]
+          },
+          {
+            "id": "bio-h-energy-flow",
+            "name": "生态系统能量流动",
+            "points": [
+              "2.2.3 分析生态系统中的物质在生物群落与无机环境之间不断循 环、能量在生物群落中单向流动并逐级递减的规律",
+              "2.2.4 举例说明利用物质循环和能量流动规律，人们能够更加科 学、有效地利用生态系统中的资源 ---"
+            ],
+            "domain": "生态学",
+            "prerequisites": [
+              "bio-h-ecosystem-structure"
+            ],
+            "courses": [
+              "bio-h-energy-flow"
+            ]
+          },
+          {
+            "id": "bio-h-material-cycle-h",
+            "name": "生态系统物质循环",
+            "points": [
+              "2.2.3 分析生态系统中的物质在生物群落与无机环境之间不断循 环、能量在生物群落中单向流动并逐级递减的规律",
+              "2.2.4 举例说明利用物质循环和能量流动规律，人们能够更加科 学、有效地利用生态系统中的资源 ---"
+            ],
+            "domain": "生态学",
+            "prerequisites": [
+              "bio-h-ecosystem-structure"
+            ],
+            "courses": [
+              "bio-h-material-cycle-h"
+            ]
+          },
+          {
+            "id": "bio-h-information-transmission",
+            "name": "生态系统信息传递",
+            "points": [
+              "2.2.7 举例说出生态系统中物理、化学和行为信息的传递对生命 活动的正常进行、生物种群的繁衍和种间关系的调节起着 重要作用",
+              "2.2.8 分析特定生态系统的生物与非生物因素决定其营养结构"
+            ],
+            "domain": "生态学",
+            "prerequisites": [
+              "bio-h-material-cycle-h",
+              "bio-h-energy-flow"
+            ],
+            "courses": [
+              "bio-h-information-transmission"
+            ]
+          },
+          {
+            "id": "bio-h-ecosystem-stability",
+            "name": "生态系统稳定性",
+            "points": [
+              "生态系统的稳定性是指生态系统保持或恢复自身结构和功能相对稳定的能力。",
+              "阐明生态系统通过自我调节作用抵御和消除一定限度的外来干扰，保持或恢复相对稳定的状态。",
+              "举例说明生态系统的稳定性会受到自然或人为因素的影响，如气候变化、人类活动等。"
+            ],
+            "domain": "生态学",
+            "prerequisites": [
+              "bio-h-information-transmission"
+            ],
+            "courses": [
+              "bio-h-ecosystem-stability"
+            ]
+          },
+          {
+            "id": "bio-h-biodiversity-h",
+            "name": "生物多样性及其保护",
+            "points": [
+              "生物通过生殖、发育和遗传实现生命的延续和种族的繁衍，通过进化形成物种多样性和适应性。",
+              "本模块的内容，对于学生理解生命的延续和发展，认识生物界及生物多样性，形成生物进化的观点，树立正确的自然观有重要意义。"
+            ],
+            "domain": "生态学",
+            "prerequisites": [
+              "bio-h-ecosystem-stability"
+            ],
+            "courses": [
+              "bio-h-biodiversity-h"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "geography",
+        "name": "高中地理",
+        "nodes": [
+          {
+            "id": "geo-h-population-growth",
+            "name": "人口增长与分布",
+            "points": [
+              "运用资料，描述人口分布、迁移的特点及其影响因素，并结合实例，解释区域资源环境承载力、人口合理容量。",
+              "能够描述人文地理事物的空间现象及其变化，解释不同地方的人们对产业活动进行区位选择的依据（综合思维、区域认知）。",
+              "以基本社会经济活动的空间特点为线索组织教学内容。采用案例学习的方法，具体分析体现人类活动与自然环境关系的典型实例。"
+            ],
+            "domain": "人文地理（人口·城市·产业·交通）",
+            "courses": [
+              "geo-h-population-growth"
+            ]
+          },
+          {
+            "id": "geo-h-population-migration",
+            "name": "人口迁移",
+            "points": [
+              "运用资料，描述人口分布、迁移的特点及其影响因素，并结合实例，解释区域资源环境承载力、人口合理容量。",
+              "能够描述人文地理事物的空间现象及其变化，解释不同地方的人们对产业活动进行区位选择的依据（综合思维、区域认知）。",
+              "以基本社会经济活动的空间特点为线索组织教学内容。采用案例学习的方法，具体分析体现人类活动与自然环境关系的典型实例。"
+            ],
+            "domain": "人文地理（人口·城市·产业·交通）",
+            "prerequisites": [
+              "geo-h-population-growth"
+            ],
+            "courses": [
+              "geo-h-population-migration"
+            ]
+          },
+          {
+            "id": "geo-h-population-urbanization",
+            "name": "人口与城市化综合",
+            "points": [
+              "运用资料，说明不同地区城镇化的过程和特点，以及城镇化的利弊。",
+              "结合实例，解释城镇和乡村内部的空间结构，说明合理利用城乡空间的意义。",
+              "能够描述人文地理事物的空间现象及其变化，解释不同地方的人们对产业活动进行区位选择的依据。"
+            ],
+            "domain": "人文地理（人口·城市·产业·交通）",
+            "prerequisites": [
+              "geo-h-population-migration"
+            ],
+            "courses": [
+              "geo-h-population-urbanization"
+            ]
+          },
+          {
+            "id": "geo-h-urbanization",
+            "name": "城市化",
+            "points": [
+              "运用资料，说明不同地区城镇化的过程和特点，以及城镇化的利弊。",
+              "以某大都市为例，从区域空间组织的视角出发，说明大都市辐射功能。",
+              "结合实例，解释城镇和乡村内部的空间结构，说明合理利用城乡空间的意义。"
+            ],
+            "domain": "人文地理（人口·城市·产业·交通）",
+            "prerequisites": [
+              "geo-h-population-migration"
+            ],
+            "courses": [
+              "geo-h-urbanization"
+            ]
+          },
+          {
+            "id": "geo-h-urban-structure",
+            "name": "城市空间结构",
+            "points": [
+              "结合实例，解释城镇和乡村内部的空间结构，说明合理利用城乡空间的意义。",
+              "能够描述人文地理事物的空间现象及其变化，解释不同地方的人们对产业活动进行区位选择的依据。",
+              "以基本社会经济活动的空间特点为线索组织教学内容。采用案例学习的方法，具体分析体现人类活动与自然环境关系的典型实例。"
+            ],
+            "domain": "人文地理（人口·城市·产业·交通）",
+            "prerequisites": [
+              "geo-h-urbanization"
+            ],
+            "courses": [
+              "geo-h-urban-structure"
+            ]
+          },
+          {
+            "id": "geo-h-urban-problems",
+            "name": "城市化问题与城市规划",
+            "points": [
+              "运用资料，说明不同地区城镇化的过程和特点，以及城镇化的利弊。",
+              "结合实例，解释城镇和乡村内部的空间结构，说明合理利用城乡空间的意义。",
+              "以某大都市为例，从区域空间组织的视角出发，说明大都市辐射功能。"
+            ],
+            "domain": "人文地理（人口·城市·产业·交通）",
+            "prerequisites": [
+              "geo-h-urbanization"
+            ],
+            "courses": [
+              "geo-h-urban-problems"
+            ]
+          },
+          {
+            "id": "geo-h-agriculture",
+            "name": "农业",
+            "points": [
+              "结合实例，说明工业、农业和服务业的区位因素。",
+              "能够描述人文地理事物的空间现象及其变化，解释不同地方的人们对产业活动进行区位选择的依据（综合思维、区域认知）。",
+              "以基本社会经济活动的空间特点为线索组织教学内容。采用案例学习的方法，具体分析体现人类活动与自然环境关系的典型实例。"
+            ],
+            "domain": "人文地理（人口·城市·产业·交通）",
+            "semester": "下",
+            "prerequisites": [
+              "geo-h-urbanization"
+            ],
+            "courses": [
+              "geo-h-agriculture"
+            ]
+          },
+          {
+            "id": "geo-h-agriculture-location",
+            "name": "农业区位因素",
+            "points": [
+              "结合实例，说明工业、农业和服务业的区位因素。",
+              "能够描述人文地理事物的空间现象及其变化，解释不同地方的人们对产业活动进行区位选择的依据（综合思维、区域认知）。",
+              "采用案例学习的方法，具体分析体现人类活动与自然环境关系的典型实例，帮助学生理解...掌握分析人文地理问题的思路和方法。"
+            ],
+            "domain": "人文地理（人口·城市·产业·交通）",
+            "prerequisites": [
+              "geo-h-climate-types",
+              "geo-h-natural-zones"
+            ],
+            "courses": [
+              "geo-h-agriculture-location"
+            ]
+          },
+          {
+            "id": "geo-h-agriculture-types",
+            "name": "主要农业地域类型",
+            "points": [
+              "结合实例，说明工业、农业和服务业的区位因素。",
+              "能够描述人文地理事物的空间现象及其变化，解释不同地方的人们对产业活动进行区位选择的依据（综合思维、区域认知）。"
+            ],
+            "domain": "人文地理（人口·城市·产业·交通）",
+            "prerequisites": [
+              "geo-h-agriculture-location"
+            ],
+            "courses": [
+              "geo-h-agriculture-types"
+            ]
+          },
+          {
+            "id": "geo-h-industry-services",
+            "name": "工业与服务业",
+            "points": [
+              "结合实例，说明工业、农业和服务业的区位因素。",
+              "能够描述人文地理事物的空间现象及其变化，解释不同地方的人们对产业活动进行区位选择的依据。",
+              "以基本社会经济活动的空间特点为线索组织教学内容。采用案例学习的方法，具体分析体现人类活动与自然环境关系的典型实例。"
+            ],
+            "domain": "人文地理（人口·城市·产业·交通）",
+            "semester": "下",
+            "prerequisites": [
+              "geo-h-urbanization"
+            ],
+            "courses": [
+              "geo-h-industry-services"
+            ]
+          },
+          {
+            "id": "geo-h-industry-location",
+            "name": "工业区位",
+            "points": [
+              "结合实例，说明工业、农业和服务业的区位因素。",
+              "能够描述人文地理事物的空间现象及其变化，解释不同地方的人们对产业活动进行区位选择的依据。",
+              "以基本社会经济活动的空间特点为线索组织教学内容。采用案例学习的方法，具体分析体现人类活动与自然环境关系的典型实例。"
+            ],
+            "domain": "人文地理（人口·城市·产业·交通）",
+            "prerequisites": [
+              "geo-h-industry-services"
+            ],
+            "courses": [
+              "geo-h-industry-location"
+            ]
+          },
+          {
+            "id": "geo-h-industry-cluster",
+            "name": "工业地域与工业集聚",
+            "points": [
+              "结合实例，说明工业、农业和服务业的区位因素。",
+              "能够描述人文地理事物的空间现象及其变化，解释不同地方的人们对产业活动进行区位选择的依据。",
+              "以基本社会经济活动的空间特点为线索组织教学内容。采用案例学习的方法，具体分析体现人类活动与自然环境关系的典型实例。"
+            ],
+            "domain": "人文地理（人口·城市·产业·交通）",
+            "prerequisites": [
+              "geo-h-industry-location"
+            ],
+            "courses": [
+              "geo-h-industry-cluster"
+            ]
+          },
+          {
+            "id": "geo-h-service-location",
+            "name": "服务业区位",
+            "points": [
+              "结合实例，说明工业、农业和服务业的区位因素。",
+              "能够描述人文地理事物的空间现象及其变化，解释不同地方的人们对产业活动进行区位选择的依据（综合思维、区域认知）。",
+              "以基本社会经济活动的空间特点为线索组织教学内容。采用案例学习的方法，具体分析体现人类活动与自然环境关系的典型实例。"
+            ],
+            "domain": "人文地理（人口·城市·产业·交通）",
+            "prerequisites": [
+              "geo-h-urbanization"
+            ],
+            "courses": [
+              "geo-h-service-location"
+            ]
+          },
+          {
+            "id": "geo-h-transportation",
+            "name": "交通运输布局",
+            "points": [
+              "结合实例，说明工业、农业和服务业的区位因素。",
+              "结合实例，说明运输方式和交通布局与区域发展的关系。"
+            ],
+            "domain": "人文地理（人口·城市·产业·交通）",
+            "prerequisites": [
+              "geo-h-urbanization",
+              "geo-h-industry-location"
+            ],
+            "courses": [
+              "geo-h-transportation"
+            ]
+          },
+          {
+            "id": "geo-h-transportation-communication",
+            "name": "交通与区域发展",
+            "points": [
+              "结合实例，说明工业、农业和服务业的区位因素。",
+              "结合实例，说明运输方式和交通布局与区域发展的关系。",
+              "能够描述人文地理事物的空间现象及其变化，解释不同地方的人们对产业活动进行区位选择的依据。"
+            ],
+            "domain": "人文地理（人口·城市·产业·交通）",
+            "prerequisites": [
+              "geo-h-transportation"
+            ],
+            "courses": [
+              "geo-h-transportation-communication"
+            ]
+          },
+          {
+            "id": "geo-h-resource-energy",
+            "name": "自然资源与能源",
+            "points": [
+              "结合实例，说明自然资源的数量、质量、空间分布与人类活动的关系。",
+              "以某种战略性矿产资源为例，分析其分布特点及开发利用现状。",
+              "运用图表，解释中国耕地资源的分布，说明其开发利用现状，以及耕地保护与粮食安全的关系。"
+            ],
+            "domain": "资源、环境与可持续发展",
+            "prerequisites": [
+              "geo-h-industry-services"
+            ],
+            "courses": [
+              "geo-h-resource-energy"
+            ]
+          },
+          {
+            "id": "geo-h-environmental-issues",
+            "name": "环境问题",
+            "points": [
+              "运用资料，归纳人类面临的主要环境问题，说明协调人地关系和可持续发展的主要途径及其缘由。",
+              "结合实例，说明设立自然保护区对生态安全的意义。",
+              "结合实例，说明污染物跨境转移对环境安全的影响。"
+            ],
+            "domain": "资源、环境与可持续发展",
+            "prerequisites": [
+              "geo-h-climate-change",
+              "geo-h-resource-energy"
+            ],
+            "courses": [
+              "geo-h-environmental-issues"
+            ]
+          },
+          {
+            "id": "geo-h-sustainable-development",
+            "name": "可持续发展理念与实践",
+            "points": [
+              "运用资料，归纳人类面临的主要环境问题，说明协调人地关系和可持续发展的主要途径及其缘由。",
+              "能够形成判断人类活动与资源环境问题关系的初步意识（人地协调观）。",
+              "帮助学生理解党和国家提出的新的发展理念，掌握分析人文地理问题的思路和方法。"
+            ],
+            "domain": "资源、环境与可持续发展",
+            "prerequisites": [
+              "geo-h-environmental-issues"
+            ],
+            "courses": [
+              "geo-h-sustainable-development"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "history",
+        "name": "高中历史",
+        "nodes": [
+          {
+            "id": "hist-h-prc-establishment",
+            "name": "中华人民共和国成立",
+            "points": [
+              "认识中华人民共和国成立的伟大意义；概述新中国巩固人民政权的主要举措；认识新中国为民主政治建设和向社会主义过渡所作出的努力。",
+              "了解20世纪50—70年代中国探索社会主义建设道路的曲折发展和伟大成就，认识“文化大革命”的错误及教训；理解政治、经济、外交、国防等领域所取得的成就在新中国历史上所具有的开创性、奠基性意义。"
+            ],
+            "domain": "中国近现代史",
+            "prerequisites": [
+              "hist-h-new-democracy"
+            ],
+            "courses": [
+              "hist-h-prc-establishment"
+            ]
+          },
+          {
+            "id": "hist-h-reform-opening",
+            "name": "改革开放",
+            "points": [
+              "认识真理标准问题讨论和党的十一届三中全会的历史意义；认识改革开放以来中国在各个领域取得的成就、综合国力及国际影响力的不断提高。",
+              "认识邓小平理论对建设中国特色社会主义的重要指导意义；认识中国特色社会主义进入新时代的重大意义，认清我国发展新的历史方位。"
+            ],
+            "domain": "中国近现代史",
+            "prerequisites": [
+              "hist-h-prc-establishment"
+            ],
+            "courses": [
+              "hist-h-reform-opening"
+            ]
+          },
+          {
+            "id": "hist-h-ancient-civ-h",
+            "name": "古代亚非欧文明",
+            "points": [
+              "本课程以马克思主义为指导，通过对中外重大历史事件、历史人物和历史现象的叙述，展现人类发展进程中丰富的历史文化遗产，以及人类社会从古至今、从分散到整体、社会形态从低级到高级的发展历程。",
+              "通过学习，学生应了解和掌握唯物史观的基本观点，体会唯物史观的科学性，理解不同时空条件下历史的延续、变迁与发展，学习史料实证的基本方法，能够在此基础上对历史作出正确的解释。",
+              "深化对中华民族多元一体发展趋势的认识，认同社会主义核心价值观和中华优秀传统文化，了解世界历史发展的多样性，理解和尊重世界各国各地区的文化传统，拓宽国际视野，形成开放的世界意识。"
+            ],
+            "domain": "世界古代中世纪史",
+            "courses": [
+              "hist-h-ancient-civ-h"
+            ]
+          },
+          {
+            "id": "hist-h-classical-civ",
+            "name": "古典文明（希腊/罗马）",
+            "points": [
+              "了解古希腊的城邦制度与雅典民主政治的特点。",
+              "了解古罗马的法律制度及其对后世的影响。",
+              "认识古希腊罗马文明在世界历史发展中的重要地位。"
+            ],
+            "domain": "世界古代中世纪史",
+            "prerequisites": [
+              "hist-h-ancient-civ-h"
+            ],
+            "courses": [
+              "hist-classical-civilization"
+            ]
+          },
+          {
+            "id": "hist-h-medieval-h",
+            "name": "中古时期（欧洲/亚洲/非洲美洲）",
+            "points": [
+              "本课程以通史的叙事框架，展示中国历史和世界历史发展的基本过程。",
+              "马克思主义根据人类社会生产力与生产关系基本矛盾的不同性质，把人类历史发展分为原始社会、奴隶社会、封建社会、资本主义社会和共产主义社会几种社会形态。",
+              "展现人类发展进程中丰富的历史文化遗产，以及人类社会从古至今、从分散到整体、社会形态从低级到高级的发展历程。"
+            ],
+            "domain": "世界古代中世纪史",
+            "prerequisites": [
+              "hist-h-classical-civ"
+            ],
+            "courses": [
+              "hist-h-medieval-h"
+            ]
+          },
+          {
+            "id": "hist-h-age-of-exploration",
+            "name": "新航路开辟与殖民扩张",
+            "points": [
+              "本课程以马克思主义为指导，通过对中外重大历史事件、历史人物和历史现象的叙述，展现人类发展进程中丰富的历史文化遗产，以及人类社会从古至今、从分散到整体、社会形态从低级到高级的发展历程。",
+              "了解世界历史发展的多样性，理解和尊重世界各国各地区的文化传统，拓宽国际视野，形成开放的世界意识。"
+            ],
+            "domain": "世界近现代史",
+            "prerequisites": [
+              "hist-h-medieval-h"
+            ],
+            "courses": [
+              "hist-h-age-of-exploration"
+            ]
+          },
+          {
+            "id": "hist-h-enlightenment",
+            "name": "文艺复兴、宗教改革与启蒙运动",
+            "points": [
+              "本课程以马克思主义为指导，通过对中外重大历史事件、历史人物和历史现象的叙述，展现人类发展进程中丰富的历史文化遗产，以及人类社会从古至今、从分散到整体、社会形态从低级到高级的发展历程。",
+              "马克思主义根据人类社会生产力与生产关系基本矛盾的不同性质，把人类历史发展分为原始社会、奴隶社会、封建社会、资本主义社会和共产主义社会几种社会形态。"
+            ],
+            "domain": "世界近现代史",
+            "prerequisites": [
+              "hist-h-age-of-exploration"
+            ],
+            "courses": [
+              "hist-h-enlightenment"
+            ]
+          },
+          {
+            "id": "hist-h-bourgeois-revolution",
+            "name": "资产阶级革命与资本主义制度确立",
+            "points": [
+              "了解英国资产阶级革命、美国独立战争和法国大革命的历史背景与过程，理解资产阶级革命的共同特征与差异。",
+              "认识资本主义制度确立的历史意义，理解君主立宪制与民主共和制的基本特征。",
+              "了解资本主义制度在世界范围内的扩展，认识其对人类社会发展的深远影响。"
+            ],
+            "domain": "世界近现代史",
+            "prerequisites": [
+              "hist-h-enlightenment"
+            ],
+            "courses": [
+              "hist-h-bourgeois-revolution"
+            ]
+          },
+          {
+            "id": "hist-h-industrial-rev-h",
+            "name": "工业革命",
+            "points": [
+              "本课程以通史的叙事框架，展示中国历史和世界历史发展的基本过程。本课程共有24个专题，是高中历史学习的基本内容。",
+              "通过对中外重大历史事件、历史人物和历史现象的叙述，展现人类发展进程中丰富的历史文化遗产，以及人类社会从古至今、从分散到整体、社会形态从低级到高级的发展历程。"
+            ],
+            "domain": "世界近现代史",
+            "prerequisites": [
+              "hist-h-bourgeois-revolution"
+            ],
+            "courses": [
+              "hist-h-industrial-rev-h"
+            ]
+          },
+          {
+            "id": "hist-h-marxism-russian",
+            "name": "马克思主义与俄国革命",
+            "points": [
+              "马克思主义根据人类社会生产力与生产关系基本矛盾的不同性质，把人类历史发展分为原始社会、奴隶社会、封建社会、资本主义社会和共产主义社会几种社会形态。",
+              "认识五四爱国运动的历史意义，认识马克思主义在中国的传播与中国共产党成立对中国革命的深远影响。"
+            ],
+            "domain": "世界近现代史",
+            "prerequisites": [
+              "hist-h-industrial-rev-h"
+            ],
+            "courses": [
+              "hist-h-marxism-russian"
+            ]
+          },
+          {
+            "id": "hist-h-colonialism-liberation",
+            "name": "世界殖民体系与亚非拉民族独立运动",
+            "points": [
+              "了解西方列强对亚非拉地区的殖民扩张，认识世界殖民体系的形成过程及其对殖民地半殖民地社会的影响。",
+              "了解拉丁美洲独立运动、亚洲觉醒和非洲抗争的基本史实，认识亚非拉民族独立运动的历史意义。",
+              "认识殖民体系的形成与瓦解是世界历史发展的重要线索之一。"
+            ],
+            "domain": "世界近现代史",
+            "prerequisites": [
+              "hist-h-marxism-russian"
+            ],
+            "courses": [
+              "hist-h-colonialism-liberation"
+            ]
+          },
+          {
+            "id": "hist-h-political-system-evolution",
+            "name": "中外政治制度演变",
+            "points": [
+              "历史选择性必修课程是学生根据个人兴趣、升学需求而选择修习的课程，设《国家制度与社会治理》《经济与社会生活》和《文化交流与传播》三个模块。",
+              "选择性必修课程采取专题史方式，旨在让学生从多角度进一步了解人类历史的发展。",
+              "《国家制度与社会治理》模块由若干学习专题构成，在各专题下的具体内容依照时序进行表述，呈现中外历史多方面的重要内容，引领学生从政治、经济与社会生活、文化等不同视角深入认识历史。"
+            ],
+            "domain": "专题史（选择性必修）",
+            "prerequisites": [
+              "hist-h-song-yuan-ming-qing-h"
+            ],
+            "courses": [
+              "hist-h-political-system-evolution"
+            ]
+          },
+          {
+            "id": "hist-h-economic-history",
+            "name": "经济史与社会生活",
+            "points": [
+              "历史选择性必修课程是学生根据个人兴趣、升学需求而选择修习的课程，设《国家制度与社会治理》《经济与社会生活》和《文化交流与传播》三个模块。",
+              "选择性必修课程和选修课程采取专题史方式，旨在让学生从多角度进一步了解人类历史的发展。",
+              "《经济与社会生活》模块由若干学习专题构成，在各专题下的具体内容依照时序进行表述，呈现中外历史多方面的重要内容，引领学生从经济与社会生活视角深入认识历史。"
+            ],
+            "domain": "专题史（选择性必修）",
+            "prerequisites": [
+              "hist-h-industrial-rev-h"
+            ],
+            "courses": [
+              "hist-h-economic-history"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "politics",
+        "name": "高中思想政治",
+        "nodes": [
+          {
+            "id": "pol-h-req3",
+            "name": "政治与法治",
+            "points": [
+              "【课标】理解中国共产党领导是中国特色社会主义最本质的特征。",
+              "【课标】理解人民当家作主是社会主义民主政治的本质和核心。",
+              "【课标】理解全面依法治国是国家治理的一场深刻革命，建设法治中国。"
+            ],
+            "domain": "政治与法治",
+            "prerequisites": [
+              "pol-h-req2"
+            ]
+          },
+          {
+            "id": "pol-h-req4",
+            "name": "哲学与文化",
+            "points": [
+              "【课标】掌握马克思主义哲学基本原理，坚持唯物辩证法，反对形而上学。",
+              "【课标】理解社会历史发展规律，坚持历史唯物主义，实现人生价值。",
+              "【课标】传承发展中华优秀传统文化，坚定文化自信，发展中国特色社会主义文化。"
+            ],
+            "domain": "哲学与文化",
+            "prerequisites": [
+              "pol-h-req3"
+            ]
+          },
+          {
+            "id": "pol-h-opt1",
+            "name": "当代国际政治与经济",
+            "points": [
+              "【课标】了解国体政体与国家结构形式，理解世界多极化趋势。",
+              "【课标】理解经济全球化与中国对外开放，了解主要国际组织与中国参与全球治理。",
+              "【教材·当代国际政治与经济】各具特色的国家（国体与政体；国家的结构形式） | 世界多极化（多极化趋势；国际关系） | 经济全球化（走进经济全球化；经济全球化与中国） | 国际组织（主要的国际组织；中国…"
+            ],
+            "domain": "当代国际政治与经济",
+            "prerequisites": [
+              "pol-h-req4"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "info-tech",
+        "name": "高中信息技术",
+        "nodes": [
+          {
+            "id": "it-h-recursion",
+            "name": "递归与分治",
+            "points": [
+              "从生活实例出发，概述算法的概念与特征，运用恰当的描述方法和控制结构表示简单算法。",
+              "掌握一种程序设计语言的基本知识，使用程序设计语言实现简单算法。",
+              "依据解决问题的需要，设计和表示简单算法；掌握一种程序设计语言的基本知识，利用程序设计语言实现简单算法，解决实际问题。"
+            ],
+            "domain": "算法",
+            "prerequisites": [
+              "it-h-algorithm-concept",
+              "it-h-sorting-searching"
+            ],
+            "courses": [
+              "it-h-recursion"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "psychology",
+        "name": "高中心理健康教育",
+        "nodes": [
+          {
+            "id": "psych-h-g11-peer-support",
+            "name": "同伴支持与合作学习",
+            "points": [
+              "培养人际沟通能力，在合作学习中建立支持性同伴关系。",
+              "促进积极情感反应和体验。"
+            ],
+            "domain": "人际交往",
+            "prerequisites": [
+              "psych-h-g11-exam-wellness"
+            ]
+          },
+          {
+            "id": "psych-h-g11-emotion-resilience",
+            "name": "情绪管理与抗挫力",
+            "points": [
+              "进一步提高承受失败和应对挫折的能力，形成良好的意志品质。",
+              "学会恰当地、正确地体验情绪和表达情绪。"
+            ],
+            "domain": "情绪调适",
+            "prerequisites": [
+              "psych-h-g10-relationship"
+            ]
+          },
+          {
+            "id": "psych-h-g11-exam-wellness",
+            "name": "考试心理与身心健康",
+            "points": [
+              "积极应对考试压力，克服考试焦虑，保持身心健康。",
+              "掌握科学减压与情绪调适方法。"
+            ],
+            "domain": "抗挫与适应",
+            "prerequisites": [
+              "psych-h-g11-emotion-resilience"
+            ]
+          }
+        ]
+      }
+    ],
+    "12": [
+      {
+        "subject": "chinese",
+        "name": "高中语文",
+        "nodes": [
+          {
+            "id": "chn-h-classical-comprehensive",
+            "name": "文言文综合鉴赏",
+            "points": [
+              "在阅读过程中，探索阅读整本书的门径，形成和积累自己阅读整本书的经验。重视学习前人的阅读经验，根据不同的阅读目的，综合运用精读、略读与浏览的方法阅读整本书，读懂文本，把握文本丰富的内涵和精髓。",
+              "能够辨识、分析、比较、归纳和概括基本的语言现象和文学现象，并能有理有据地表达自己的观点和阐述自己的发现；运用基本的语言规律和逻辑规则，判别语言运用的正误，准确、生动、有逻辑地表达自己的认识；运用批判性…",
+              "感受和体验文学作品的语言、形象和情感之美，能欣赏、鉴别和评价不同时代、不同风格的作品，具有正确的价值观、高尚的审美情趣和审美品位。"
+            ],
+            "domain": "古诗文阅读",
+            "prerequisites": [
+              "chn-h-classical-prose-advanced"
+            ],
+            "courses": [
+              "chn-h-classical-comprehensive"
+            ]
+          },
+          {
+            "id": "chn-h-poetry-comparison-h",
+            "name": "古诗词比较阅读",
+            "points": [
+              "鉴赏文学作品。感受和体验文学作品的语言、形象和情感之美，能欣赏、鉴别和评价不同时代、不同风格的作品。",
+              "学习任务群的设计着眼于培养语言文字运用基础能力，充分顾及问题导向、跨文化、自主合作、个性化、创造性等因素。",
+              "在语文学习中，通过审美体验、评价等活动形成正确的审美意识、健康向上的审美情趣与鉴赏品位。"
+            ],
+            "domain": "古诗文阅读",
+            "prerequisites": [
+              "chn-h-poetry-emotion"
+            ],
+            "courses": [
+              "chn-h-poetry-comparison-h"
+            ]
+          },
+          {
+            "id": "chn-h-gaokao-essay",
+            "name": "高考作文综合训练",
+            "points": [
+              "学生通过阅读与鉴赏、表达与交流、梳理与探究等语文学习活动，在语言建构与运用、思维发展与提升、审美鉴赏与创造、文化传承与理解几个方面都获得进一步的发展。",
+              "能凭借语感和对语言运用规律的把握，根据具体的语言情境和不同的对象，运用口头和书面语言文明得体地进行表达与交流。",
+              "运用基本的语言规律和逻辑规则，判别语言运用的正误，准确、生动、有逻辑地表达自己的认识；运用批判性思维审视语言文字作品，探究和发现语言现象和文学现象。"
+            ],
+            "domain": "写作",
+            "prerequisites": [
+              "chn-h-task-driven-writing"
+            ],
+            "courses": [
+              "chn-h-gaokao-essay"
+            ]
+          },
+          {
+            "id": "chn-h-foreign-classics",
+            "name": "外国文学经典",
+            "points": [
+              "在指定范围内选择阅读一部长篇小说。通读全书，整体把握其思想内容和艺术特点。从最使自己感动的故事、人物、场景、语言等方面入手，反复阅读品味，深入探究，欣赏语言表达的精彩之处，梳理小说的感人场景乃至整体的…",
+              "利用书中的目录、序跋、注释等，学习检索作者信息、作品背景、相关评价等资料，深入研读作家作品。",
+              "联系个人经验，深入理解作品；享受读书的愉悦，从作品中汲取营养，丰富自己的精神世界，逐步形成正确的世界观、人生观和价值观。用自己的语言撰写全书梗概或提要、读书笔记与作品评介，通过口头、书面形式或其他媒介…"
+            ],
+            "domain": "整本书阅读",
+            "prerequisites": [
+              "chn-h-red-chamber"
+            ],
+            "courses": [
+              "chn-h-foreign-classics"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "math",
+        "name": "高中数学",
+        "nodes": [
+          {
+            "id": "math-h-conic-comprehensive",
+            "name": "圆锥曲线综合",
+            "points": [
+              "（３）圆锥曲线与方程 ①了解圆锥曲线的实际背景，感受圆锥曲线在刻画现实世界和 解决实际问题中的作用。 ②经历从具体情境中抽象出椭圆的过程，掌握椭圆的定义、标 准方程及简单几何性质。 ③了解抛物线与双曲…"
+            ],
+            "domain": "解析几何",
+            "prerequisites": [
+              "math-h-hyperbola",
+              "math-h-parabola-h"
+            ],
+            "courses": [
+              "math-high-conic-comprehensive"
+            ]
+          },
+          {
+            "id": "math-h-random-variable",
+            "name": "随机变量及其分布",
+            "points": [
+              "概率与统计是高中数学课程内容的主线之一，贯穿必修、选择性必修和选修课程。",
+              "数据分析是研究随机现象的重要数学技术，是大数据时代数学应用的主要方法。"
+            ],
+            "domain": "概率与统计",
+            "prerequisites": [
+              "math-h-probability-h"
+            ],
+            "courses": [
+              "math-high-random-variable"
+            ]
+          },
+          {
+            "id": "math-h-regression-analysis",
+            "name": "统计推断（回归/独立性检验）",
+            "points": [
+              "数据分析是指针对研究对象获取数据，运用数学方法对数据进行整理、分析和推断，形成关于研究对象知识的素养。",
+              "数据分析过程主要包括：收集数据，整理数据，提取信息，构建模型，进行推断，获得结论。",
+              "概率与统计是高中数学课程内容四条主线之一，贯穿必修、选择性必修和选修课程。"
+            ],
+            "domain": "概率与统计",
+            "prerequisites": [
+              "math-h-random-variable"
+            ],
+            "courses": [
+              "math-high-regression-analysis"
+            ]
+          },
+          {
+            "id": "math-h-derivative-concept",
+            "name": "导数概念与运算",
+            "points": [
+              "A类课程包括微积分、空间向量与代数、概率与统计三个专题，其中微积分2.5学分。供有志于学习数理类（如数学、物理、计算机、精密仪器等）专业的学生选择。",
+              "B类课程包括微积分、空间向量与代数、应用统计、模型四个专题，其中微积分2学分。供有志于学习经济、社会类（如数理经济、社会学等）和部分理工类（如化学、生物、机械等）专业的学生选择。",
+              "E类大学数学先修课程包括三个专题：微积分、解析几何与线性代数、概率论与数理统计，每个专题6学分。"
+            ],
+            "domain": "导数与微积分初步",
+            "prerequisites": [
+              "math-h-function-models"
+            ],
+            "courses": [
+              "math-high-derivative-concept"
+            ]
+          },
+          {
+            "id": "math-h-derivative-application",
+            "name": "导数应用（极值/最值）",
+            "points": [
+              "掌握基本不等式√ab ≤ (a+b)/2（a,b≥0）。结合具体实例，能用基本不等式解决简单的最大值或最小值问题。",
+              "会结合一元二次函数的图象，判断一元二次方程实根的存在性及实根的个数，了解函数的零点与方程根的关系。"
+            ],
+            "domain": "导数与微积分初步",
+            "prerequisites": [
+              "math-h-derivative-concept"
+            ],
+            "courses": [
+              "math-high-derivative-application"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "english",
+        "name": "高中英语",
+        "nodes": [
+          {
+            "id": "eng-h-context-vocab",
+            "name": "语境词义推断",
+            "points": [
+              "语言知识涵盖语音知识、词汇知识、语法知识、语篇知识和语用知识，是构成语言能力的重要基础。",
+              "学生基于语篇所开展的学习活动即是基于这些语言技能，理解语篇和对语篇作出回应的活动。",
+              "学生围绕某一具体的主题语境，基于不同类型的语篇，在解决问题的过程中，运用语言技能获取、梳理、整合语言知识和文化知识，深化对语言的理解。"
+            ],
+            "domain": "词汇",
+            "prerequisites": [
+              "eng-h-vocab-3500"
+            ],
+            "courses": [
+              "eng-h-context-vocab"
+            ]
+          },
+          {
+            "id": "eng-h-special-sentences",
+            "name": "特殊句式（倒装/强调/省略）",
+            "points": [
+              "语言知识涵盖语音知识、词汇知识、语法知识、语篇知识和语用知识，是构成语言能力的重要基础。",
+              "语法知识是‘形式—意义—使用’的统一体，与语音、词汇、语篇和语用知识紧密相连，直接影响语言理解和表达的准确性和得体性。"
+            ],
+            "domain": "语法",
+            "prerequisites": [
+              "eng-h-non-finite-h",
+              "eng-h-attributive-clauses-h"
+            ],
+            "courses": [
+              "eng-h-special-sentences"
+            ]
+          },
+          {
+            "id": "eng-h-reading-comprehension-advanced",
+            "name": "高阶阅读综合",
+            "points": [
+              "学生通过学习理解、应用实践、迁移创新等一系列融语言、文化、思维为一体的活动，获取、阐释和评判语篇意义。",
+              "思维品质指思维在逻辑性、批判性、创新性等方面所表现的能力和水平。思维品质的发展有助于提升学生分析和解决问题的能力。",
+              "能辨析语言和文化中的具体现象，梳理、概括信息，建构新概念，分析、推断信息的逻辑关系，正确评判各种思想观点，创造性地表达自己的观点。"
+            ],
+            "domain": "阅读理解",
+            "prerequisites": [
+              "eng-h-reading-7-choose-5",
+              "eng-h-advanced-grammar"
+            ],
+            "courses": [
+              "eng-h-reading-comprehension-advanced"
+            ]
+          },
+          {
+            "id": "eng-h-summary-writing",
+            "name": "概要写作",
+            "points": [
+              "语言技能分理解性技能和表达性技能，具体包括听、说、读、看（viewing）、写等，学生基于语篇所开展的学习活动即是基于这些语言技能，理解语篇和对语篇作出回应的活动。",
+              "学生围绕某一具体的主题语境，基于不同类型的语篇，在解决问题的过程中，运用语言技能获取、梳理、整合语言知识和文化知识，深化对语言的理解，重视对语篇的赏析，比较和探究文化内涵，汲取文化精华；同时，尝试运用…",
+              "语言能力指在社会情境中，以听、说、读、看、写等方式理解和表达意义的能力，以及在学习和使用语言的过程中形成的语言意识和语感。"
+            ],
+            "domain": "写作",
+            "prerequisites": [
+              "eng-h-continuation-writing",
+              "eng-h-reading-purpose"
+            ],
+            "courses": [
+              "eng-h-summary-writing"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "physics",
+        "name": "高中物理",
+        "nodes": [
+          {
+            "id": "phy-h-magnetic-field",
+            "name": "磁场",
+            "points": [
+              "2.1.1 通过实验，认识安培力。能判断安培力的方向，会计算安 培力的大小。了解安培力在生产生活中的应用。 例1 利用电流天平等简易装置测量安培力。 例2 了解磁电式电表的结构和工作原理。",
+              "2.1.2 通过实验，认识洛伦兹力。能判断洛伦兹力的方向，会计 算洛伦兹力的大小。"
+            ],
+            "domain": "电磁场与电磁感应",
+            "prerequisites": [
+              "phy-h-dc-circuits"
+            ],
+            "courses": [
+              "phy-h-magnetic-field"
+            ]
+          },
+          {
+            "id": "phy-h-magnetic-field-h",
+            "name": "磁场综合（安培力/磁通量）",
+            "points": [
+              "2.1.1 通过实验，认识安培力。能判断安培力的方向，会计算安 培力的大小。了解安培力在生产生活中的应用。 例1 利用电流天平等简易装置测量安培力。 例2 了解磁电式电表的结构和工作原理。",
+              "2.1.2 通过实验，认识洛伦兹力。能判断洛伦兹力的方向，会计 算洛伦兹力的大小。"
+            ],
+            "domain": "电磁场与电磁感应",
+            "prerequisites": [
+              "phy-h-magnetic-field"
+            ],
+            "courses": [
+              "phy-h-magnetic-field-h"
+            ]
+          },
+          {
+            "id": "phy-h-lorentz-force",
+            "name": "洛伦兹力与带电粒子运动",
+            "points": [
+              "2.1.2 通过实验，认识洛伦兹力。能判断洛伦兹力的方向，会计 算洛伦兹力的大小。",
+              "2.1.3 能用洛伦兹力分析带电粒子在匀强磁场中的圆周运动。了 解带电粒子在匀强磁场中的偏转及其应用。 例3 观察阴极射线在磁场中的偏转。 例4 了解质谱仪和回旋加速器的工作原理。 活动建议 （1）用…"
+            ],
+            "domain": "电磁场与电磁感应",
+            "prerequisites": [
+              "phy-h-magnetic-field-h"
+            ],
+            "courses": [
+              "phy-h-lorentz-force"
+            ]
+          },
+          {
+            "id": "phy-h-em-induction",
+            "name": "电磁感应",
+            "points": [
+              "2.2 电磁感应及其应用【内容要求】",
+              "2.2.1 探究影响感应电流方向的因素，理解楞次定律。 例1 用能量的观点解释楞次定律。",
+              "2.2.2 通过实验，理解法拉第电磁感应定律。"
+            ],
+            "domain": "电磁场与电磁感应",
+            "prerequisites": [
+              "phy-h-magnetic-field-h"
+            ],
+            "courses": [
+              "phy-h-em-induction"
+            ]
+          },
+          {
+            "id": "phy-h-alternating-current",
+            "name": "交变电流",
+            "points": [
+              "2.2.4 通过实验，认识交变电流。能用公式和图像描述正弦交变 电流。 例3 用示波器或其他设备观察交变电流的波形，并测算其峰值 和有效值。",
+              "2.2.5 通过实验，探究并了解变压器原、副线圈电压与匝数的关 系。知道远距离输电时通常采用高压输电的原因。 例4 观察常见的变压器，了解其作用。 例5 探讨远距离输电中导致电能损耗的因素。",
+              "2.2.6 了解发电机和电动机工作过程中的能量转化。认识电磁学 在人类生活和社会发展中的作用。 活动建议 （1）查阅资料，与同学讨论动车组进站过程中是如何进行能量转 化的。 （2）查阅资料，撰写报告分…"
+            ],
+            "domain": "电磁场与电磁感应",
+            "semester": "下",
+            "prerequisites": [
+              "phy-h-em-induction"
+            ],
+            "courses": [
+              "phy-h-alternating-current"
+            ]
+          },
+          {
+            "id": "phy-h-electromagnetic-waves",
+            "name": "电磁波",
+            "points": [
+              "2.3 电磁振荡与电磁波【内容要求】",
+              "2.3.1 初步了解麦克斯韦电磁场理论的基本思想，初步了解场的 统一性与多样性，体会物理学对统一性的追求。 例1 结合牛顿万有引力定律和麦克斯韦电磁场理论，体会物理 学发展过程中对统一性的追求。",
+              "2.3.2 通过实验，了解电磁振荡。"
+            ],
+            "domain": "电磁场与电磁感应",
+            "prerequisites": [
+              "phy-h-alternating-current"
+            ],
+            "courses": [
+              "phy-h-electromagnetic-waves"
+            ]
+          },
+          {
+            "id": "phy-h-mechanical-vibration-wave",
+            "name": "机械振动与机械波",
+            "points": [
+              "1.2 机械振动与机械波【内容要求】",
+              "1.2.1 通过实验，认识简谐运动的特征。能用公式和图像描述简 谐运动。",
+              "1.2.2 通过实验，探究单摆的周期与摆长的定量关系。知道单摆 周期与摆长、重力加速度的关系。会用单摆测量重力加速度的大小。"
+            ],
+            "domain": "机械振动与波、光学",
+            "semester": "下",
+            "prerequisites": [
+              "phy-h-energy-conservation-mech"
+            ],
+            "courses": [
+              "phy-h-mechanical-vibration-wave"
+            ]
+          },
+          {
+            "id": "phy-h-wave-optics",
+            "name": "光的波动性（干涉/衍射）",
+            "points": [
+              "1.3 光及其应用【内容要求】1.3.1 通过实验，理解光的折射定律。会测量材料的折射率。1.3.2 知道光的全反射现象及其产生的条件。初步了解光纤的工作原理。1.3.3 观察光的干涉、衍射和偏振现象…",
+              "活动建议 （1）观察双缝干涉现象，测量光的波长。 （2）调查光的干涉、衍射和偏振现象在生活和生产中的应用。"
+            ],
+            "domain": "机械振动与波、光学",
+            "prerequisites": [
+              "phy-h-mechanical-vibration-wave"
+            ],
+            "courses": [
+              "phy-h-wave-optics"
+            ]
+          },
+          {
+            "id": "phy-h-photoelectric-effect",
+            "name": "光电效应",
+            "points": [
+              "3.4.1 通过实验，了解光电效应现象。知道爱因斯坦光电效应方 程及其意义。能根据实验结论说明光的波粒二象性。",
+              "3.4.2 知道实物粒子具有波动性，了解微观世界的量子化特征。 体会量子论的建立对人们认识物质世界的影响。 例1 了解电子衍射实验。 例2 通过史实，了解量子概念的建构对人类认识自然的影响。"
+            ],
+            "domain": "近代物理",
+            "prerequisites": [
+              "phy-h-electromagnetic-waves"
+            ],
+            "courses": [
+              "phy-h-photoelectric-effect"
+            ]
+          },
+          {
+            "id": "phy-h-quantum-intro",
+            "name": "量子力学初步",
+            "points": [
+              "3.4.2 知道实物粒子具有波动性，了解微观世界的量子化特征。 体会量子论的建立对人们认识物质世界的影响。 例1 了解电子衍射实验。 例2 通过史实，了解量子概念的建构对人类认识自然的影响。 活动建议…"
+            ],
+            "domain": "近代物理",
+            "prerequisites": [
+              "phy-h-photoelectric-effect"
+            ],
+            "courses": [
+              "phy-h-quantum-intro"
+            ]
+          },
+          {
+            "id": "phy-h-atomic-models",
+            "name": "原子结构（汤姆孙/卢瑟福/玻尔）",
+            "points": [
+              "3.3 原子与原子核【内容要求】",
+              "3.3.1 了解人类探索原子及其结构的历史。知道原子的核式结构 模型。通过对氢原子光谱的分析，了解原子的能级结构。",
+              "3.3.2 了解原子核的组成和核力的性质。知道四种基本相互作用。 能根据质量数守恒和电荷守恒写出核反应方程。"
+            ],
+            "domain": "近代物理",
+            "prerequisites": [
+              "phy-h-photoelectric-effect"
+            ],
+            "courses": [
+              "phy-h-atomic-models"
+            ]
+          },
+          {
+            "id": "phy-h-atomic-structure-h",
+            "name": "原子能级",
+            "points": [
+              "3.3 原子与原子核【内容要求】",
+              "3.3.1 了解人类探索原子及其结构的历史。知道原子的核式结构 模型。通过对氢原子光谱的分析，了解原子的能级结构。",
+              "3.3.2 了解原子核的组成和核力的性质。知道四种基本相互作用。 能根据质量数守恒和电荷守恒写出核反应方程。"
+            ],
+            "domain": "近代物理",
+            "prerequisites": [
+              "phy-h-atomic-models"
+            ],
+            "courses": [
+              "phy-h-atomic-structure-h"
+            ]
+          },
+          {
+            "id": "phy-h-nuclear-physics",
+            "name": "原子核物理",
+            "points": [
+              "3.3.2 了解原子核的组成和核力的性质。知道四种基本相互作用。 能根据质量数守恒和电荷守恒写出核反应方程。",
+              "3.3.3 了解放射性和原子核衰变。知道半衰期及其统计意义。了 解放射性同位素的应用，知道射线的危害与防护。",
+              "3.3.4 认识原子核的结合能，了解核裂变反应和核聚变反应。关 注核技术应用对人类生活和社会发展的影响。"
+            ],
+            "domain": "近代物理",
+            "prerequisites": [
+              "phy-h-atomic-structure-h"
+            ],
+            "courses": [
+              "phy-h-nuclear-physics"
+            ]
+          },
+          {
+            "id": "phy-h-nuclear-energy",
+            "name": "核能与核反应",
+            "points": [
+              "3.3.3 了解放射性和原子核衰变。知道半衰期及其统计意义。了 解放射性同位素的应用，知道射线的危害与防护。",
+              "3.3.4 认识原子核的结合能，了解核裂变反应和核聚变反应。关 注核技术应用对人类生活和社会发展的影响。",
+              "3.3.5 了解人类对物质结构的探索历程。 例 了解直线加速器、同步加速器、粒子探测器在核物理和粒子 物理研究中的作用。 活动建议 查阅资料，了解华人科学家在粒子物理领域中的杰出贡献。"
+            ],
+            "domain": "近代物理",
+            "prerequisites": [
+              "phy-h-nuclear-physics"
+            ],
+            "courses": [
+              "phy-h-nuclear-energy"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "history",
+        "name": "高中历史",
+        "nodes": [
+          {
+            "id": "hist-h-two-world-wars",
+            "name": "两次世界大战",
+            "points": [
+              "了解第一次世界大战爆发的背景与帝国主义国家间的矛盾，理解战争对世界格局的深远影响和凡尔赛—华盛顿体系的形成。",
+              "了解日本军国主义的侵华罪行；通过了解正面战场和敌后战场的抗战，认识中国战场是世界反法西斯战争的东方主战场，理解十四年抗战胜利在中华民族伟大复兴中的历史意义。",
+              "了解雅尔塔体系与战后国际秩序的重建，理解联合国成立等机制对维护战后和平的意义。"
+            ],
+            "domain": "世界近现代史",
+            "prerequisites": [
+              "hist-h-colonialism-liberation"
+            ],
+            "courses": [
+              "hist-h-two-world-wars"
+            ]
+          },
+          {
+            "id": "hist-h-cold-war-h",
+            "name": "冷战格局",
+            "points": [
+              "通过了解第二次世界大战后国际格局的变化，理解冷战的发生与发展，认识两极格局的特征及其对世界的影响。",
+              "了解杜鲁门主义、马歇尔计划、北约与华约的对峙，认识美苏争霸对国际关系的影响。",
+              "通过对古巴导弹危机、越南战争、阿富汗战争等热点事件的了解，理解冷战中的局部冲突与世界格局的复杂性。"
+            ],
+            "domain": "世界近现代史",
+            "prerequisites": [
+              "hist-h-two-world-wars"
+            ],
+            "courses": [
+              "hist-h-cold-war-h"
+            ]
+          },
+          {
+            "id": "hist-h-globalization-h",
+            "name": "全球化与多极化",
+            "points": [
+              "了解世界历史发展的多样性，理解和尊重世界各国、各民族的文化传统，具有广阔的国际视野，树立正确的文化观。",
+              "通过中外历史上重要的事件、人物和现象，展现人类社会从古至今、从分散到整体、从低级到高级的发展历程。",
+              "拓宽国际视野，形成开放的世界意识。"
+            ],
+            "domain": "世界近现代史",
+            "prerequisites": [
+              "hist-h-cold-war-h"
+            ],
+            "courses": [
+              "hist-h-globalization-h"
+            ]
+          },
+          {
+            "id": "hist-h-cultural-thought-history",
+            "name": "文化史与思想史",
+            "points": [
+              "通过了解春秋战国时期的经济发展和政治变动，理解战国时期变法运动的必然性；了解老子、孔子学说；通过孟子、荀子、庄子等了解“百家争鸣”的局面及其意义。",
+              "通过了解三国两晋南北朝政权更迭的历史脉络，隋唐时期封建社会的高度繁荣，认识三国两晋南北朝至隋唐时期的制度变化与创新、民族交融、区域开发和思想文化领域的新成就。",
+              "了解明清时期社会经济、思想文化的重要变化；通过了解明清时期封建专制的发展、世界的变化对中国的影响，认识中国社会面临的危机。"
+            ],
+            "domain": "专题史（选择性必修）",
+            "prerequisites": [
+              "hist-h-ancient-culture",
+              "hist-h-enlightenment"
+            ],
+            "courses": [
+              "hist-h-cultural-thought-history"
+            ]
+          },
+          {
+            "id": "hist-h-science-technology-h",
+            "name": "科技史",
+            "points": [
+              "选择性必修课程采取专题史方式，旨在让学生从多角度进一步了解人类历史的发展。",
+              "历史选择性必修课程是学生根据个人兴趣、升学需求而选择修习的课程，设《国家制度与社会治理》《经济与社会生活》和《文化交流与传播》三个模块。",
+              "更新教学内容，努力呈现经济、政治、文化、科技、社会、生态等发展的新成就、新成果。"
+            ],
+            "domain": "专题史（选择性必修）",
+            "prerequisites": [
+              "hist-h-industrial-rev-h"
+            ],
+            "courses": [
+              "hist-h-four-great-inventions"
+            ]
+          },
+          {
+            "id": "hist-h-ideological-liberation",
+            "name": "思想解放潮流",
+            "points": [
+              "概述新文化运动的主要内容，探讨其对近代中国思想解放的影响。",
+              "认识五四爱国运动的历史意义，认识马克思主义在中国的传播与中国共产党成立对中国革命的深远影响。",
+              "认识真理标准问题讨论和党的十一届三中全会的历史意义。"
+            ],
+            "domain": "专题史（选择性必修）",
+            "prerequisites": [
+              "hist-h-enlightenment"
+            ],
+            "courses": [
+              "hist-h-ideological-liberation"
+            ]
+          },
+          {
+            "id": "hist-h-reform-comparison",
+            "name": "中外改革比较",
+            "points": [
+              "（二）选择性必修课程模块1 国家制度与社会治理【内容要求】 本课程通过国家制度和社会治理的相关内容，揭示人类政治生活 的发展。本课程由6 个专题组成，是在必修课程基础上的递进与 拓展。 人类社会进入文…"
+            ],
+            "domain": "专题史（选择性必修）",
+            "prerequisites": [
+              "hist-h-reform-opening"
+            ],
+            "courses": [
+              "hist-h-reform-comparison"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "politics",
+        "name": "高中思想政治",
+        "nodes": [
+          {
+            "id": "pol-h-opt2",
+            "name": "法律与生活",
+            "points": [
+              "【课标】理解民事权利与义务，积极维护人身权利与各类物权。",
+              "【课标】了解婚姻家庭、就业创业相关法律，学会运用法律解决社会争议。",
+              "【教材·法律与生活】民事权利与义务（认真对待民事权利与义务；积极维护人身权利；保障各类物权；尊重知识产权） | 家庭与婚姻（珍惜婚姻关系；育小责任大） | 就业与创业（做个明白的劳动者；自主创业 公平…"
+            ],
+            "domain": "法律与生活",
+            "prerequisites": [
+              "pol-h-opt1"
+            ]
+          },
+          {
+            "id": "pol-h-opt3",
+            "name": "逻辑与思维",
+            "points": [
+              "【课标】树立科学思维观念，把握逻辑要义，领会科学思维。",
+              "【课标】遵循逻辑思维规则，运用辩证思维方法，提高创新思维能力。",
+              "【教材·逻辑与思维】树立科学思维观念（走进思维世界；把握逻辑要义；领会科学思维） | 遵循逻辑思维规则（准确把握概念；正确运用判断；掌握演绎推理方法；学会归纳与类比推理） | 运用辩证思维方法（把握辩…"
+            ],
+            "domain": "逻辑与思维",
+            "prerequisites": [
+              "pol-h-opt2"
+            ]
+          }
+        ]
+      },
+      {
+        "subject": "psychology",
+        "name": "高中心理健康教育",
+        "nodes": [
+          {
+            "id": "psych-h-g12-life-transition",
+            "name": "人生过渡与社会适应",
+            "points": [
+              "逐步适应生活和社会的各种变化，为走向社会做好心理准备。",
+              "树立远大理想，培养社会责任意识。"
+            ],
+            "domain": "生活适应",
+            "prerequisites": [
+              "psych-h-g12-career-choice"
+            ]
+          },
+          {
+            "id": "psych-h-g12-career-choice",
+            "name": "生涯规划与升学择业",
+            "points": [
+              "充分了解兴趣、能力、性格、特长和社会需要，确立职业志向，培养职业道德意识。",
+              "进行升学就业的选择和准备，培养担当意识和社会责任感。"
+            ],
+            "domain": "生涯规划",
+            "prerequisites": [
+              "psych-h-g11-peer-support"
+            ]
+          },
+          {
+            "id": "psych-h-g12-mental-literacy",
+            "name": "心理素养与终身发展",
+            "points": [
+              "形成积极心理品质，掌握心理保健常识和技能。",
+              "具备自主自助维护心理健康的能力，促进终身发展。"
+            ],
+            "domain": "抗挫与适应",
+            "prerequisites": [
+              "psych-h-g12-life-transition"
             ]
           }
         ]

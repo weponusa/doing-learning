@@ -262,9 +262,15 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
     const dom = D.domains.find(d => d.id === state.domainId);
     const sub = dom.subdomains.find(s => s.id === state.subdomainId);
     const selected = state.selectedKeys || [];
+    // 拓展目标：G+1 → 高三（12 年级）各年级已选节点
+    const nextByGrade = [];
+    for (let g = state.grade + 1; g <= 12; g++) {
+      const m = collectOneGrade(g, sub, selected);
+      if (m.length) nextByGrade.push({ grade: g, matches: m });
+    }
     return {
       current: collectOneGrade(state.grade, sub, selected),
-      next: state.grade < 9 ? collectOneGrade(state.grade + 1, sub, selected) : []
+      nextByGrade
     };
   }
 
@@ -316,7 +322,7 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
       studentGoal: (state.studentGoal || '').trim(),
       studentPlan: Array.isArray(state.studentPlan) ? state.studentPlan.map(s => (s || '').trim()) : null,
       matches: matchesObj.current,
-      nextMatches: matchesObj.next,
+      nextByGrade: matchesObj.nextByGrade,
       recommended,
       official,
       hours: official ? official.hours : '不少于4课时',
@@ -438,21 +444,24 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
     $('#btn-back-home').addEventListener('click', () => goStep(0));
   }
 
-  /* ---------- 渲染：Step2 课标组合（穷举本年级+高一年级命中知识点，多选） ---------- */
+  /* ---------- 渲染：Step2 课标组合（穷举本年级 + G+1→高三命中知识点，多选） ---------- */
   function renderPathStep() {
     const el = $('#stage');
     const dom = D.domains.find(d => d.id === state.domainId);
     const sub = dom.subdomains.find(s => s.id === state.subdomainId);
-    const nextGrade = state.grade + 1;
-    const hasNext = nextGrade <= 9;
     const fullMatches = matchCurriculum(state.grade, sub, { full: true });
-    const nextMatches = hasNext ? matchCurriculum(nextGrade, sub, { full: true }) : [];
 
-    // 默认全选命中知识点（本年级 + 高一年级）
+    // 拓展年级：G+1 → 高三（12）
+    const extGrades = [];
+    for (let g = state.grade + 1; g <= 12; g++) {
+      const m = matchCurriculum(g, sub, { full: true });
+      if (m.length) extGrades.push({ grade: g, matches: m });
+    }
+
+    // 默认全选：仅本年级命中（拓展年级默认不选，作为可选目标）
     if (!state.selectedKeys) {
       state.selectedKeys = [];
       fullMatches.forEach(m => m.nodes.forEach(n => state.selectedKeys.push(nodeKey(state.grade, m.subject, n.node))));
-      nextMatches.forEach(m => m.nodes.forEach(n => state.selectedKeys.push(nodeKey(nextGrade, m.subject, n.node))));
     }
 
     // 命中用命中结果，未命中回退到推荐学科
@@ -466,7 +475,6 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
         .map(s => ({ subject: s.subject, name: s.name, nodes: s.nodes.map(n => ({ node: n, pointsText: (n.points || []).join(' ') })) }));
     };
     const groups = buildGroups(state.grade, fullMatches);
-    const nextGroups = hasNext ? buildGroups(nextGrade, nextMatches) : [];
 
     const renderGroups = (grade, gs) => gs.map(g => `
       <div class="path-group">
@@ -486,20 +494,24 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
       <div class="step-head">
         <span class="step-kicker">STEP 3 / 6</span>
         <h2 style="color:${dom.color}">${esc(dom.name)} · ${esc(sub.name)}</h2>
-        <p class="step-sub">穷举课标知识点（已默认全选，可取消勾选）：本年级打基础，高一年级作拓展挑战，组合越聚焦方案越贴合</p>
+        <p class="step-sub">课标检索覆盖 ${state.grade} 年级 → 高三：本年级打基础（默认全选），高年级知识点可作拓展目标勾选，方案将生成学习路径图谱</p>
       </div>
       <div class="path-section">
         <div class="path-section-head"><span class="path-tag base">基础</span><h3>${state.grade} 年级课标</h3>${fullMatches.length ? '' : `<span class="path-hint">未直接命中，显示推荐学科</span>`}</div>
         ${groups.length ? `<div class="path-list">${renderGroups(state.grade, groups)}</div>` : `<div class="block warn"><p>该年级暂无可选课标知识点。</p></div>`}
       </div>
-      ${hasNext ? `
+      ${extGrades.length ? `
       <div class="path-section">
-        <div class="path-section-head"><span class="path-tag next">拓展挑战</span><h3>${nextGrade} 年级课标</h3>${nextMatches.length ? '' : `<span class="path-hint">未直接命中，显示推荐学科</span>`}</div>
-        ${nextGroups.length ? `<div class="path-list">${renderGroups(nextGrade, nextGroups)}</div>` : `<div class="block warn"><p>高一年级暂无可选课标知识点。</p></div>`}
+        <div class="path-section-head"><span class="path-tag next">拓展目标</span><h3>${state.grade + 1} 年级 → 高三课标</h3><span class="path-hint">可选，勾选后方案生成学习路径图谱</span></div>
+        ${extGrades.map(eg => `
+        <details class="ext-grade">
+          <summary><span class="ext-grade-label">${eg.grade} 年级</span><span class="ext-grade-count">${eg.matches.reduce((a, m) => a + m.nodes.length, 0)} 个命中知识点</span></summary>
+          <div class="path-list">${renderGroups(eg.grade, buildGroups(eg.grade, eg.matches))}</div>
+        </details>`).join('')}
       </div>` : `
       <div class="path-section">
-        <div class="path-section-head"><span class="path-tag next">拓展挑战</span><h3>更高一年级</h3></div>
-        <div class="block"><p class="block-note">9 年级已是义务教育阶段最高年级，可专注本年级知识的综合运用。</p></div>
+        <div class="path-section-head"><span class="path-tag next">拓展目标</span><h3>更高年级</h3></div>
+        <div class="block"><p class="block-note">更高年级课标未命中该方向关键词，可专注本年级知识的综合运用。</p></div>
       </div>`}
       <div class="ai-match-status" id="ai-match-status"></div>
       <div class="path-toolbar">
@@ -718,7 +730,7 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
   async function enhancePlanWithLLM(plan) {
     if (!window.DOING_LLM) return;
     const nodeNames = plan.matches.flatMap(m => m.nodes.map(n => `${m.name}·${n.node.name}`));
-    const nextNames = plan.nextMatches.flatMap(m => m.nodes.map(n => `${m.name}·${n.node.name}`));
+    const nextNames = (plan.nextByGrade || []).flatMap(gm => gm.matches.flatMap(m => m.nodes.map(n => `G${gm.grade}·${m.name}·${n.node.name}`)));
     const CN = ['一', '二', '三', '四'];
     const planSteps = (plan.studentPlan || []).map((s, i) => s ? `第${CN[i]}步：${s}` : '').filter(Boolean);
     const studentPart = [
@@ -838,86 +850,166 @@ ${stepFramework}` }
     bindTeacherActions(el);
   }
 
-  /* ---------- 课程图谱（TeachAny 知识树可视化：主题→学科→知识点，含进阶关系与课件标记） ---------- */
+  /* ---------- 学习路径图谱 ----------
+   * 布局：按年级分列（当前年级 → 目标年级）
+   * 路径：对每个高年级目标节点，沿 prerequisites BFS 反推到本年级已选节点的最短先修链
+   * 节点：实色=本年级已选，半透明=途经（先修链中间），虚线框=拓展目标
+   */
   function renderCourseGraph(p) {
     const color = p.domain.color;
-    // 合并同学科的本年级与高一年级节点
-    const subjMap = {};
-    p.matches.forEach(m => { subjMap[m.subject] = { name: m.name, current: m.nodes, next: [] }; });
-    p.nextMatches.forEach(m => {
-      if (!subjMap[m.subject]) subjMap[m.subject] = { name: m.name, current: [], next: m.nodes };
-      else subjMap[m.subject].next = m.nodes;
-    });
-    const groups = Object.values(subjMap).filter(g => g.current.length + g.next.length);
-    if (!groups.length) return '';
-
-    const X_TOPIC = 24, X_SUBJ = 216, X_NODE = 440, W_NODE = 400, W_SUBJ = 190;
-    const NODE_H = 30, GAP = 10, GROUP_GAP = 20, TOP = 24;
-    let y = TOP;
-    const subjEls = [], nodeEls = [], idPos = {};
-    groups.forEach(g => {
-      const startY = y;
-      g.current.forEach(n => {
-        nodeEls.push({ y, grade: 'current', node: n.node, pointsText: n.pointsText });
-        idPos['c|' + n.node.id] = y;
-        y += NODE_H + GAP;
-      });
-      g.next.forEach(n => {
-        nodeEls.push({ y, grade: 'next', node: n.node, pointsText: n.pointsText });
-        idPos['n|' + n.node.id] = y;
-        y += NODE_H + GAP;
-      });
-      const endY = y - GAP;
-      subjEls.push({ y: (startY + endY) / 2 + 6, name: g.name, startY, endY });
-      y += GROUP_GAP;
-    });
-    const H = y + 6;
-    const topicY = H / 2;
     const trunc = (s, n) => (s || '').length > n ? s.slice(0, n - 1) + '…' : (s || '');
 
-    let svg = '';
-    // 主题→学科 边
-    subjEls.forEach(s => {
-      svg += `<path d="M ${X_TOPIC + 150} ${topicY} C ${X_TOPIC + 186} ${topicY}, ${X_SUBJ - 32} ${s.y + 8}, ${X_SUBJ} ${s.y + 8}" stroke="${color}" stroke-opacity=".45" fill="none" stroke-width="1.5"/>`;
-    });
-    // 学科→知识点 边
-    groups.forEach((g, gi) => {
-      const s = subjEls[gi];
-      [...g.current.map(n => ({ n, grade: 'current' })), ...g.next.map(n => ({ n, grade: 'next' }))].forEach(({ n, grade }) => {
-        const ny = idPos[(grade === 'current' ? 'c|' : 'n|') + n.node.id];
-        svg += `<path d="M ${X_SUBJ + W_SUBJ} ${s.y + 8} C ${X_SUBJ + W_SUBJ + 26} ${s.y + 8}, ${X_NODE - 26} ${ny + NODE_H / 2}, ${X_NODE} ${ny + NODE_H / 2}" stroke="${color}" stroke-opacity="${grade === 'next' ? '.3' : '.45'}" fill="none" stroke-width="1.2" ${grade === 'next' ? 'stroke-dasharray="4 3"' : ''}/>`;
-      });
-    });
-    // 知识进阶虚线：高一年级节点的 prerequisites 命中本年级已选节点
-    groups.forEach(g => {
-      g.next.forEach(nn => {
-        (nn.node.prerequisites || []).forEach(preId => {
-          const from = idPos['c|' + preId];
-          const to = idPos['n|' + nn.node.id];
-          if (from !== undefined && to !== undefined) {
-            svg += `<path d="M ${X_NODE + W_NODE} ${from + NODE_H / 2} C ${X_NODE + W_NODE + 34} ${from + NODE_H / 2}, ${X_NODE + W_NODE + 34} ${to + NODE_H / 2}, ${X_NODE + W_NODE + 4} ${to + NODE_H / 2}" stroke="#A78BFA" stroke-opacity=".75" stroke-width="1.4" fill="none" stroke-dasharray="5 3"><title>知识进阶：先修关系</title></path>`;
+    // 全节点索引 id → {grade, node, subjectName}
+    const allNodes = {};
+    for (let g = 1; g <= 12; g++) {
+      (C.grades[g] || []).forEach(s => s.nodes.forEach(n => { allNodes[n.id] = { grade: g, node: n, subjectName: s.name }; }));
+    }
+    const currentNodes = p.matches.flatMap(m => m.nodes.map(n => ({ id: n.node.id, node: n.node, subjectName: m.name })));
+    const currentIds = new Set(currentNodes.map(x => x.id));
+    const targets = [];
+    (p.nextByGrade || []).forEach(gm => gm.matches.forEach(m => m.nodes.forEach(n => targets.push({ id: n.node.id, node: n.node, subjectName: m.name, grade: gm.grade }))));
+    if (!currentNodes.length && !targets.length) return '';
+
+    // BFS 反推先修链（目标 → ... → 本年级已选）；未到达时返回链尽头用于学段衔接
+    const trace = (targetId) => {
+      const visited = new Map([[targetId, [targetId]]]);
+      let frontier = [[targetId]];
+      for (let d = 0; d < 6 && frontier.length; d++) {
+        const next = [];
+        for (const chain of frontier) {
+          const info = allNodes[chain[chain.length - 1]];
+          if (!info) continue;
+          for (const preId of (info.node.prerequisites || [])) {
+            if (visited.has(preId) || !allNodes[preId]) continue;
+            const nc = [...chain, preId];
+            visited.set(preId, nc);
+            if (currentIds.has(preId)) return { chain: nc, deadEnd: null };
+            next.push(nc);
           }
-        });
+        }
+        frontier = next;
+      }
+      // 未到达：取探索最深的链（最长）作为链尽头
+      let deadEnd = null, maxLen = 0;
+      visited.forEach((chain, id) => {
+        if (chain.length > maxLen) { maxLen = chain.length; deadEnd = { id, chain }; }
       });
+      return { chain: null, deadEnd };
+    };
+
+    // 学段衔接：链尽头节点 → 本年级已选同学科且 name 有 ≥2 字共同词的节点
+    const findBridge = (deadEndId) => {
+      const e = allNodes[deadEndId];
+      if (!e) return null;
+      const words = e.node.name.match(/[\u4e00-\u9fa5]{2,}/g) || [];
+      let best = null, bestScore = 0;
+      for (const c of currentNodes) {
+        if (c.subjectName !== e.subjectName) continue;
+        let score = 0;
+        words.forEach(w => { if (w.length >= 2 && c.node.name.includes(w)) score += w.length; });
+        if (score > bestScore) { bestScore = score; best = c; }
+      }
+      return bestScore >= 2 ? best : null;
+    };
+
+    // 收集显示节点与边
+    const showNodes = new Map();
+    const edges = [];
+    currentNodes.forEach(c => showNodes.set(c.id, { id: c.id, node: c.node, subjectName: c.subjectName, grade: (allNodes[c.id] || {}).grade || p.grade, type: 'current' }));
+    targets.forEach(t => {
+      const { chain, deadEnd } = trace(t.id);
+      if (chain) {
+        chain.forEach((id, i) => {
+          if (!showNodes.has(id)) {
+            const info = allNodes[id];
+            showNodes.set(id, { id, node: info.node, subjectName: info.subjectName, grade: info.grade, type: currentIds.has(id) ? 'current' : (i === 0 ? 'target' : 'via') });
+          }
+          if (i > 0) edges.push({ from: chain[i - 1], to: id });
+        });
+        return;
+      }
+      // 未到达：显示链（含尽头）+ 学段衔接虚线
+      if (deadEnd) {
+        deadEnd.chain.forEach((id, i) => {
+          if (!showNodes.has(id)) {
+            const info = allNodes[id];
+            showNodes.set(id, { id, node: info.node, subjectName: info.subjectName, grade: info.grade, type: i === 0 ? 'target' : 'via' });
+          }
+          if (i > 0) edges.push({ from: deadEnd.chain[i - 1], to: id });
+        });
+        const bridge = findBridge(deadEnd.id);
+        if (bridge) edges.push({ from: deadEnd.id, to: bridge.id, bridge: true });
+        else edges.push({ from: 'TOPIC', to: t.id, dashed: true });
+      } else {
+        if (!showNodes.has(t.id)) showNodes.set(t.id, { id: t.id, node: t.node, subjectName: t.subjectName, grade: t.grade, type: 'target' });
+        edges.push({ from: 'TOPIC', to: t.id, dashed: true });
+      }
+    });
+
+    // 布局：主题列 + 年级列
+    const gradeSet = [...new Set([...showNodes.values()].map(n => n.grade))].sort((a, b) => a - b);
+    const COL_W = 190, X0 = 190, W_NODE = 160, NODE_H = 30, GAP = 10, TOP = 46;
+    const colX = {}; gradeSet.forEach((g, i) => { colX[g] = X0 + i * COL_W; });
+    const colY = {}; gradeSet.forEach(g => { colY[g] = TOP; });
+    const pos = {};
+    [...showNodes.values()].sort((a, b) => a.grade - b.grade || a.id.localeCompare(b.id)).forEach(n => {
+      pos[n.id] = { x: colX[n.grade], y: colY[n.grade] };
+      colY[n.grade] += NODE_H + GAP;
+    });
+    const H = Math.max(...Object.values(colY), TOP + 80) + 10;
+    const W = X0 + gradeSet.length * COL_W + 20;
+    const topicY = H / 2;
+
+    let svg = '';
+    // 年级列标题
+    gradeSet.forEach(g => {
+      svg += `<text x="${colX[g] + W_NODE / 2}" y="26" text-anchor="middle" fill="${g === p.grade ? color : '#94A3B8'}" font-size="12" font-weight="700">${g === p.grade ? `${g} 年级（当前）` : `${g} 年级`}</text>`;
     });
     // 主题节点
-    svg += `<g><rect x="${X_TOPIC}" y="${topicY - 26}" rx="12" width="150" height="52" fill="${color}" fill-opacity=".18" stroke="${color}" stroke-width="1.5"/>
-      <text x="${X_TOPIC + 75}" y="${topicY - 2}" text-anchor="middle" fill="#F8FAFC" font-size="14" font-weight="700">${esc(trunc(p.subdomain.name, 7))}</text>
-      <text x="${X_TOPIC + 75}" y="${topicY + 17}" text-anchor="middle" fill="${color}" font-size="11">${p.grade} 年级探究主题</text></g>`;
-    // 学科节点
-    subjEls.forEach(s => {
-      svg += `<g><rect x="${X_SUBJ}" y="${s.y - 8}" rx="9" width="${W_SUBJ}" height="32" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.18)"/>
-        <text x="${X_SUBJ + W_SUBJ / 2}" y="${s.y + 12}" text-anchor="middle" fill="#E2E8F0" font-size="12.5" font-weight="600">${esc(trunc(s.name, 9))}</text></g>`;
+    svg += `<g><rect x="16" y="${topicY - 26}" rx="12" width="140" height="52" fill="${color}" fill-opacity=".18" stroke="${color}" stroke-width="1.5"/>
+      <text x="86" y="${topicY - 2}" text-anchor="middle" fill="#F8FAFC" font-size="13" font-weight="700">${esc(trunc(p.subdomain.name, 6))}</text>
+      <text x="86" y="${topicY + 16}" text-anchor="middle" fill="${color}" font-size="10">探究主题</text></g>`;
+    // 主题 → 本年级节点 边
+    currentNodes.forEach(c => {
+      const pp = pos[c.id];
+      if (pp) svg += `<path d="M 156 ${topicY} C ${156 + 20} ${topicY}, ${pp.x - 16} ${pp.y + NODE_H / 2}, ${pp.x} ${pp.y + NODE_H / 2}" stroke="${color}" stroke-opacity=".4" fill="none" stroke-width="1.2"/>`;
     });
-    // 知识点节点（有课件的包 <a> 链接，点击新窗口打开 TeachAny）
-    nodeEls.forEach(e => {
-      const isNext = e.grade === 'next';
-      const cid = (e.node.courses || [])[0];
+    // 路径边（统一为学习方向：低年级 → 高年级，箭头指向高年级）
+    edges.forEach(e => {
+      const to = pos[e.to];
+      if (!to) return;
+      if (e.from === 'TOPIC') {
+        svg += `<path d="M 156 ${topicY} C ${156 + 40} ${topicY}, ${to.x - 30} ${to.y + NODE_H / 2}, ${to.x} ${to.y + NODE_H / 2}" stroke="#A78BFA" stroke-opacity=".5" fill="none" stroke-width="1.2" stroke-dasharray="5 4"/>`;
+        return;
+      }
+      const from = pos[e.from];
+      if (!from) return;
+      const gFrom = (allNodes[e.from] || {}).grade || 0;
+      const gTo = (allNodes[e.to] || {}).grade || 0;
+      const [low, high] = gFrom <= gTo ? [from, to] : [to, from];
+      if (e.bridge) {
+        svg += `<path d="M ${low.x + W_NODE} ${low.y + NODE_H / 2} C ${low.x + W_NODE + 22} ${low.y + NODE_H / 2}, ${high.x - 22} ${high.y + NODE_H / 2}, ${high.x} ${high.y + NODE_H / 2}" stroke="#F59E0B" stroke-opacity=".8" fill="none" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#arrw2)"><title>学段衔接</title></path>`;
+        return;
+      }
+      svg += `<path d="M ${low.x + W_NODE} ${low.y + NODE_H / 2} C ${low.x + W_NODE + 18} ${low.y + NODE_H / 2}, ${high.x - 18} ${high.y + NODE_H / 2}, ${high.x} ${high.y + NODE_H / 2}" stroke="#A78BFA" stroke-opacity=".7" fill="none" stroke-width="1.4" marker-end="url(#arrw)"/>`;
+    });
+    // 箭头定义
+    svg = `<defs><marker id="arrw" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#A78BFA" fill-opacity=".8"/></marker><marker id="arrw2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#F59E0B" fill-opacity=".9"/></marker></defs>` + svg;
+    // 节点
+    showNodes.forEach(n => {
+      const pp = pos[n.id];
+      if (!pp) return;
+      const cid = (n.node.courses || [])[0];
+      const st = {
+        current: { fill: color, fo: '.14', stroke: color, dash: '', text: '#F8FAFC', tag: '' },
+        via: { fill: 'rgba(255,255,255,.05)', fo: '1', stroke: 'rgba(255,255,255,.25)', dash: '', text: '#94A3B8', tag: '途经' },
+        target: { fill: 'rgba(255,255,255,.03)', fo: '1', stroke: color, dash: 'stroke-dasharray="5 3"', text: '#E2E8F0', tag: '目标' }
+      }[n.type];
       const inner = `
-        <rect x="${X_NODE}" y="${e.y}" rx="8" width="${W_NODE}" height="${NODE_H}" fill="${isNext ? 'rgba(255,255,255,.03)' : color}" fill-opacity="${isNext ? '1' : '.12'}" stroke="${isNext ? color : 'rgba(255,255,255,.14)'}" stroke-width="1.2" ${isNext ? 'stroke-dasharray="5 3"' : ''}/>
-        <text x="${X_NODE + 12}" y="${e.y + 19.5}" fill="${isNext ? '#94A3B8' : '#F8FAFC'}" font-size="12">${esc(trunc(e.node.name, 21))}${isNext ? ` <tspan fill="${color}" font-size="10">[拓展]</tspan>` : ''}</text>
-        ${cid ? `<circle cx="${X_NODE + W_NODE - 14}" cy="${e.y + NODE_H / 2}" r="4" fill="#10B981"/>` : ''}
-        <title>${e.node.domain ? `单元：${esc(e.node.domain)}\n` : ''}${esc((e.pointsText || '').slice(0, 140))}${cid ? `\n点击打开 TeachAny 课件：${esc(e.node.courses.join('、'))}` : ''}</title>`;
+        <rect x="${pp.x}" y="${pp.y}" rx="8" width="${W_NODE}" height="${NODE_H}" fill="${st.fill}" fill-opacity="${st.fo}" stroke="${st.stroke}" stroke-width="1.2" ${st.dash}/>
+        <text x="${pp.x + 10}" y="${pp.y + 19}" fill="${st.text}" font-size="11.5">${esc(trunc(n.node.name, 11))}${st.tag ? ` <tspan fill="${color}" font-size="9">[${st.tag}]</tspan>` : ''}</text>
+        ${cid ? `<circle cx="${pp.x + W_NODE - 12}" cy="${pp.y + NODE_H / 2}" r="3.5" fill="#10B981"/>` : ''}
+        <title>${esc(n.subjectName)}｜${n.grade} 年级${n.node.domain ? `｜单元：${esc(n.node.domain)}` : ''}\n${esc((n.node.points || []).join(' ').slice(0, 120))}${cid ? `\n点击打开 TeachAny 课件` : ''}</title>`;
       svg += cid
         ? `<a href="${courseUrl(cid)}" target="_blank" rel="noopener"><g class="graph-node graph-node-link">${inner}</g></a>`
         : `<g class="graph-node">${inner}</g>`;
@@ -925,9 +1017,9 @@ ${stepFramework}` }
 
     return `
         <div class="block graph-block">
-          <h3>课程图谱 <span class="policy-tag">TeachAny 知识树</span></h3>
-          <p class="block-note">主题 → 学科 → 知识点；实色为本年级基础，虚线框为高一年级拓展，紫色虚线为知识进阶关系；带绿点的节点可点击打开 TeachAny 课件</p>
-          <div class="graph-scroll"><svg viewBox="0 0 890 ${H}" width="100%" preserveAspectRatio="xMidYMin meet" font-family="PingFang SC, Hiragino Sans GB, sans-serif">${svg}</svg></div>
+          <h3>学习路径图谱 <span class="policy-tag">TeachAny 知识树</span></h3>
+          <p class="block-note">按年级分列：实色为本年级已选知识点，"途经"为达成目标所需的先修知识，虚线框为拓展目标；紫色箭头为先修进阶路径（学习方向），橙色虚线为跨学段衔接；带绿点节点可点击打开 TeachAny 课件</p>
+          <div class="graph-scroll"><svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMin meet" font-family="PingFang SC, Hiragino Sans GB, sans-serif">${svg}</svg></div>
         </div>`;
   }
 
@@ -947,13 +1039,13 @@ ${stepFramework}` }
               </div>`).join('')}
           </div>`;
     const curCount = p.matches.reduce((a, m) => a + m.nodes.length, 0);
-    const nextCount = p.nextMatches.reduce((a, m) => a + m.nodes.length, 0);
-    const matchBlock = (curCount + nextCount) > 0
+    const nextTotal = (p.nextByGrade || []).reduce((a, gm) => a + gm.matches.reduce((b, m) => b + m.nodes.length, 0), 0);
+    const matchBlock = (curCount + nextTotal) > 0
       ? `<div class="block cross-path">
           <h3>跨学科路径（课标收敛）</h3>
-          <p class="block-note">基础 · ${p.grade} 年级 ${curCount} 个知识点${nextCount ? `　·　拓展 · ${p.grade + 1} 年级 ${nextCount} 个知识点` : ''}</p>
+          <p class="block-note">基础 · ${p.grade} 年级 ${curCount} 个知识点${nextTotal ? `　·　拓展目标（${p.grade + 1} 年级→高三）${nextTotal} 个知识点` : ''}</p>
           ${p.matches.length ? `<div class="path-subhead"><span class="path-tag base">基础</span>${p.grade} 年级课标</div>${subjectList(p.matches)}` : ''}
-          ${p.nextMatches.length ? `<div class="path-subhead"><span class="path-tag next">拓展</span>${p.grade + 1} 年级课标</div>${subjectList(p.nextMatches)}` : ''}
+          ${(p.nextByGrade || []).map(gm => `<div class="path-subhead"><span class="path-tag next">拓展</span>${gm.grade} 年级课标</div>${subjectList(gm.matches)}`).join('')}
           ${p.recommended.length ? `<p class="block-note">建议融合学科：${p.recommended.map(id => `<b>${esc(subjectName(id))}</b>`).join('、')}</p>` : ''}
         </div>`
       : `<div class="block cross-path warn">
@@ -1163,11 +1255,13 @@ ${stepFramework}` }
         L.push(`- **${m.name}**：${m.nodes.map(nodeLink).join('、')}`);
       });
     }
-    if (p.nextMatches && p.nextMatches.length) {
+    if (p.nextByGrade && p.nextByGrade.length) {
       L.push('');
-      L.push(`**拓展挑战 · ${p.grade + 1} 年级课标**`);
-      p.nextMatches.forEach(m => {
-        L.push(`- **${m.name}**：${m.nodes.map(nodeLink).join('、')}`);
+      L.push(`**拓展目标（${p.grade + 1} 年级 → 高三课标）**`);
+      p.nextByGrade.forEach(gm => {
+        gm.matches.forEach(m => {
+          L.push(`- **G${gm.grade} · ${m.name}**：${m.nodes.map(nodeLink).join('、')}`);
+        });
       });
     }
     if (p.recommended.length) {

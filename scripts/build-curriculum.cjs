@@ -64,7 +64,7 @@ function main() {
   let totalNodes = 0;
   const stages = {};
 
-  for (const stage of ['elementary', 'middle']) {
+  for (const stage of ['elementary', 'middle', 'high']) {
     const dir = path.join(SOURCE_DIR, stage);
     if (!fs.existsSync(dir)) { console.warn(`[warn] 缺少目录: ${dir}`); continue; }
     stages[stage] = { subjects: 0, nodes: 0 };
@@ -76,7 +76,7 @@ function main() {
       for (const domain of tree.domains || []) {
         for (const node of domain.nodes || []) {
           const { item, min, max } = extractNode(node, tree.subject, tree.name, domain.name);
-          for (let g = min; g <= max && g <= 9; g++) {
+          for (let g = min; g <= max && g <= 12; g++) {
             if (g < 1) continue;
             if (!grades[g]) grades[g] = {};
             if (!grades[g][tree.subject]) {
