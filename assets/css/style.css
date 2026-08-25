@@ -386,6 +386,7 @@ input, textarea { font-family: inherit; }
 }
 .path-tag.base { background: rgba(59, 130, 246, 0.14); color: var(--sky); border: 1px solid rgba(59, 130, 246, 0.35); }
 .path-tag.next { background: rgba(167, 139, 250, 0.12); color: #A78BFA; border: 1px solid rgba(167, 139, 250, 0.35); }
+.path-tag.pre { background: rgba(16, 185, 129, 0.12); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.35); }
 .path-hint { font-size: 12px; color: var(--text-3); }
 .path-subhead {
   font-size: 13px; font-weight: 600; color: var(--text-2);

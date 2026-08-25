@@ -262,7 +262,12 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
     const dom = D.domains.find(d => d.id === state.domainId);
     const sub = dom.subdomains.find(s => s.id === state.subdomainId);
     const selected = state.selectedKeys || [];
-    // 拓展目标：G+1 → 高三（12 年级）各年级已选节点
+    // 前置基础：4 → G-1；拓展目标：G+1 → 高三（12 年级）
+    const preByGrade = [];
+    for (let g = 4; g < state.grade; g++) {
+      const m = collectOneGrade(g, sub, selected);
+      if (m.length) preByGrade.push({ grade: g, matches: m });
+    }
     const nextByGrade = [];
     for (let g = state.grade + 1; g <= 12; g++) {
       const m = collectOneGrade(g, sub, selected);
@@ -270,6 +275,7 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
     }
     return {
       current: collectOneGrade(state.grade, sub, selected),
+      preByGrade,
       nextByGrade
     };
   }
@@ -322,6 +328,7 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
       studentGoal: (state.studentGoal || '').trim(),
       studentPlan: Array.isArray(state.studentPlan) ? state.studentPlan.map(s => (s || '').trim()) : null,
       matches: matchesObj.current,
+      preByGrade: matchesObj.preByGrade,
       nextByGrade: matchesObj.nextByGrade,
       recommended,
       official,
@@ -451,7 +458,12 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
     const sub = dom.subdomains.find(s => s.id === state.subdomainId);
     const fullMatches = matchCurriculum(state.grade, sub, { full: true });
 
-    // 拓展年级：G+1 → 高三（12）
+    // 前置年级：4 → G-1（去掉 1-3 年级过于简单的知识点）；拓展年级：G+1 → 高三（12）
+    const preGrades = [];
+    for (let g = 4; g < state.grade; g++) {
+      const m = matchCurriculum(g, sub, { full: true });
+      if (m.length) preGrades.push({ grade: g, matches: m });
+    }
     const extGrades = [];
     for (let g = state.grade + 1; g <= 12; g++) {
       const m = matchCurriculum(g, sub, { full: true });
@@ -494,12 +506,21 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
       <div class="step-head">
         <span class="step-kicker">STEP 3 / 6</span>
         <h2 style="color:${dom.color}">${esc(dom.name)} · ${esc(sub.name)}</h2>
-        <p class="step-sub">课标检索覆盖 ${state.grade} 年级 → 高三：本年级打基础（默认全选），高年级知识点可作拓展目标勾选，方案将生成学习路径图谱</p>
+        <p class="step-sub">课标检索覆盖四年级 → 高三全学科（已排除 1-3 年级过于简单的知识点）：本年级打基础（默认全选），低年级作前置铺垫、高年级作拓展目标，方案将生成学习路径图谱</p>
       </div>
       <div class="path-section">
         <div class="path-section-head"><span class="path-tag base">基础</span><h3>${state.grade} 年级课标</h3>${fullMatches.length ? '' : `<span class="path-hint">未直接命中，显示推荐学科</span>`}</div>
         ${groups.length ? `<div class="path-list">${renderGroups(state.grade, groups)}</div>` : `<div class="block warn"><p>该年级暂无可选课标知识点。</p></div>`}
       </div>
+      ${preGrades.length ? `
+      <div class="path-section">
+        <div class="path-section-head"><span class="path-tag pre">前置基础</span><h3>四年级 → ${state.grade - 1} 年级课标</h3><span class="path-hint">可选，作为探究的前置铺垫知识</span></div>
+        ${preGrades.map(eg => `
+        <details class="ext-grade">
+          <summary><span class="ext-grade-label">${eg.grade} 年级</span><span class="ext-grade-count">${eg.matches.reduce((a, m) => a + m.nodes.length, 0)} 个命中知识点</span></summary>
+          <div class="path-list">${renderGroups(eg.grade, buildGroups(eg.grade, eg.matches))}</div>
+        </details>`).join('')}
+      </div>` : ''}
       ${extGrades.length ? `
       <div class="path-section">
         <div class="path-section-head"><span class="path-tag next">拓展目标</span><h3>${state.grade + 1} 年级 → 高三课标</h3><span class="path-hint">可选，勾选后方案生成学习路径图谱</span></div>
@@ -866,9 +887,11 @@ ${stepFramework}` }
     }
     const currentNodes = p.matches.flatMap(m => m.nodes.map(n => ({ id: n.node.id, node: n.node, subjectName: m.name })));
     const currentIds = new Set(currentNodes.map(x => x.id));
+    const preNodes = [];
+    (p.preByGrade || []).forEach(gm => gm.matches.forEach(m => m.nodes.forEach(n => preNodes.push({ id: n.node.id, node: n.node, subjectName: m.name, grade: gm.grade }))));
     const targets = [];
     (p.nextByGrade || []).forEach(gm => gm.matches.forEach(m => m.nodes.forEach(n => targets.push({ id: n.node.id, node: n.node, subjectName: m.name, grade: gm.grade }))));
-    if (!currentNodes.length && !targets.length) return '';
+    if (!currentNodes.length && !targets.length && !preNodes.length) return '';
 
     // BFS 反推先修链（目标 → ... → 本年级已选）；未到达时返回链尽头用于学段衔接
     const trace = (targetId) => {
@@ -916,6 +939,15 @@ ${stepFramework}` }
     const showNodes = new Map();
     const edges = [];
     currentNodes.forEach(c => showNodes.set(c.id, { id: c.id, node: c.node, subjectName: c.subjectName, grade: (allNodes[c.id] || {}).grade || p.grade, type: 'current' }));
+    // 前置基础节点 + 与本年级节点的先修边
+    preNodes.forEach(n => {
+      if (!showNodes.has(n.id)) showNodes.set(n.id, { id: n.id, node: n.node, subjectName: n.subjectName, grade: n.grade, type: 'pre' });
+    });
+    currentNodes.forEach(c => {
+      (c.node.prerequisites || []).forEach(preId => {
+        if (showNodes.has(preId) && showNodes.get(preId).type === 'pre') edges.push({ from: preId, to: c.id });
+      });
+    });
     targets.forEach(t => {
       const { chain, deadEnd } = trace(t.id);
       if (chain) {
@@ -1002,6 +1034,7 @@ ${stepFramework}` }
       const cid = (n.node.courses || [])[0];
       const st = {
         current: { fill: color, fo: '.14', stroke: color, dash: '', text: '#F8FAFC', tag: '' },
+        pre: { fill: 'rgba(16,185,129,.10)', fo: '1', stroke: 'rgba(16,185,129,.45)', dash: '', text: '#A7F3D0', tag: '前置' },
         via: { fill: 'rgba(255,255,255,.05)', fo: '1', stroke: 'rgba(255,255,255,.25)', dash: '', text: '#94A3B8', tag: '途经' },
         target: { fill: 'rgba(255,255,255,.03)', fo: '1', stroke: color, dash: 'stroke-dasharray="5 3"', text: '#E2E8F0', tag: '目标' }
       }[n.type];
@@ -1039,11 +1072,13 @@ ${stepFramework}` }
               </div>`).join('')}
           </div>`;
     const curCount = p.matches.reduce((a, m) => a + m.nodes.length, 0);
+    const preTotal = (p.preByGrade || []).reduce((a, gm) => a + gm.matches.reduce((b, m) => b + m.nodes.length, 0), 0);
     const nextTotal = (p.nextByGrade || []).reduce((a, gm) => a + gm.matches.reduce((b, m) => b + m.nodes.length, 0), 0);
-    const matchBlock = (curCount + nextTotal) > 0
+    const matchBlock = (curCount + preTotal + nextTotal) > 0
       ? `<div class="block cross-path">
           <h3>跨学科路径（课标收敛）</h3>
-          <p class="block-note">基础 · ${p.grade} 年级 ${curCount} 个知识点${nextTotal ? `　·　拓展目标（${p.grade + 1} 年级→高三）${nextTotal} 个知识点` : ''}</p>
+          <p class="block-note">基础 · ${p.grade} 年级 ${curCount} 个知识点${preTotal ? `　·　前置基础（4→${p.grade - 1} 年级）${preTotal} 个` : ''}${nextTotal ? `　·　拓展目标（${p.grade + 1} 年级→高三）${nextTotal} 个` : ''}</p>
+          ${(p.preByGrade || []).map(gm => `<div class="path-subhead"><span class="path-tag pre">前置</span>${gm.grade} 年级课标</div>${subjectList(gm.matches)}`).join('')}
           ${p.matches.length ? `<div class="path-subhead"><span class="path-tag base">基础</span>${p.grade} 年级课标</div>${subjectList(p.matches)}` : ''}
           ${(p.nextByGrade || []).map(gm => `<div class="path-subhead"><span class="path-tag next">拓展</span>${gm.grade} 年级课标</div>${subjectList(gm.matches)}`).join('')}
           ${p.recommended.length ? `<p class="block-note">建议融合学科：${p.recommended.map(id => `<b>${esc(subjectName(id))}</b>`).join('、')}</p>` : ''}
@@ -1253,6 +1288,15 @@ ${stepFramework}` }
       L.push(`**基础 · ${p.grade} 年级课标**`);
       p.matches.forEach(m => {
         L.push(`- **${m.name}**：${m.nodes.map(nodeLink).join('、')}`);
+      });
+    }
+    if (p.preByGrade && p.preByGrade.length) {
+      L.push('');
+      L.push(`**前置基础（4 → ${p.grade - 1} 年级课标）**`);
+      p.preByGrade.forEach(gm => {
+        gm.matches.forEach(m => {
+          L.push(`- **G${gm.grade} · ${m.name}**：${m.nodes.map(nodeLink).join('、')}`);
+        });
       });
     }
     if (p.nextByGrade && p.nextByGrade.length) {
