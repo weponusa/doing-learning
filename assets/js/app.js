@@ -175,7 +175,7 @@
    * 结果按 grade|sub.id|keywords 缓存 localStorage，避免重复调用。
    */
   const llmMatchCache = (() => {
-    try { return JSON.parse(localStorage.getItem('doing-learning-llm-match-v2') || '{}'); } catch (e) { return {}; }
+    try { return JSON.parse(localStorage.getItem('doing-learning-llm-match-v3') || '{}'); } catch (e) { return {}; }
   })();
 
   function findNodeInGrade(grade, id) {
@@ -201,7 +201,7 @@
 
 选择标准（严格遵守）：
 1. 只选知识点内容本身能直接支撑该主题探究的（实验/观察/制作/调查/数据分析）
-2. 跨学科仅限：数学的数据处理与测量、语文的观察记录与说明表达、信息科技的计算与编程
+2. 跨学科可融合学科包括：数学的数据处理与测量、语文的观察记录与说明表达、信息科技的计算与编程、地理的地图与空间分析/气候观测、生物的观察分类与实验、物理的测量与实验、化学的物质的性质与变化
 3. 严禁选择仅字面相似或牵联想到的：例如主题是"认识人工智能"时，"传染病与免疫""微生物""散文阅读""小说阅读"一律不选；"三角形分类"≠"生物分类"
 4. 宁缺毋滥，0-8 个；拿不准的一律不选
 
@@ -227,7 +227,7 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
       .filter(Boolean) : []);
     const result = { current: valid(grade, data.current), next: valid(nextGrade, data.next) };
     llmMatchCache[cacheKey] = result;
-    try { localStorage.setItem('doing-learning-llm-match-v2', JSON.stringify(llmMatchCache)); } catch (e) { }
+    try { localStorage.setItem('doing-learning-llm-match-v3', JSON.stringify(llmMatchCache)); } catch (e) { }
     return result;
   }
 
