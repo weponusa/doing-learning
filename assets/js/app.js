@@ -1161,10 +1161,16 @@ ${stepFramework}` }
           ${p.official ? `<p class="block-note" style="margin-top:8px">官方任务：${esc(p.official.title)}（${esc(p.official.grade)}） · 建议 ${esc(p.hours)}${(p.official.grade.includes('4') && p.grade >= 7) || (p.official.grade.includes('7') && p.grade <= 6) ? `　·　官方示例定位 ${esc(p.official.grade)}，本方案已按 ${p.grade} 年级学段适配调整` : ''}</p>
           <p>${esc(p.official.req)}</p>` : ''}
         </div>
+        <div class="block place-module-block">
+          ${window.PlaceRings ? PlaceRings.moduleHTML({
+            place: p.place,
+            offCampus: p.offCampus,
+            goal: [p.subdomain && p.subdomain.name, p.drivingQuestion, p.goal].filter(Boolean).join(' ')
+          }) : ''}
+        </div>
         <div class="block tasks-block">
           <h3>科学探究任务链${p.aiEnhanced ? ' <span class="policy-tag ai">AI 个性化细化</span>' : ''}</h3>
           <p class="block-note">依据《指南》"${esc(p.subdomain.name)}"实施建议${p.aiEnhanced ? '，结合学生问题与计划由 AI 细化' : ''}；遵循"提出问题→设计方案→动手实验→分析改进→分享反思"链条</p>
-          ${p.offCampus ? PlaceRings.cardHTML(p.offCampus) : ''}
           <div class="task-list">
             ${p.tasks.map(t => `
               <div class="task-item">
@@ -1358,6 +1364,17 @@ ${stepFramework}` }
     if (p.recommended.length) {
       L.push('');
       L.push(`建议融合学科：${p.recommended.map(subjectName).join('、')}`);
+    }
+    L.push('');
+    L.push('## 周边资源分析与校外实践设计');
+    L.push('每周至少半天校外实践教学，纳入教育教学计划。');
+    if (p.place && p.place.landmark) L.push(`出发地：${[p.place.province, p.place.city !== p.place.province ? p.place.city : '', p.place.district, p.place.landmark].filter(Boolean).join('')}`);
+    if (p.offCampus) {
+      L.push(`${p.offCampus.name}${p.offCampus.distanceText ? `，距${p.offCampus.originLabel || '学校'} ${p.offCampus.distanceText}` : ''}`);
+      L.push(p.offCampus.action || '');
+      L.push(`带回：${p.offCampus.evidence || ''}`);
+    } else {
+      L.push('服务半径内没有对得上的具体地点，这次不安排校外实践。');
     }
     L.push('');
     L.push(`## 任务要求`);

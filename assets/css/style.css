@@ -237,6 +237,9 @@ input, textarea { font-family: inherit; }
 .place-suggest button:hover { background: var(--card-hover); }
 .place-practice-dist { margin: 0 0 6px; color: var(--sky); font-weight: 650; }
 .place-hint { margin: 8px 0 0; font-size: 12px; color: var(--text-3); line-height: 1.5; }
+.place-module { margin: 0; }
+.place-module h3 { margin: 0 0 8px; font-size: 18px; }
+.place-module-kicker { font-size: 12px; color: var(--text-3); margin: 0 0 6px; }
 .place-practice {
   margin: 12px 0 16px;
   padding: 12px 14px;
