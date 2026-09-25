@@ -82,6 +82,7 @@
     studentQuestion: '',  // 学生提出的问题
     studentGoal: '',      // 学生制定的探究目标（可略过）
     studentPlan: null,    // 学生制定的 4 步计划（可略过）
+    place: null,          // 国内所在地，选到区县才锁校外实践
     plan: null
   };
 
@@ -96,11 +97,19 @@
   ];
 
   /* ---------- localStorage 持久化 ---------- */
+  function clearStudentInquiry() {
+    state.studentQuestion = '';
+    state.studentGoal = '';
+    state.studentPlan = null;
+    state.plan = null;
+    state.selectedKeys = null;
+  }
   function saveState() {
     try {
       localStorage.setItem(STORE_KEY, JSON.stringify({
         grade: state.grade, semester: state.semester,
-        domainId: state.domainId, subdomainId: state.subdomainId
+        domainId: state.domainId, subdomainId: state.subdomainId,
+        place: state.place
       }));
     } catch (e) { /* ignore */ }
   }
@@ -111,6 +120,7 @@
       const s = JSON.parse(raw);
       state.grade = s.grade; state.semester = s.semester;
       state.domainId = s.domainId; state.subdomainId = s.subdomainId;
+      state.place = s.place || null;
     } catch (e) { /* ignore */ }
   }
   function savePlan(plan) {
@@ -334,6 +344,8 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
       official,
       hours: official ? official.hours : '不少于4课时',
       tasks,
+      place: state.place && state.place.districtCode ? state.place : null,
+      offCampus: null,
       evaluation: dom.evaluation.map(e => ({ dim: e.dim, desc: e[band] })),
       literacy: dom.literacy,
       policy: D.policy
@@ -376,13 +388,14 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
       <div class="step-head">
         <span class="step-kicker">STEP 1 / 4</span>
         <h2>选择年级、学期与探究方向</h2>
-        <p class="step-sub">依据《做中学》指南，4-9 年级每名学生每学期至少完成 1 项科学探究任务（不少于 4 课时）</p>
+        <p class="step-sub">依据《做中学》指南，4-9 年级每学期至少 1 项科学探究（不少于 4 课时）；每周至少半天校外实践教学，纳入教育教学计划</p>
       </div>
       <div class="grade-grid">${gradeCards}</div>
       <div class="semester-row">
         <span class="semester-label">学期</span>
         ${['上', '下'].map(s => `<button class="semester-btn ${state.semester === s ? 'selected' : ''}" data-sem="${s}">${s}学期</button>`).join('')}
       </div>
+      ${window.PlaceRings ? PlaceRings.fieldsHTML({ province: 'place-province', city: 'place-city', district: 'place-district', landmark: 'place-landmark' }) : ''}
       <div class="home-divider"><span>选择探究大方向</span></div>
       <div class="domain-grid">
         ${D.domains.map(d => `
@@ -410,11 +423,20 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
       saveState();
     }));
     $$('.domain-card', el).forEach(c => c.addEventListener('click', () => {
-      state.domainId = c.dataset.domain;
+      if (state.domainId !== c.dataset.domain) {
+        state.domainId = c.dataset.domain;
+        state.subdomainId = null;
+        clearStudentInquiry();
+      }
       $$('.domain-card', el).forEach(x => x.classList.toggle('selected', x === c));
       saveState();
       updateNext();
     }));
+    if (window.PlaceRings) {
+      PlaceRings.mount(el, {
+        province: 'place-province', city: 'place-city', district: 'place-district', landmark: 'place-landmark',
+      }, state.place, (place) => { state.place = place; saveState(); });
+    }
     $('#btn-next-home').addEventListener('click', () => { if (state.grade && state.domainId) goStep(1); });
     updateNext();
   }
@@ -442,9 +464,8 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
         <button class="btn btn-ghost" id="btn-back-home">← 返回年级方向</button>
       </div>`;
     $$('.subdomain-card', el).forEach(c => c.addEventListener('click', () => {
+      if (state.subdomainId !== c.dataset.sub) clearStudentInquiry();
       state.subdomainId = c.dataset.sub;
-      state.selectedKeys = null; // 换细分方向时重置课标勾选（默认全选重算）
-      state.plan = null;
       saveState();
       goStep(2);
     }));
@@ -807,6 +828,11 @@ ${stepFramework}` }
       `汇总已勾选的 ${(state.selectedKeys || []).length} 个课标知识点…`,
       '按学科聚合跨学科路径…',
       `以"${(state.studentQuestion || '推荐驱动问题').slice(0, 24)}"为核心驱动组装任务链…`,
+      state.place && state.place.district && state.place.landmark
+        ? `从${state.place.landmark}出发，在${state.place.district}查找具体场地…`
+        : state.place && state.place.district
+          ? '已选区县，未填学校或地址，不按距离召回…'
+          : '未选区县，不锁校外场地…',
       '生成评价量表与探究记录单…'
     ];
     let i = 0;
@@ -823,6 +849,23 @@ ${stepFramework}` }
         aiLine.textContent = 'AI 正在结合你的问题打磨任务链…';
         log.appendChild(aiLine);
         await enhancePlanWithLLM(state.plan);
+        if (state.plan.place && state.plan.place.landmark && window.PlaceRings) {
+          const goal = [state.plan.subdomain.name, state.plan.drivingQuestion, state.plan.goal].join(' ');
+          const mapped = await PlaceRings.recallMapped(state.plan.place, goal);
+          let off = PlaceRings.resolve({
+            place: state.plan.place,
+            goal,
+            mode: 'doing',
+            candidates: mapped.candidates || [],
+            center: mapped.center,
+          });
+          const endpoint = (location.hostname === 'teachany.cn' || location.hostname === 'www.teachany.cn')
+            ? `${location.origin}/api/pbl/analyze`
+            : 'https://www.teachany.cn/api/pbl/analyze';
+          off = await PlaceRings.rescoreWithJev(off, { goal, deliverable: '探究记录', endpoint, timeoutMs: 8000 });
+          state.plan.offCampus = off;
+          state.plan.tasks = PlaceRings.applyToTasks(state.plan.tasks, off);
+        }
         aiLine.textContent = state.plan.aiEnhanced
           ? `AI 任务链已生成（${state.plan.aiModel}${state.plan.aiRetried && state.plan.aiRetried.index > 0 ? '，主模型不可用已降级' : ''}）`
           : 'AI 不可用，已使用模板任务链';
@@ -1111,14 +1154,17 @@ ${stepFramework}` }
         </div>
         ${matchBlock}
         ${renderCourseGraph(p)}
-        ${p.official ? `<div class="block req-block">
-          <h3>任务要求 <span class="policy-tag">《指南》官方任务示例</span></h3>
-          <p class="block-note" style="margin-bottom:6px">官方任务：${esc(p.official.title)}（${esc(p.official.grade)}） · 建议 ${esc(p.hours)}${(p.official.grade.includes('4') && p.grade >= 7) || (p.official.grade.includes('7') && p.grade <= 6) ? `　·　官方示例定位 ${esc(p.official.grade)}，本方案已按 ${p.grade} 年级学段适配调整` : ''}</p>
-          <p>${esc(p.official.req)}</p>
-        </div>` : ''}
+        <div class="block req-block">
+          <h3>任务要求 <span class="policy-tag">${esc(p.policy.offCampus.title)}</span></h3>
+          <p>${esc(p.policy.offCampus.requirement)}校外实践安排在所选学校或地址周边、服务半径之内的具体地点；附近没有合适地点时，不硬加校外环节。</p>
+          <p class="block-note">${esc(p.policy.offCampus.source)}。同时执行《指南》：${esc(p.policy.requirement)}。</p>
+          ${p.official ? `<p class="block-note" style="margin-top:8px">官方任务：${esc(p.official.title)}（${esc(p.official.grade)}） · 建议 ${esc(p.hours)}${(p.official.grade.includes('4') && p.grade >= 7) || (p.official.grade.includes('7') && p.grade <= 6) ? `　·　官方示例定位 ${esc(p.official.grade)}，本方案已按 ${p.grade} 年级学段适配调整` : ''}</p>
+          <p>${esc(p.official.req)}</p>` : ''}
+        </div>
         <div class="block tasks-block">
           <h3>科学探究任务链${p.aiEnhanced ? ' <span class="policy-tag ai">AI 个性化细化</span>' : ''}</h3>
           <p class="block-note">依据《指南》"${esc(p.subdomain.name)}"实施建议${p.aiEnhanced ? '，结合学生问题与计划由 AI 细化' : ''}；遵循"提出问题→设计方案→动手实验→分析改进→分享反思"链条</p>
+          ${p.offCampus ? PlaceRings.cardHTML(p.offCampus) : ''}
           <div class="task-list">
             ${p.tasks.map(t => `
               <div class="task-item">
@@ -1187,6 +1233,7 @@ ${stepFramework}` }
         </div>
         <div class="sheet-section">
           <h4>${secNo++}. 观察 / 实验记录</h4>
+          ${p.offCampus ? `<p class="sheet-q">校外取证：<b>${esc(p.offCampus.name)}</b>${p.offCampus.distanceText ? `，距${esc(p.offCampus.originLabel || '学校')} ${esc(p.offCampus.distanceText)}` : ''}（${esc(p.offCampus.ringLabel)}）。${esc(p.offCampus.action)}带回：${esc(p.offCampus.evidence)}</p>` : ''}
           <table class="sheet-table">
             <thead><tr><th>日期</th><th>观察/实验内容</th><th>我看到了什么</th><th>我的发现</th></tr></thead>
             <tbody>
@@ -1313,9 +1360,14 @@ ${stepFramework}` }
       L.push(`建议融合学科：${p.recommended.map(subjectName).join('、')}`);
     }
     L.push('');
+    L.push(`## 任务要求`);
+    L.push(`**${p.policy.offCampus.title}**（${p.policy.offCampus.source}）`);
+    L.push(p.policy.offCampus.requirement);
+    L.push('校外实践安排在所选学校或地址周边、服务半径之内的具体地点；附近没有合适地点时，不硬加校外环节。');
+    L.push(`同时执行《指南》：${p.policy.requirement}。`);
+    L.push('');
     if (p.official) {
-      L.push(`## 任务要求（《指南》官方任务示例）`);
-      L.push(`**${p.official.title}** · ${p.official.grade} · 建议${p.hours}`);
+      L.push(`**《指南》官方任务示例：${p.official.title}** · ${p.official.grade} · 建议${p.hours}`);
       L.push('');
       L.push(p.official.req);
       L.push('');

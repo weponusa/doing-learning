@@ -212,6 +212,42 @@ input, textarea { font-family: inherit; }
   box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
 }
 
+.place-box { margin: 22px auto 0; max-width: 760px; text-align: center; }
+.place-label { display: block; font-size: 14px; color: var(--text-3); margin-bottom: 10px; }
+.place-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.place-row select, .place-landmark {
+  min-width: 140px; flex: 1;
+  padding: 9px 12px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border-strong);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font-size: 14px;
+}
+.place-query-wrap { position: relative; margin-bottom: 10px; }
+.place-suggest {
+  position: absolute; z-index: 4; left: 0; right: 0; top: calc(100% + 4px);
+  background: var(--panel); border: 1px solid var(--border-strong); border-radius: 12px;
+  text-align: left; overflow: hidden; box-shadow: var(--shadow);
+}
+.place-suggest button {
+  display: block; width: 100%; text-align: left; padding: 9px 12px;
+  background: transparent; color: var(--text); border: 0; font-size: 14px; cursor: pointer;
+}
+.place-suggest button:hover { background: var(--card-hover); }
+.place-practice-dist { margin: 0 0 6px; color: var(--sky); font-weight: 650; }
+.place-hint { margin: 8px 0 0; font-size: 12px; color: var(--text-3); line-height: 1.5; }
+.place-practice {
+  margin: 12px 0 16px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-strong);
+}
+.place-practice-kicker { font-size: 12px; color: var(--text-3); margin: 0 0 4px; }
+.place-practice-name { font-weight: 700; margin: 0 0 6px; }
+.place-practice-drop { font-size: 12px; color: var(--text-3); }
+
 /* ---------- 导航按钮 ---------- */
 .nav-row { display: flex; gap: 14px; justify-content: center; margin-top: 30px; flex-wrap: wrap; }
 .btn {
