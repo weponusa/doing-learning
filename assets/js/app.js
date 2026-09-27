@@ -344,7 +344,7 @@ ${nextGrade <= 9 ? fmtNodes(nextGrade) : '（无，已是最高年级）'}` }
       official,
       hours: official ? official.hours : '不少于4课时',
       tasks,
-      place: state.place && state.place.districtCode ? state.place : null,
+      place: state.place && String(state.place.landmark || '').trim() ? state.place : null,
       offCampus: null,
       evaluation: dom.evaluation.map(e => ({ dim: e.dim, desc: e[band] })),
       literacy: dom.literacy,
@@ -828,8 +828,8 @@ ${stepFramework}` }
       `汇总已勾选的 ${(state.selectedKeys || []).length} 个课标知识点…`,
       '按学科聚合跨学科路径…',
       `以"${(state.studentQuestion || '推荐驱动问题').slice(0, 24)}"为核心驱动组装任务链…`,
-      state.place && state.place.district && state.place.landmark
-        ? `从${state.place.landmark}出发，在${state.place.district}查找具体场地…`
+      state.place && state.place.landmark
+        ? `从${state.place.landmark}出发，查找一小时近似范围内的具体场地…`
         : state.place && state.place.district
           ? '已选区县，未填学校或地址，不按距离召回…'
           : '未选区县，不锁校外场地…',
@@ -851,20 +851,32 @@ ${stepFramework}` }
         await enhancePlanWithLLM(state.plan);
         if (state.plan.place && state.plan.place.landmark && window.PlaceRings) {
           const goal = [state.plan.subdomain.name, state.plan.drivingQuestion, state.plan.goal].join(' ');
-          const mapped = await PlaceRings.recallMapped(state.plan.place, goal);
+          const mapped = await PlaceRings.recallMapped(state.plan.place, goal, {
+            gradeBand: state.plan.band,
+            duration: state.plan.hours,
+          });
           let off = PlaceRings.resolve({
             place: state.plan.place,
             goal,
             mode: 'doing',
             candidates: mapped.candidates || [],
             center: mapped.center,
+            queries: mapped.queries || [],
+            requirement: mapped.requirement || null,
+            travel: mapped.travel || null,
+            warnings: mapped.warnings || [],
+            routeSource: mapped.routeSource || '',
           });
+          if (!off && mapped.reason === 'campus') {
+            off = { status: 'campus', placeLabel: state.plan.place.landmark || '' };
+          }
           const endpoint = (location.hostname === 'teachany.cn' || location.hostname === 'www.teachany.cn')
             ? `${location.origin}/api/pbl/analyze`
             : 'https://www.teachany.cn/api/pbl/analyze';
           off = await PlaceRings.rescoreWithJev(off, { goal, deliverable: '探究记录', endpoint, timeoutMs: 8000 });
-          state.plan.offCampus = off;
-          state.plan.tasks = PlaceRings.applyToTasks(state.plan.tasks, off);
+          state.plan.offCampusDecision = off;
+          state.plan.offCampus = off && off.status !== 'campus' ? off : null;
+          state.plan.tasks = PlaceRings.applyToTasks(state.plan.tasks, state.plan.offCampus);
         }
         aiLine.textContent = state.plan.aiEnhanced
           ? `AI 任务链已生成（${state.plan.aiModel}${state.plan.aiRetried && state.plan.aiRetried.index > 0 ? '，主模型不可用已降级' : ''}）`
@@ -1156,7 +1168,7 @@ ${stepFramework}` }
         ${renderCourseGraph(p)}
         <div class="block req-block">
           <h3>任务要求 <span class="policy-tag">${esc(p.policy.offCampus.title)}</span></h3>
-          <p>${esc(p.policy.offCampus.requirement)}校外实践安排在所选学校或地址周边、服务半径之内的具体地点；附近没有合适地点时，不硬加校外环节。</p>
+          <p>${esc(p.policy.offCampus.requirement)}校外实践按学校周边约30公里包络平行四边形近似筛选；附近没有合适地点时，不硬加校外环节。</p>
           <p class="block-note">${esc(p.policy.offCampus.source)}。同时执行《指南》：${esc(p.policy.requirement)}。</p>
           ${p.official ? `<p class="block-note" style="margin-top:8px">官方任务：${esc(p.official.title)}（${esc(p.official.grade)}） · 建议 ${esc(p.hours)}${(p.official.grade.includes('4') && p.grade >= 7) || (p.official.grade.includes('7') && p.grade <= 6) ? `　·　官方示例定位 ${esc(p.official.grade)}，本方案已按 ${p.grade} 年级学段适配调整` : ''}</p>
           <p>${esc(p.official.req)}</p>` : ''}
@@ -1164,7 +1176,7 @@ ${stepFramework}` }
         <div class="block place-module-block">
           ${window.PlaceRings ? PlaceRings.moduleHTML({
             place: p.place,
-            offCampus: p.offCampus,
+            offCampus: p.offCampusDecision || p.offCampus,
             goal: [p.subdomain && p.subdomain.name, p.drivingQuestion, p.goal].filter(Boolean).join(' ')
           }) : ''}
         </div>

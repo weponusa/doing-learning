@@ -5,12 +5,10 @@
  */
 (function (root) {
   const THRESHOLD = 0.2;
-  const PLACE_JEV_THRESHOLD = 0.5;
+  // 100 条模拟圆心评测的暂定点；需继续用真实出发地留出集复核。
+  const PLACE_JEV_THRESHOLD = 0.35;
   const RINGS = [
-    { id: 'r0', label: '校园周边', radius: '0–1 km' },
-    { id: 'r1', label: '街道', radius: '1–5 km' },
-    { id: 'r2', label: '区县', radius: '5–15 km' },
-    { id: 'r3', label: '城市当日', radius: '15–40 km' },
+    { id: 'r0', label: '一小时近似范围', radius: '学校周边约30公里包络平行四边形' },
   ];
   const RING_INDEX = Object.fromEntries(RINGS.map((r, i) => [r.id, i]));
 
@@ -96,9 +94,7 @@
   }
 
   const ANALYSIS_BANDS = [
-    { id: 'km1', label: '1 公里内', min: 0, max: 1 },
-    { id: 'km10', label: '1–10 公里', min: 1, max: 10 },
-    { id: 'km30', label: '10–30 公里', min: 10, max: 30 },
+    { id: 'onehour', label: '一小时近似范围', min: 0, max: 43 },
   ];
 
   function focusGoal(text) {
@@ -232,13 +228,37 @@
     return 2 * 6371 * Math.asin(Math.min(1, Math.sqrt(a)));
   }
 
-  function ringFromKm(km) {
-    if (km == null || !isFinite(km)) return null;
-    if (km <= 1) return 'r0';
-    if (km <= 5) return 'r1';
-    if (km <= 15) return 'r2';
-    if (km <= 40) return 'r3';
-    return null;
+  function withinOneHourBox(center, lon, lat) {
+    const radiusKm = 30;
+    const latPad = radiusKm / 111;
+    const lonPad = radiusKm / (111 * Math.max(0.2, Math.cos(Number(center.lat) * Math.PI / 180)));
+    return Number(lat) >= Number(center.lat) - latPad
+      && Number(lat) <= Number(center.lat) + latPad
+      && Number(lon) >= Number(center.lon) - lonPad
+      && Number(lon) <= Number(center.lon) + lonPad;
+  }
+
+  function travelPolicy(place) {
+    return {
+      mode: 'fixed-radius',
+      limitMinutes: 60,
+      radiusKm: 30,
+      shape: 'parallelogram',
+      label: '一小时近似范围',
+    };
+  }
+
+  function estimateMinutes(km) {
+    return Math.max(5, Math.round(Math.max(0, Number(km) || 0) / 30 * 60));
+  }
+
+  function venueMinutes(venue) {
+    const n = Number(venue && venue.durationMinutes);
+    return Number.isFinite(n) ? Math.round(n) : estimateMinutes(venue && venue.distanceKm);
+  }
+
+  function ringFromMinutes() {
+    return 'r0';
   }
 
   function formatDistance(km) {
@@ -246,6 +266,11 @@
     if (km < 1) return `${Math.max(50, Math.round(km * 1000 / 10) * 10)} m`;
     if (km < 10) return `${km.toFixed(1)} km`;
     return `${Math.round(km)} km`;
+  }
+
+  function formatDuration(minutes, source) {
+    if (minutes == null || !isFinite(minutes)) return '';
+    return `${Math.round(minutes)} 分钟${String(source || '').startsWith('estimated') ? '（估算）' : ''}`;
   }
 
   /** 设施级别越低，服务范围越小。超出服务半径的网点不推荐。
@@ -276,7 +301,7 @@
   function mapFilters(topics) {
     const blob = (topics || []).join('');
     const filters = [];
-    const names = (topics || []).filter(term => /[\u4e00-\u9fa5]/.test(term) && term.length >= 2).slice(0, 4);
+    const names = expandPlaceTopics(topics);
     const pattern = [];
     names.forEach(term => {
       pattern.push(term);
@@ -290,8 +315,11 @@
     if (/工厂|产业园|车间/.test(blob)) filters.push({ industrial: true });
     if (/实验室|大学|高校/.test(blob)) filters.push({ university: true });
     if (/村落|古建|斗拱|文保|遗址|古迹/.test(blob)) filters.push({ historic: true });
-    if (/农田|作物|水利/.test(blob)) filters.push({ farm: true });
+    if (/农田|作物|农场|温室|农业/.test(blob)) filters.push({ farm: true });
     if (/垃圾|回收|填埋|再生|转运/.test(blob)) filters.push({ waste: true });
+    if (/水利|水能|运河|水闸|灌渠|漕运/.test(blob)) filters.push({ canal: true });
+    if (/水闸|船闸|堤坝/.test(blob)) filters.push({ sluice: true });
+    if (/污水|水厂/.test(blob)) filters.push({ wastewater: true });
     return filters;
   }
 
@@ -302,6 +330,10 @@
     if (tags.highway && !/路|街|交通|站/.test(blob)) return false;
     if (tags.place && /city|town|village|hamlet|suburb/.test(tags.place) && !/村|镇/.test(blob)) return false;
     if (tags.landuse === 'residential' || tags.landuse === 'construction') return false;
+    if (/社区|家园|小区|公寓|宿舍|住宅/.test(name) && !/公园|博物馆|水闸|农场|湿地/.test(name)) return false;
+    if (/(路|街|街道)$/.test(name) && !/公园|博物馆|水闸/.test(name)) return false;
+    if (/店$|超市|饭店|餐厅|便民|管理处|服务处|办事处|综合楼|办公楼/.test(name) && !/市场|商场/.test(blob)) return false;
+    if (/市场/.test(name) && !/市场|商业|物价|买卖/.test(blob)) return false;
     return true;
   }
 
@@ -309,6 +341,8 @@
     const name = String((tags && tags.name) || '');
     if (/小学|中学|幼儿园/.test(name) || (tags && tags.amenity === 'school')) return false;
     if (tags && tags.highway) return false;
+    if (tags && (tags.waterway || tags.amenity === 'recycling' || tags.amenity === 'waste_transfer_station'
+      || tags.man_made === 'wastewater_plant' || /sluice_gate|weir/.test(tags.man_made || ''))) return true;
     return matchesCore(name, topics);
   }
 
@@ -354,9 +388,40 @@
     return out;
   }
 
+  function expandPlaceTopics(topics) {
+    const blob = (topics || []).join('');
+    const extra = [];
+    const rules = [
+      [/水利|水能|水电|水闸|灌渠|运河|漕运|堤坝/, ['大运河', '运河', '水利', '水闸']],
+      [/氢能|加氢|燃料电池/, ['加氢', '氢能']],
+      [/光伏|太阳能/, ['光伏', '太阳能']],
+      [/风电|风力发电/, ['风电']],
+      [/农业|农场|温室|作物|种业|农庄|农园/, ['农场', '农业', '温室']],
+      [/垃圾|回收|填埋|转运|再生/, ['回收', '垃圾', '转运']],
+      [/天文|星空|行星|星象/, ['天文']],
+      [/植物园|植物分类/, ['植物园']],
+      [/湿地|候鸟|鸟类/, ['湿地']],
+      [/化石|恐龙|地质/, ['地质', '自然']],
+      [/文物|遗址|古迹|非遗|考古/, ['博物馆', '遗址']],
+      [/桥梁|港口|码头|铁路|车站/, ['桥梁', '港口', '车站']],
+    [/航空|航天|飞机|机场|无人机/, ['航空', '航天', '航模', '机场']],
+    [/机器人|人工智能|智能制造/, ['机器人', '产业园']],
+    [/非遗|戏曲/, ['非遗', '剧场']],
+    [/气象|地震|防灾/, ['气象', '地震']],
+    [/海洋|海事/, ['海洋', '港口']],
+    ];
+    rules.forEach(([re, words]) => { if (re.test(blob)) extra.push(...words); });
+    (topics || []).forEach(term => {
+      if (!term || term.length < 2 || term.length > 8) return;
+      if (/智慧|测试|装置|利用|探究|设计|项目/.test(term)) return;
+      extra.push(term);
+    });
+    return [...new Set(extra)].slice(0, 8);
+  }
+
   function matchesCore(name, terms) {
     const text = String(name || '');
-    return (terms || []).some(term => term && text.includes(term));
+    return expandPlaceTopics(terms).some(term => term && text.includes(term));
   }
 
   function bandOf(km) {
@@ -370,6 +435,43 @@
     }));
   }
 
+  function venueKept(venue, cores) {
+    if (venue.classHit) return true;
+    if (Array.isArray(venue.recallQueries) && venue.recallQueries.length) {
+      return venue.recallQueries.some(term => String(venue.name || '').includes(term));
+    }
+    return matchesCore(venue.name, cores);
+  }
+
+  function practiceFields(venue, place) {
+    const name = String(venue.name || '');
+    const activity = venue.canDo || `在「${name}」的开放区域观察，并记下能看见的对象`;
+    const risk = /填埋|焚烧|污水|工厂|车间|水厂/.test(name)
+      ? '只停留在开放参观区，不进入作业面。成人陪同，提前确认是否接待团队。'
+      : '成人陪同。只进入对公众或团队开放的区域，出发前核实预约和开放时间。';
+    return {
+      tier: 'A',
+      activity,
+      risk,
+      minutes: null,
+    };
+  }
+
+  function practicePlan(venues, cores, place) {
+    const ranked = (venues || [])
+      .filter(venue => venueKept(venue, cores) && (venue.distanceKm == null || venue.distanceKm <= 43))
+      .filter(venue => venue.noul == null || venue.noul >= (venue.jevSource === 'jev' ? PLACE_JEV_THRESHOLD : THRESHOLD))
+      .map(venue => ({ ...venue, ...practiceFields(venue, place) }))
+      .sort((a, b) => {
+        const qa = /博物馆|科技馆|公园|湿地|水闸|农场|温室|植物园/.test(a.name || '') ? 0 : 1;
+        const qb = /博物馆|科技馆|公园|湿地|水闸|农场|温室|植物园/.test(b.name || '') ? 0 : 1;
+        if (qa !== qb) return qa - qb;
+        return (a.distanceKm || 99) - (b.distanceKm || 99);
+      })
+      .slice(0, 5);
+    return { ranked, route: ranked.slice(0, 3) };
+  }
+
   function bind(place, goal, mode, scored) {
     const intents = deriveIntents(goal);
     const cores = searchTerms(goal, place);
@@ -377,6 +479,8 @@
     const source = scored === undefined ? recall(place) : scored;
     const candidates = source.map(venue => ({
       ...venue,
+      ringId: 'r0',
+      ringLabel: RINGS[0].label,
       noul: venue.noul == null ? localNoul(goal, venue, intents, mode) : venue.noul,
     }));
     const dropped = [];
@@ -386,8 +490,11 @@
       const kept = [];
       pool.forEach(venue => {
         if (venue.noul != null && venue.noul < (venue.jevSource === 'jev' ? PLACE_JEV_THRESHOLD : THRESHOLD)) dropped.push(venue);
-        else if (venue.distanceKm != null && venue.distanceKm > 30) dropped.push(venue);
-        else if (!matchesCore(venue.name, cores)) dropped.push(venue);
+        else if (venue.distanceKm != null && venue.distanceKm > 43) dropped.push(venue);
+        else if (venue.classHit) kept.push(venue);
+        else if (Array.isArray(venue.recallQueries) && venue.recallQueries.length
+          ? !venue.recallQueries.some(term => String(venue.name || '').includes(term))
+          : !matchesCore(venue.name, cores)) dropped.push(venue);
         else kept.push(venue);
       });
       if (!kept.length) continue;
@@ -396,28 +503,35 @@
         return (b.noul || 0) - (a.noul || 0);
       });
       const best = kept[0];
+      const plan = practicePlan(candidates, cores, place);
+      const lead = plan.ranked[0] || best;
       return {
         status: 'bound',
-        ringId: ring.id,
-        ringLabel: ring.label,
-        name: best.name,
-        category: best.category,
-        action: `成人陪同，${best.canDo}。`,
-        evidence: best.evidence,
+        ringId: lead.ringId || ring.id,
+        ringLabel: lead.ringLabel || ring.label,
+        name: lead.name,
+        category: lead.category,
+        action: `成人陪同，${lead.activity || lead.canDo || best.canDo}。`,
+        evidence: lead.evidence || best.evidence,
         adultRequired: true,
-        sameDay: true,
-        jevSource: best.jevSource || 'local',
-        noul: best.noul,
-        venueId: best.id,
-        distanceKm: best.distanceKm == null ? null : best.distanceKm,
-        distanceText: formatDistance(best.distanceKm),
+        sameDay: lead.tier !== 'C',
+        jevSource: lead.jevSource || best.jevSource || 'local',
+        noul: lead.noul,
+        venueId: lead.id || best.id,
+        distanceKm: lead.distanceKm == null ? null : lead.distanceKm,
+        distanceText: formatDistance(lead.distanceKm),
+        accessStatus: lead.accessStatus || 'unverified',
+        score: lead.score,
         originLabel: place.landmark || '',
-        bands: groupBands(candidates.filter(venue => matchesCore(venue.name, cores) && (venue.distanceKm == null || venue.distanceKm <= 30))),
-        also: candidates
-          .filter(venue => venue.name !== best.name && matchesCore(venue.name, cores) && venue.noul != null && venue.noul >= (venue.jevSource === 'jev' ? PLACE_JEV_THRESHOLD : THRESHOLD) && (venue.distanceKm == null || venue.distanceKm <= 30))
-          .sort((a, b) => a.distanceKm - b.distanceKm)
-          .slice(0, 3)
-          .map(venue => ({ name: venue.name, distanceText: formatDistance(venue.distanceKm), ringLabel: venue.ringLabel })),
+        ranked: plan.ranked,
+        route: plan.route,
+        bands: groupBands(candidates.filter(venue => venueKept(venue, cores) && (venue.distanceKm == null || venue.distanceKm <= 43))),
+        also: plan.ranked.filter(venue => venue.name !== best.name).slice(0, 3).map(venue => ({
+          name: venue.name,
+          distanceText: formatDistance(venue.distanceKm),
+          ringLabel: venue.ringLabel,
+          tier: venue.tier,
+        })),
         dropped: dropped.map(venue => ({
           name: venue.name,
           ringLabel: venue.ringLabel,
@@ -434,7 +548,7 @@
     const place = opts && opts.place;
     const goal = (opts && opts.goal) || '';
     const mode = (opts && opts.mode) || 'pbl';
-    if (!place || !place.districtCode || !String(place.landmark || '').trim()) return null;
+    if (!place || !String(place.landmark || '').trim()) return null;
     const bound = bind(place, goal, mode, opts && opts.candidates);
     if (!bound) return null;
     const bits = [];
@@ -446,6 +560,11 @@
     bound.originLabel = place.landmark;
     bound.mode = mode;
     bound._place = place;
+    if (opts && opts.queries) bound.queries = opts.queries;
+    if (opts && opts.requirement) bound.requirement = opts.requirement;
+    if (opts && opts.travel) bound.travel = opts.travel;
+    if (opts && opts.warnings) bound.warnings = opts.warnings;
+    if (opts && opts.routeSource) bound.routeSource = opts.routeSource;
     if (opts && opts.center) bound.center = opts.center;
     return bound;
   }
@@ -465,16 +584,25 @@
       .finally(() => clearTimeout(timer));
   }
 
+  function bareLandmark(landmark) {
+    let text = String(landmark || '').trim();
+    text = text.replace(/^(北京市|北京|市辖区)/, '');
+    text = text.replace(/^[\u4e00-\u9fa5]{1,8}(区|县)/, '');
+    return text.trim() || String(landmark || '').trim();
+  }
+
+  function schoolStem(landmark) {
+    return bareLandmark(landmark)
+      .replace(/(附属|实验|第一|第二|第三|第四|第五)?(小学|中学|学校|幼儿园)/g, '')
+      .replace(/[^\u4e00-\u9fa5]/g, '')
+      .trim();
+  }
+
   async function geocodeCenter(place) {
-    const district = place.district || '';
-    const city = place.city && place.city !== place.province ? place.city : '';
-    const cityShort = (city || '').replace(/市$/, '');
-    const queries = [
-      `${city}${place.landmark}`,
-      `${cityShort}${place.landmark}`,
-      `${district}${place.landmark}`,
-      `${city}${district}${place.landmark}`,
-    ];
+    const bare = bareLandmark(place.landmark);
+    const stem = schoolStem(place.landmark);
+    const cityShort = String(place.city || '').replace(/市$/, '');
+    const queries = [bare, place.landmark, `${cityShort}${bare}`];
     for (const q of queries) {
       if (!q) continue;
       let data = null;
@@ -483,38 +611,24 @@
       } catch (e) {
         data = null;
       }
-      const features = (data && data.features) || [];
-      const ranked = features.map(feature => {
+      const ranked = ((data && data.features) || []).map(feature => {
         const props = feature.properties || {};
         const coords = (feature.geometry && feature.geometry.coordinates) || [];
-        const blob = `${props.name || ''}${props.city || ''}${props.state || ''}${props.district || ''}${props.county || ''}${props.street || ''}`;
+        const name = String(props.name || '');
         let score = 0;
-        const stem = district.replace(/[区县市]$/, '');
-        if (stem && blob.includes(stem)) score += 3;
-        if (city && blob.includes(city.replace(/市$/, ''))) score += 2;
+        if (stem.length >= 2 && name.includes(stem)) score += 8;
+        else if (stem.length >= 2) score -= 8;
         const kind = String(place.landmark || '').match(/小学|中学|学校|幼儿园/);
-        if (kind && props.name && String(props.name).includes(kind[0])) score += 4;
-        if (kind && props.name && !String(props.name).includes(kind[0])) score -= 4;
-        if (props.name && place.landmark && String(props.name).includes(String(place.landmark).slice(0, 4))) score += 2;
-        return {
-          lon: coords[0],
-          lat: coords[1],
-          name: props.name || place.landmark,
-          street: props.street || '',
-          score,
-        };
-      }).filter(item => item.lat != null && item.lon != null && item.score > 0);
+        if (kind && name.includes(kind[0])) score += 2;
+        return { lon: coords[0], lat: coords[1], name: name || place.landmark, street: props.street || '', score };
+      }).filter(item => item.lat != null && item.lon != null && item.score > 0 && (stem.length < 2 || String(item.name).includes(stem)));
       ranked.sort((a, b) => b.score - a.score);
       if (ranked[0]) return ranked[0];
     }
     try {
-      const q = `${place.city || place.province || ''}${place.district || ''}${place.landmark}`;
+      const q = place.landmark;
       const rows = await fetchJson(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=3&countrycodes=cn&q=${encodeURIComponent(q)}`, null, 8000);
-      const hit = (Array.isArray(rows) ? rows : []).find(row => {
-        const blob = `${row.display_name || ''}`;
-        const stem = String(place.district || '').replace(/[区县市]$/, '');
-        return !stem || blob.includes(stem);
-      });
+      const hit = (Array.isArray(rows) ? rows : []).find(row => stem.length < 2 || String(row.display_name || '').includes(stem));
       if (hit) return { lon: Number(hit.lon), lat: Number(hit.lat), name: place.landmark, street: '', score: 1 };
     } catch (e) { /* 地理编码失败就不再编造圆心 */ }
     return null;
@@ -530,10 +644,10 @@
       const lon = el.lon != null ? el.lon : (el.center && el.center.lon);
       if (lat == null || lon == null) return;
       const distanceKm = haversineKm(center.lon, center.lat, lon, lat);
-      if (distanceKm > 30) return;
+      if (!withinOneHourBox(center, lon, lat)) return;
       const band = bandOf(distanceKm);
       if (!band) return;
-      const ringId = distanceKm <= 1 ? 'r0' : (distanceKm <= 10 ? 'r1' : 'r2');
+      const ringId = 'r0';
       if (!ringId) return;
       const name = specificName(tags);
       const prev = byName.get(name);
@@ -542,6 +656,8 @@
         id: `map-${name}`,
         name,
         category: tags.waterway || tags.leisure || tags.tourism || tags.amenity || tags.historic || tags.natural || 'place',
+        classHit: !!(tags.waterway || tags.amenity === 'recycling' || tags.amenity === 'waste_transfer_station'
+          || tags.man_made === 'wastewater_plant' || /sluice_gate|weir/.test(tags.man_made || '')) || undefined,
         ringId,
         ringLabel: band.label,
         distanceKm,
@@ -565,7 +681,7 @@
     return venues.sort((a, b) => a.distanceKm - b.distanceKm).slice(0, 8);
   }
 
-  async function overpassAround(center, radius, filters) {
+  async function overpassAround(center, radius, filters, host) {
     const lines = [];
     filters.forEach(filter => {
       const around = `around:${radius},${center.lat},${center.lon}`;
@@ -584,10 +700,16 @@
         lines.push(`node(${around})["amenity"="recycling"]["name"];`);
         lines.push(`node(${around})["amenity"="waste_transfer_station"]["name"];`);
       }
+      if (filter.canal) lines.push(`nwr(${around})["waterway"~"canal|river"]["name"];`);
+      if (filter.sluice) {
+        lines.push(`nwr(${around})["man_made"~"sluice_gate|weir"]["name"];`);
+        lines.push(`nwr(${around})["waterway"="lock_gate"]["name"];`);
+      }
+      if (filter.wastewater) lines.push(`nwr(${around})["man_made"="wastewater_plant"]["name"];`);
     });
     if (!lines.length) return [];
     const query = `[out:json][timeout:12];(${lines.join('')});out center 12;`;
-    const data = await fetchJson('https://lz4.overpass-api.de/api/interpreter', {
+    const data = await fetchJson(host || 'https://overpass.kumi.systems/api/interpreter', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
       body: `data=${encodeURIComponent(query)}`,
@@ -596,47 +718,68 @@
   }
 
   async function photonAround(center, radiusKm, topics) {
-    const latPad = radiusKm / 111;
-    const lonPad = radiusKm / (111 * Math.cos(center.lat * Math.PI / 180) || 1);
-    const bbox = [center.lon - lonPad, center.lat - latPad, center.lon + lonPad, center.lat + latPad].join(',');
-    const elements = [];
-    for (const term of (topics || []).slice(0, 4)) {
-      let data = null;
+    const terms = (topics || []).filter(Boolean).slice(0, 6);
+    const lists = await Promise.all(terms.map(async term => {
       try {
-        data = await fetchJson(`https://photon.komoot.io/api/?${new URLSearchParams({
-          q: term, lat: String(center.lat), lon: String(center.lon), limit: '6', location_bias_scale: '1', bbox,
+        return await fetchJson(`https://photon.komoot.io/api/?${new URLSearchParams({
+          q: term,
+          lat: String(center.lat),
+          lon: String(center.lon),
+          limit: '6',
+          location_bias_scale: '0.2',
         })}`, null, 8000);
       } catch (e) {
-        data = null;
+        return null;
       }
+    }));
+    const elements = [];
+    lists.forEach(data => {
       ((data && data.features) || []).forEach(feature => {
         const props = feature.properties || {};
         const coords = (feature.geometry && feature.geometry.coordinates) || [];
-        const key = props.osm_key;
-        const value = props.osm_value;
+        if (!props.name || coords.length < 2) return;
+        const km = haversineKm(center.lon, center.lat, coords[0], coords[1]);
+        if (km > radiusKm) return;
         const tags = { name: props.name, street: props.street || '' };
-        if (key && value) tags[key] = value;
+        if (props.osm_key && props.osm_value) tags[props.osm_key] = props.osm_value;
         elements.push({ lat: coords[1], lon: coords[0], tags });
       });
-    }
+    });
     return elements;
   }
 
-  async function searchAround(center, topics) {
+  function searchTermsForMap(topics, city) {
+    const queries = expandPlaceTopics(topics).slice(0, 4);
+    const cityShort = String(city || '').replace(/市$/, '');
+    const prefixed = cityShort ? queries.slice(0, 2).map(term => `${cityShort}${term}`) : [];
+    return [...new Set([...queries, ...prefixed])].slice(0, 6);
+  }
+
+  async function searchAround(center, topics, city) {
+    const mapTerms = searchTermsForMap(topics, city);
     let elements = [];
     try {
-      elements = await photonAround(center, 30, topics);
+      elements = await photonAround(center, 60, mapTerms);
     } catch (e) {
       elements = [];
     }
-    if (!elements.length) {
-      try {
-        elements = await overpassAround(center, 30000, mapFilters(topics));
-      } catch (e) {
-        elements = [];
+    let venues = venuesFromElements(elements, center, mapTerms);
+    if (venues.length < 2) {
+      const hosts = ['https://overpass.kumi.systems/api/interpreter', 'https://lz4.overpass-api.de/api/interpreter'];
+      for (const host of hosts) {
+        try {
+          const more = await overpassAround(center, 50000, mapFilters(mapTerms), host);
+          venues = venues.concat(venuesFromElements(more, center, mapTerms));
+          if (venues.length >= 2) break;
+        } catch (e) { /* 换一个地图接口 */ }
       }
     }
-    return venuesFromElements(elements, center, topics).filter(venue => matchesCore(venue.name, topics) && venue.distanceKm <= 30);
+    const seen = new Set();
+    return venues.filter(venue => {
+      if (!venue.name || seen.has(venue.name)) return false;
+      seen.add(venue.name);
+      return matchesCore(venue.name, mapTerms) || venue.classHit || /canal|river|lock_gate|recycling|waste/.test(String(venue.category || ''));
+    }).sort((a, b) => a.distanceKm - b.distanceKm).slice(0, 8);
   }
 
   function placesEndpoint() {
@@ -648,10 +791,14 @@
     return 'https://www.teachany.cn/api/pbl/places';
   }
 
-  async function recallMapped(place, goal) {
-    if (!place || !place.districtCode || !String(place.landmark || '').trim()) return { center: null, candidates: [] };
+  async function recallMapped(place, goal, opts) {
+    const options = opts || {};
+    if (!place || !String(place.landmark || '').trim()) return { center: null, candidates: [] };
+    if (options.requirement && (options.requirement.campusOnly === true || options.requirement.campus_only === true)) {
+      return { center: null, candidates: [], queries: [], requirement: options.requirement, reason: 'campus' };
+    }
     const topics = searchTerms(goal, place);
-    if (!topics.length) return { center: null, candidates: [] };
+    if (!topics.length && !options.requirement) return { center: null, candidates: [] };
     const endpoint = placesEndpoint();
     if (endpoint) {
       try {
@@ -661,21 +808,62 @@
           body: JSON.stringify({
             place: {
               province: place.province, city: place.city, district: place.district, landmark: place.landmark,
+              lat: place.lat, lon: place.lon, resolvedName: place.resolvedName,
+              coordinateSource: place.coordinateSource, coordinateSystem: place.coordinateSystem,
             },
             topics,
+            goal: String(goal || '').slice(0, 800),
+            requirement: options.requirement || null,
+            travel: travelPolicy(place),
+            gradeBand: options.gradeBand || '',
+            duration: options.duration || '',
           }),
-        }, 15000);
-        if (data && Array.isArray(data.candidates)) {
-          const kept = data.candidates.filter(venue => matchesCore(venue.name, topics) && (venue.distanceKm == null || venue.distanceKm <= 30));
-          if (kept.length) return { center: data.center || null, candidates: kept };
+        }, 30000);
+        if (data && Array.isArray(data.queries)) {
+          if (data.reason === 'campus') {
+            return {
+              center: data.center || null,
+              candidates: [],
+              queries: [],
+              requirement: data.requirement || options.requirement || null,
+              travel: data.travel || travelPolicy(place),
+              reason: 'campus',
+            };
+          }
+          const planned = data.queries;
+          const kept = (data.candidates || []).filter(venue => {
+            const name = String(venue.name || '');
+            const nameOk = venue.classHit || planned.some(term => name.includes(term)) || /canal|river/.test(String(venue.category || ''));
+            return nameOk && venueMinutes(venue) <= (data.travel?.limitMinutes || travelPolicy(place).limitMinutes);
+          });
+          return {
+            center: data.center || null,
+            candidates: kept.map(venue => ({ ...venue, recallQueries: planned })),
+            ranked: data.ranked || [],
+            route: data.route || [],
+            queries: planned,
+            poi: data.poi || [],
+            requirement: data.requirement || options.requirement || null,
+            travel: data.travel || travelPolicy(place),
+            warnings: data.warnings || [],
+            routeSource: data.routeSource || '',
+            reason: data.reason || '',
+          };
         }
       } catch (e) { /* 接口未部署时改走直接检索 */ }
     }
     const center = await geocodeCenter(place);
     if (!center) return { center: null, candidates: [] };
     center.label = place.landmark;
-    const candidates = await searchAround(center, topics);
-    return { center, candidates };
+    const candidates = await searchAround(center, topics, place.city);
+    return {
+      center,
+      candidates,
+      queries: expandPlaceTopics(topics),
+      travel: travelPolicy(place),
+      warnings: ['服务端地图接口不可用，车程为本地估算'],
+      routeSource: 'estimated',
+    };
   }
 
   function applyScores(bound, scores, goal, mode) {
@@ -689,7 +877,13 @@
     if (!next) return null;
     next.placeLabel = bound.placeLabel;
     next.mode = mode;
-    next.jevSource = next.status === 'fallback-unlisted' ? 'jev' : 'jev';
+    next.queries = bound.queries;
+    next.requirement = bound.requirement;
+    next.travel = bound.travel;
+    next.warnings = bound.warnings;
+    next.routeSource = bound.routeSource;
+    next.center = bound.center;
+    next.jevSource = 'jev';
     next._place = bound._place;
     return next;
   }
@@ -733,10 +927,12 @@
   }
 
   function applyToTasks(tasks, bound) {
-    if (!bound || !tasks || !tasks.length) return tasks;
+    if (!bound || bound.status === 'campus' || !tasks || !tasks.length) return tasks;
     const idx = findExperimentTask(tasks);
-    const where = bound.distanceText
-      ? `距${bound.originLabel || '学校'} ${bound.distanceText}·${bound.name}`
+    const where = bound.durationText
+      ? `从${bound.originLabel || '学校'}出发约${bound.durationText}·${bound.name}`
+      : bound.distanceText
+        ? `距${bound.originLabel || '学校'} ${bound.distanceText}·${bound.name}`
       : `${bound.placeLabel || ''}·${bound.ringLabel}·${bound.name}`;
     const note = `校外取证（${where}）：${bound.action}带回：${bound.evidence}。成人陪同，当日往返。`;
     return tasks.map((task, i) => {
@@ -747,7 +943,7 @@
   }
 
   function applyToPathPlan(pathPlan, bound) {
-    if (!pathPlan || !bound) return pathPlan;
+    if (!pathPlan || !bound || bound.status === 'campus') return pathPlan;
     const phases = (pathPlan.phases || []).filter(phase => phase.id !== 'off-campus');
     phases.forEach(phase => {
       if (Array.isArray(phase._offCampusSteps)) {
@@ -756,8 +952,8 @@
         delete phase._offCampusSteps;
       }
     });
-    const note = bound.distanceText
-      ? `${bound.name}，距${bound.originLabel || '学校'} ${bound.distanceText}。${bound.action}带回：${bound.evidence}`
+    const note = bound.durationText
+      ? `${bound.name}，从${bound.originLabel || '学校'}出发约 ${bound.durationText}${bound.distanceText ? `（${bound.distanceText}）` : ''}。${bound.action}带回：${bound.evidence}`
       : `${bound.action}带回：${bound.evidence}`;
     const existing = phases.find(phase => /校外|实地|走访|参观|调查/.test(`${phase.phase || ''}${phase.venue || ''}`));
     if (existing) {
@@ -774,7 +970,7 @@
         steps: [note, '成人陪同，当日往返'],
         acceptance: [bound.evidence, '成人陪同', '当日往返'],
         deliverable: bound.evidence,
-        durationHint: bound.distanceText || bound.ringLabel,
+        durationHint: bound.durationText || bound.distanceText || bound.ringLabel,
       };
       const last = phases[phases.length - 1];
       if (last && /成果|展示|汇报|总结|反思/.test(last.phase || '')) phases.splice(phases.length - 1, 0, injected);
@@ -792,31 +988,53 @@
     const bound = options.offCampus || null;
     const goal = options.goal || '';
     const terms = searchTerms(goal, place);
-    const ready = !!(place && place.districtCode && String(place.landmark || '').trim());
+    const ready = !!(place && String(place.landmark || '').trim());
     const where = ready
       ? [place.province, place.city && place.city !== place.province ? place.city : '', place.district, place.landmark].filter(Boolean).join('')
       : '';
-    const objects = terms.length ? terms.join('、') : '这个课题没有需要到场看见的对象';
-    const bands = (bound && bound.bands) || [];
-    const bandHtml = bands.map(band => {
-      const names = band.places.slice(0, 4).map(venue => `${esc(venue.name)} ${esc(venue.distanceText || formatDistance(venue.distanceKm))}`).join('、');
-      return `<p><b>${esc(band.label)}：</b>${names || '没有对得上的地点'}</p>`;
+    const objects = (bound && bound.queries && bound.queries.length)
+      ? bound.queries.join('、')
+      : (terms.length ? terms.join('、') : '这个课题没有需要到场看见的对象');
+    const ranked = (bound && bound.ranked) || [];
+    const route = (bound && bound.route) || [];
+    const listHtml = ranked.map((venue, index) => {
+      const score = venue.score != null ? ` · 评分 ${Math.round(Number(venue.score))}` : '';
+      const access = venue.accessStatus === 'verified-public' ? '已核实开放'
+        : venue.accessStatus === 'public-likely' ? '可能开放，需核实'
+          : venue.accessStatus === 'appointment-required' ? '需团体预约' : '开放性待核实';
+      return `<div class="place-practice">
+        <p class="place-practice-kicker">${index + 1} · 一小时近似范围 · ${esc(formatDistance(venue.distanceKm))}${esc(score)}</p>
+        <p class="place-practice-name">${esc(venue.name)}</p>
+        <p>活动：${esc(venue.activity || venue.canDo || '')}</p>
+        <p>带回：${esc(venue.evidence || '地点名称、现场看到的现象')}</p>
+        <p>开放：${esc(access)}。注意：${esc(venue.risk || '成人陪同，只进入开放区域。')}</p>
+      </div>`;
     }).join('');
+    const routeHtml = route.length
+      ? `<p><b>建议组合：</b>${route.map(venue => esc(venue.name)).join(' → ')}。按相关性优先，实际出发前再核对交通。</p>`
+      : '';
+    const gapHtml = ranked.length && ranked.length < 3
+      ? '<p>一小时近似范围内同类地点不多。没有返回的场馆不编造，改在校园里对照模型或资料。</p>'
+      : '';
     let detail = '';
     if (!ready) {
-      detail = '<p>填写区县，以及学校名称或地址。这里会按 1 公里、10 公里、30 公里列出周边具体地点。</p>';
+      detail = '<p>填写学校名称或地址。系统先核准学校坐标，再在约30公里包络平行四边形内召回相关地点。</p>';
     } else if (options.status === 'searching') {
-      detail = `<p>正在从「${esc(place.landmark)}」出发，按 1 公里、10 公里、30 公里检索${esc(objects)}。</p>`;
-    } else if (!bound) {
-      detail = `<p>已从「${esc(place.landmark)}」用「${esc(objects)}」检索到 30 公里。三圈里都没有名称对得上的具体地点，这次不安排校外实践。</p>`;
+      detail = `<p>正在定位「${esc(place.landmark)}」，并按场所类型检索${esc(objects)}。</p>`;
+    } else if (bound && bound.status === 'campus') {
+      detail = '<p>这个项目没有需要到现场看见的对象，安排在校园内完成。</p>';
+    } else if (!ranked.length) {
+      detail = `<p>已从「${esc(place.landmark)}」按「${esc(objects)}」检索一小时近似范围。没有可进入的具体地点，这次不安排校外实践。</p>`;
     } else {
-      detail = `${bandHtml}${cardHTML(bound)}`;
+      detail = `${listHtml}${routeHtml}${gapHtml}`;
     }
     return `<div class="place-module">
       <p class="place-module-kicker">每周至少半天 · 纳入教育教学计划</p>
       <h3>周边资源分析与校外实践设计</h3>
       <p><b>分析对象：</b>${esc(objects)}</p>
       <p><b>出发地：</b>${where ? esc(where) : '未填写'}</p>
+      ${bound && bound.center && bound.center.name ? `<p><b>定位到：</b>${esc(bound.center.name)}</p>` : ''}
+      ${bound && bound.warnings && bound.warnings.length ? `<p class="place-practice-drop"><b>待核实：</b>${bound.warnings.map(esc).join('；')}</p>` : ''}
       ${detail}
     </div>`;
   }
@@ -828,11 +1046,11 @@
       return `${esc(venue.name)}（${esc(venue.ringLabel)}${esc(dist)}）`;
     }).join('、');
     const also = (bound.also || []).map(venue =>
-      `${esc(venue.name)}，距${esc(bound.originLabel || '学校')} ${esc(venue.distanceText)}`
+      `${esc(venue.name)}，${esc(venue.durationText || venue.distanceText)}`
     ).join('；');
     const source = bound.jevSource === 'jev' ? 'Jev 筛选' : (bound.jevSource === 'map' ? '地图检索' : '本地筛选，Jev 未连上');
-    const distLine = bound.distanceText
-      ? `<p class="place-practice-dist">距${esc(bound.originLabel || '学校')} ${esc(bound.distanceText)}</p>`
+    const distLine = bound.durationText || bound.distanceText
+      ? `<p class="place-practice-dist">从${esc(bound.originLabel || '学校')}出发约 ${esc(bound.durationText || '')}${bound.distanceText ? `（${esc(bound.distanceText)}）` : ''}</p>`
       : '';
     return `<div class="place-practice">
       <p class="place-practice-kicker">校外实践 · ${esc(bound.ringLabel)} · ${esc(source)}</p>
@@ -867,8 +1085,23 @@
     const districtCode = q(ids.district)?.value || '';
     const district = districtsOf(city).find(item => item.code === districtCode) || null;
     const landmark = q(ids.landmark)?.value?.trim() || '';
+    const travelFields = {
+      transportMode: 'fixed-radius',
+      travelLimitMinutes: 60,
+      radiusKm: 30,
+      rangeShape: 'parallelogram',
+    };
     if (!district) {
-      return { provinceCode, province: province ? province.name : '', cityCode: city ? city.code : '', city: '', districtCode: '', district: '', landmark };
+      return {
+        provinceCode,
+        province: province ? province.name : '',
+        cityCode: city ? city.code : '',
+        city: city ? (city.name === '市辖区' ? (province?.name || '') : city.name) : '',
+        districtCode: '',
+        district: '',
+        landmark,
+        ...travelFields,
+      };
     }
     const cityName = city && city.name !== '市辖区' ? city.name : (province ? province.name : '');
     return {
@@ -879,6 +1112,7 @@
       districtCode: district.code,
       district: district.name,
       landmark,
+      ...travelFields,
     };
   }
 
@@ -1003,7 +1237,7 @@
         <select id="${esc(ids.district)}" aria-label="区县"></select>
       </div>
       <input id="${esc(ids.landmark)}" class="place-landmark" type="text" placeholder="学校名称或地址，必填，用来计算距离" aria-label="学校名称或地址" />
-      <p class="place-hint">区县用来圈定范围，学校名称或地址用来计算距离。召回写成具体地点和距离。附近没有可命名的合适地点时，不添加校外环节。</p>
+      <p class="place-hint">系统先核准学校坐标，再在东西、南北各约30公里的一小时近似平行四边形范围内召回基地；企业和实验室仍需核实团体预约。</p>
     </div>`;
   }
 
@@ -1026,6 +1260,7 @@
     fieldsHTML,
     mount,
     readPlace,
+    writePlace,
     deriveIntents,
     localNoul,
   };
